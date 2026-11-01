@@ -25,6 +25,10 @@ import type { LineGeometry, Point, Quad } from '../../types/models'
 import Magnifier from './Magnifier.vue'
 import PerspectiveEditor from './PerspectiveEditor.vue'
 import LineLayer, { type LineDraft } from '../lines/LineLayer.vue'
+import ItemLayer from '../signs/ItemLayer.vue'
+import { addItem, findItem, lineForBox, reorderLine } from '../../core/items'
+import { useWorkingImage } from '../../composables/useWorkingImage'
+import type { Rect } from '../../types/models'
 
 const store = useProjectStore()
 const ui = useUiStore()
@@ -38,17 +42,22 @@ const ready = ref(false)
 const renderVersion = ref(0)
 const pipeline = shallowRef<ImagePipeline | null>(null)
 
-const { view, fit, fitRect, zoomAt, actualSize, panBy, screenToImage } = usePanZoom(stage, content, {
+const { view, fit, fitRect, zoomAt, actualSize, panBy, screenToImage, centerOn } = usePanZoom(stage, content, {
   // Avec un outil de tracé, un doigt dessine ; deux doigts déplacent/zooment toujours.
   singlePointerPans: () => ui.tool === 'pan' || ui.tool === 'perspective',
   onMultiTouchStart: () => {
     gestureDuringPress = true
     if (lineDraft.value?.type === 'rect') lineDraft.value = null
+    itemDraft.value = null
   },
 })
 
 const filters = computed(() => store.project!.filters)
 const cssFilter = computed(() => cssFilterString(filters.value))
+
+// L'image affichée est partagée avec le mode « comparer ».
+const shared = useWorkingImage()
+watch(cssFilter, (f) => (shared.cssFilter.value = f), { immediate: true })
 const editingPerspective = computed(() => ui.tool === 'perspective')
 
 // --- Chargement de l'image dans le worker --------------------------------
@@ -101,6 +110,9 @@ async function render(refit = false) {
     bitmap.close()
     content.value = { width: canvas.value.width, height: canvas.value.height }
     renderVersion.value++
+    // En mode perspective on affiche la photo d'origine : pas de découpe possible.
+    shared.canvas.value = editingPerspective.value ? null : canvas.value
+    shared.version.value++
     if (refit || sizeChanged || perspectiveFitPending) {
       await nextTick()
       fit()
@@ -264,6 +276,68 @@ let press: { id: number; at: Point } | null = null
 let gestureDuringPress = false
 
 const lines = computed(() => store.project?.lines ?? [])
+const groups = computed(() => store.project?.groups ?? [])
+
+// Boîtes de signes
+const itemDraft = ref<{ a: Point; b: Point } | null>(null)
+const boxTool = computed(() => ui.tool === 'sign-box')
+
+/** Boîte sous ce point (la plus petite si plusieurs). */
+function itemAtPoint(p: Point) {
+  let best: { id: string; area: number; lineId: string } | null = null
+  for (const l of lines.value)
+    for (const it of l.items) {
+      const b = it.bbox
+      if (p.x >= b.x && p.x <= b.x + b.w && p.y >= b.y && p.y <= b.y + b.h) {
+        const area = b.w * b.h
+        if (!best || area < best.area) best = { id: it.id, area, lineId: l.id }
+      }
+    }
+  return best
+}
+
+/** Toucher/cliquer : sélectionne une boîte (Maj ou Ctrl : ajoute/retire), sinon une ligne. */
+function selectAt(p: Point, modifier: boolean) {
+  const additive = modifier || ui.multiSelect
+  const hit = itemAtPoint(p)
+  if (hit) {
+    if (additive) {
+      const set = new Set(ui.selectedItemIds)
+      if (set.has(hit.id)) set.delete(hit.id)
+      else set.add(hit.id)
+      ui.selectedItemIds = [...set]
+    } else ui.selectedItemIds = [hit.id]
+    ui.selectedLineId = hit.lineId
+    return
+  }
+  if (!additive) ui.selectedItemIds = []
+  ui.selectedLineId = lineAtPoint(lines.value, p)?.id ?? null
+}
+
+function addBox(r: Rect) {
+  const p = store.project!
+  const line = lineForBox(p, r)
+  if (!line) {
+    ui.notify("Tracez la boîte à l'intérieur d'une ligne (son centre doit être dans la ligne).", 'error')
+    return
+  }
+  let id = ''
+  store.mutate(`Ajouter un signe à la ligne ${line.number}`, (proj) => {
+    id = addItem(proj, proj.lines.find((l) => l.id === line.id)!, r).id
+  })
+  ui.selectedItemIds = [id]
+  ui.selectedLineId = line.id
+  ui.quickEntryFocus++ // on enchaîne : taper le code du signe
+}
+
+function commitItem(itemId: string, bbox: Rect, label: string) {
+  store.mutate(label, (proj) => {
+    const f = findItem(proj, itemId)
+    if (!f) return
+    f.item.bbox = bbox
+    reorderLine(proj, f.line) // la boîte a pu changer de place dans l'ordre de lecture
+  })
+}
 
 watch(
   () => ui.tool,
@@ -298,7 +372,15 @@ function onStageDown(e: PointerEvent) {
   if (press && !e.isPrimary) return
   gestureDuringPress = false
   press = { id: e.pointerId, at: localPoint(e) }
-  if (ui.tool === 'line-rect') {
+  if (ui.tool === 'sign-box') {
+    const p = screenToImage(localPoint(e))
+    itemDraft.value = { a: p, b: p }
+    try {
+      stage.value?.setPointerCapture(e.pointerId)
+    } catch {
+      // sans conséquence
+    }
+  } else if (ui.tool === 'line-rect') {
     const p = screenToImage(localPoint(e))
     lineDraft.value = { type: 'rect', a: p, b: p }
     try {
@@ -310,6 +392,7 @@ function onStageDown(e: PointerEvent) {
 }
 
 function onStageDrawMove(e: PointerEvent) {
+  if (itemDraft.value && press?.id === e.pointerId) itemDraft.value.b = screenToImage(localPoint(e))
   const d = lineDraft.value
   if (!d) return
   const p = screenToImage(localPoint(e))
@@ -325,7 +408,18 @@ function onStageDrawUp(e: PointerEvent) {
   press = null
   const p = screenToImage(at)
 
-  if (ui.tool === 'line-rect') {
+  if (ui.tool === 'sign-box') {
+    const d = itemDraft.value
+    itemDraft.value = null
+    // Un simple toucher sélectionne la boîte touchée, sans en créer.
+    if (isTap || !d) {
+      if (isTap) selectAt(p, e.shiftKey || e.ctrlKey || e.metaKey)
+      return
+    }
+    const r = rectFromPoints(d.a, p)
+    if (r.w * view.scale < 6 || r.h * view.scale < 6) return
+    addBox(r)
+  } else if (ui.tool === 'line-rect') {
     const d = lineDraft.value
     lineDraft.value = null
     if (d?.type !== 'rect') return
@@ -350,8 +444,8 @@ function onStageDrawUp(e: PointerEvent) {
       d.points.push(p)
     }
   } else if (ui.tool === 'pan' && isTap) {
-    // Toucher une ligne la sélectionne ; toucher ailleurs désélectionne.
-    ui.selectedLineId = lineAtPoint(lines.value, p)?.id ?? null
+    // Toucher une boîte ou une ligne la sélectionne ; toucher ailleurs désélectionne.
+    selectAt(p, e.shiftKey || e.ctrlKey || e.metaKey)
   }
 }
 
@@ -393,7 +487,26 @@ function focusLine(id: string) {
   if (l) fitRect(geometryBounds(l.geometry))
 }
 
+/** Rend une boîte visible (sans changer le zoom), par ex. quand la saisie passe à la suivante. */
+function revealItem(id: string) {
+  const f = store.project ? findItem(store.project, id) : null
+  if (!f) return
+  const b = f.item.bbox
+  const x = b.x * view.scale + view.x
+  const y = b.y * view.scale + view.y
+  const margin = 40
+  const visible =
+    x > margin && y > margin &&
+    x + b.w * view.scale < stageSize.value.width - margin &&
+    y + b.h * view.scale < stageSize.value.height - margin
+  if (!visible) centerOn({ x: b.x + b.w / 2, y: b.y + b.h / 2 })
+}
+
 const drawHint = computed(() => {
+  if (ui.tool === 'sign-box')
+    return lines.value.length
+      ? "Glissez pour entourer un signe (dans une ligne), puis tapez son code. Toucher une boîte la sélectionne."
+      : "Tracez d'abord une ligne (panneau Lignes) : chaque signe appartient à une ligne."
   if (ui.tool === 'line-rect') return 'Glissez pour tracer un rectangle autour de la ligne. Deux doigts : déplacer/zoomer.'
   if (ui.tool === 'line-poly') {
     const n = lineDraft.value?.type === 'polygon' ? lineDraft.value.points.length : 0
@@ -461,7 +574,13 @@ const worldStyle = computed(() => ({
 }))
 const zoomPercent = computed(() => Math.round(view.scale * 100))
 
-defineExpose({ fit, zoomAt, focusLine, finishPolygon })
+// Quand une seule boîte est sélectionnée (saisie rapide, boutons ‹ ›), on s'assure qu'elle est visible.
+watch(
+  () => (ui.selectedItemIds.length === 1 ? ui.selectedItemIds[0] : null),
+  (id) => id && revealItem(id),
+)
+
+defineExpose({ fit, zoomAt, focusLine, finishPolygon, revealItem })
 </script>
 
 <template>
@@ -526,7 +645,7 @@ defineExpose({ fit, zoomAt, focusLine, finishPolygon })
         aria-roledescription="visionneuse d'image"
         aria-label="Photo de la stèle. Flèches pour déplacer, + et − pour zoomer, 0 pour ajuster."
         @keydown="onKeydown"
-        :class="{ drawing: drawingTool }"
+        :class="{ drawing: drawingTool || boxTool }"
         @pointerdown="onStageDown"
         @pointermove="onStageMove"
         @pointerleave="onStageLeave"
@@ -547,10 +666,21 @@ defineExpose({ fit, zoomAt, focusLine, finishPolygon })
             v-if="!editingPerspective"
             :lines="lines"
             :view="view"
-            :selected-id="ui.selectedLineId"
+            :selected-id="ui.selectedItemIds.length ? null : ui.selectedLineId"
             :draft="lineDraft"
-            :drawing="drawingTool"
+            :drawing="drawingTool || boxTool"
             @commit="commitGeometry"
+            @drag="onHandleDrag"
+          />
+          <ItemLayer
+            v-if="!editingPerspective"
+            :lines="lines"
+            :groups="groups"
+            :view="view"
+            :selected-ids="ui.selectedItemIds"
+            :editable="ui.tool === 'pan' || ui.tool === 'sign-box'"
+            :draft="itemDraft"
+            @commit="commitItem"
             @drag="onHandleDrag"
           />
           <PerspectiveEditor

@@ -62,11 +62,18 @@ export const useProjectStore = defineStore('project', () => {
    * @param label  texte affiché dans « Annuler … »
    * @param fn     la modification
    * @param key    regroupe les modifications rapprochées (ex. un curseur qu'on fait glisser)
+   * Si `fn` lance une erreur (action refusée), elle est relancée pour être affichée.
    */
   function mutate(label: string, fn: (p: Project) => void, key?: string) {
     if (!project.value) return
     history.record('project', label, key)
-    fn(project.value)
+    try {
+      fn(project.value)
+    } catch (e) {
+      // Action refusée (les fonctions vérifient avant de modifier) : rien à annuler.
+      history.discardLast()
+      throw e
+    }
     project.value.updatedAt = Date.now()
     scheduleSave()
   }

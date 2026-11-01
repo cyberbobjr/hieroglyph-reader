@@ -5,7 +5,7 @@
  * Sur un écran étroit (tablette en portrait), les panneaux latéraux
  * deviennent des tiroirs qu'on ouvre avec les boutons de la barre.
  */
-import { computed, nextTick, ref } from 'vue'
+import { computed, nextTick, ref, watch } from 'vue'
 import { useProjectStore } from '../stores/project'
 import { useHistoryStore } from '../stores/history'
 import { useUiStore } from '../stores/ui'
@@ -15,6 +15,10 @@ import ImageViewer from './viewer/ImageViewer.vue'
 import FilterPanel from './viewer/FilterPanel.vue'
 import LinePanel from './lines/LinePanel.vue'
 import LibraryPanel from './library/LibraryPanel.vue'
+import SignInspector from './signs/SignInspector.vue'
+import QuickEntry from './signs/QuickEntry.vue'
+import { useSignActions } from '../composables/useSignActions'
+import { useSelection } from '../composables/useSelection'
 
 const emit = defineEmits<{ (e: 'close'): void }>()
 const store = useProjectStore()
@@ -49,9 +53,41 @@ function setTool(t: typeof ui.tool) {
   if (t !== 'pan' && t !== 'perspective' && !leftOpen.value && wide) leftOpen.value = true
 }
 
-function deleteSelectedLine() {
+const actions = useSignActions()
+const { selected: selectedItems, single: singleItem } = useSelection()
+
+// Après une annulation, des boîtes sélectionnées peuvent ne plus exister : on nettoie.
+watch(
+  () => store.project,
+  (p) => {
+    if (!p) return
+    const exist = new Set(p.lines.flatMap((l) => l.items.map((i) => i.id)))
+    const kept = ui.selectedItemIds.filter((id) => exist.has(id))
+    if (kept.length !== ui.selectedItemIds.length) ui.selectedItemIds = kept
+    if (ui.selectedLineId && !p.lines.some((l) => l.id === ui.selectedLineId)) ui.selectedLineId = null
+  },
+  { deep: false },
+)
+watch(
+  () => store.project?.id,
+  () => {
+    ui.selectedItemIds = []
+    ui.selectedLineId = null
+  },
+)
+
+/** Suppr : les boîtes sélectionnées d'abord, sinon la ligne sélectionnée. */
+function deleteSelection() {
+  if (ui.selectedItemIds.length) {
+    actions.deleteItems(ui.selectedItemIds)
+    return
+  }
   const l = store.project?.lines.find((x) => x.id === ui.selectedLineId)
   if (l) linePanel.value?.remove(l)
+}
+
+function focusStage() {
+  document.querySelector<HTMLElement>('.stage')?.focus()
 }
 
 async function focusLibrarySearch() {
@@ -79,8 +115,25 @@ useShortcuts(() => [
   { combo: 'v', handler: () => (ui.tool = 'pan') },
   { combo: 'r', handler: () => setTool('line-rect') },
   { combo: 'g', handler: () => setTool('line-poly') },
-  { combo: 'delete', handler: deleteSelectedLine },
-  { combo: 'backspace', handler: deleteSelectedLine },
+  { combo: 'b', handler: () => setTool('sign-box') },
+  { combo: 'delete', handler: deleteSelection },
+  { combo: 'backspace', handler: deleteSelection },
+  { combo: 'q', handler: () => actions.groupQuadrat(ui.selectedItemIds) },
+  { combo: 'k', handler: () => actions.makeCartouche(ui.selectedItemIds) },
+  {
+    combo: 'enter',
+    // Seulement depuis la photo ou la page : sur un bouton, Entrée doit activer le bouton.
+    handler: (e) => {
+      const t = e.target as HTMLElement
+      if (t !== document.body && !t.classList.contains('stage')) {
+        t.click?.()
+        return
+      }
+      if (singleItem.value) ui.quickEntryFocus++
+    },
+  },
+  { combo: 'pagedown', handler: () => actions.go(1) },
+  { combo: 'pageup', handler: () => actions.go(-1) },
   { combo: 'f', handler: () => (ui.filtersOpen = !ui.filtersOpen) },
   { combo: '?', handler: () => (ui.helpOpen = true) },
   { combo: '/', handler: () => void focusLibrarySearch() },
@@ -94,6 +147,7 @@ useShortcuts(() => [
       if (ui.helpOpen) ui.helpOpen = false
       else if (ui.filtersOpen) ui.filtersOpen = false
       else if (ui.tool !== 'pan') ui.tool = 'pan'
+      else if (ui.selectedItemIds.length) ui.selectedItemIds = []
       else ui.selectedLineId = null
     },
     inInputs: true,
@@ -137,11 +191,15 @@ useShortcuts(() => [
 
     <div class="body">
       <aside v-if="leftOpen" class="side left panel-flat" aria-label="Lignes et signes">
+        <SignInspector v-if="selectedItems.length" />
         <LinePanel ref="linePanel" @focus-line="focusLine" />
       </aside>
 
       <section class="center" aria-label="Visionneuse">
-        <ImageViewer v-if="store.project" ref="viewer" :key="store.project.id" />
+        <div class="viewer-slot">
+          <ImageViewer v-if="store.project" ref="viewer" :key="store.project.id" />
+        </div>
+        <QuickEntry v-if="ui.tool !== 'perspective' && store.project?.lines.length" @leave="focusStage" />
         <div v-if="ui.filtersOpen" id="filters-popover" class="popover">
           <FilterPanel />
         </div>
@@ -223,6 +281,13 @@ useShortcuts(() => [
   flex: 1;
   position: relative;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.viewer-slot {
+  flex: 1;
+  position: relative;
+  min-height: 0;
 }
 .side {
   width: 300px;

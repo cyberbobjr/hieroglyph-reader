@@ -8,8 +8,16 @@ import type { Direction } from '../types/models'
  *  - perspective : placer les 4 coins de la stèle
  *  - line-rect   : tracer une ligne par un rectangle
  *  - line-poly   : tracer une ligne par un polygone (clic après clic)
+ *  - sign-box    : tracer une boîte autour d'un signe
  */
-export type Tool = 'pan' | 'perspective' | 'line-rect' | 'line-poly'
+export type Tool = 'pan' | 'perspective' | 'line-rect' | 'line-poly' | 'sign-box'
+
+/**
+ * Orientation d'affichage des glyphes dans la bibliothèque. Les polices
+ * dessinent les signes tournés vers la GAUCHE (lecture de gauche à droite) ;
+ * « right » les affiche en miroir, comme dans un texte lu de droite à gauche.
+ */
+export type GlyphFacing = 'left' | 'right'
 
 export interface Toast {
   id: number
@@ -21,10 +29,11 @@ export interface Toast {
 interface Prefs {
   defaultDirection: Direction
   magnifierZoom: number
+  glyphFacing: GlyphFacing
 }
 const PREFS_KEY = 'hieroglyph-reader:prefs'
 function loadPrefs(): Prefs {
-  const fallback: Prefs = { defaultDirection: 'rtl', magnifierZoom: 3 }
+  const fallback: Prefs = { defaultDirection: 'rtl', magnifierZoom: 3, glyphFacing: 'left' }
   try {
     return { ...fallback, ...JSON.parse(localStorage.getItem(PREFS_KEY) ?? '{}') }
   } catch {
@@ -44,13 +53,24 @@ export const useUiStore = defineStore('ui', () => {
   const selectedLineId = ref<string | null>(null)
   /** Sens de lecture donné aux nouvelles lignes. */
   const defaultDirection = ref<Direction>(prefs.defaultDirection)
+  const glyphFacing = ref<GlyphFacing>(prefs.glyphFacing)
+  /** Boîtes de signes sélectionnées (plusieurs possibles : Maj + clic). */
+  const selectedItemIds = ref<string[]>([])
+  /** Sélection multiple sans clavier (tablette) : chaque toucher ajoute/retire une boîte. */
+  const multiSelect = ref(false)
+  /** Demande de placer le curseur dans la saisie rapide (compteur incrémenté). */
+  const quickEntryFocus = ref(0)
   let toastId = 1
 
-  watch([defaultDirection, magnifierZoom], () => {
+  watch([defaultDirection, magnifierZoom, glyphFacing], () => {
     try {
       localStorage.setItem(
         PREFS_KEY,
-        JSON.stringify({ defaultDirection: defaultDirection.value, magnifierZoom: magnifierZoom.value }),
+        JSON.stringify({
+          defaultDirection: defaultDirection.value,
+          magnifierZoom: magnifierZoom.value,
+          glyphFacing: glyphFacing.value,
+        }),
       )
     } catch {
       // stockage indisponible (navigation privée…) : sans gravité
@@ -72,6 +92,10 @@ export const useUiStore = defineStore('ui', () => {
     toasts,
     selectedLineId,
     defaultDirection,
+    glyphFacing,
+    selectedItemIds,
+    multiSelect,
+    quickEntryFocus,
     notify,
   }
 })

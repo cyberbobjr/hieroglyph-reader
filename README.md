@@ -19,7 +19,7 @@ dans une conversation avec une IA pour obtenir la translittération et la traduc
 | 1 | Visionneuse : zoom/déplacement, perspective 4 points, filtres, loupe, plusieurs stèles | ✅ |
 | 2 | Découpage en lignes (rectangle/polygone, sens de lecture, colonnes) | ✅ |
 | 3 | Bibliothèque de signes Gardiner | ✅ |
-| 4 | Placement des signes, carrés, cartouches, statuts, saisie rapide | à venir |
+| 4 | Placement des signes, carrés, cartouches, statuts, saisie rapide, comparer | ✅ |
 | 5 | Export MdC / Unicode / « Copier pour Claude » | à venir |
 
 ## Installation
@@ -75,12 +75,33 @@ ouvrez sur la tablette l'adresse « Network » affichée.
 7. **Bibliothèque de signes** (panneau de droite, `/` pour rechercher) : tapez un code
    (`G17`), une valeur phonétique (`m`, `nfr`) ou un mot (`chouette`). Filtres par catégorie,
    type et vérification. Cliquez un résultat pour voir sa fiche.
-8. **Annuler / rétablir** : `Ctrl+Z` / `Ctrl+Maj+Z` (⌘ sur Mac), ou les boutons en haut.
-9. **Sauvegarder** : c'est automatique. Pour garder une copie ou changer d'appareil, utilisez
+8. **Placer les signes** (`B`, outil « Boîte de signe ») : glissez autour de chaque signe, à
+   l'intérieur d'une ligne. Pas besoin de suivre un ordre : l'**ordre de lecture se calcule
+   seul** selon le sens de la ligne (signes empilés lus de haut en bas). Corrigez-le si besoin
+   avec « Plus tôt / Plus tard » dans le panneau Signe.
+9. **Identifier les signes au clavier** (saisie rapide, sous la photo) : dès qu'une boîte est
+   tracée ou sélectionnée (`Entrée`), tapez `m`, `G17` ou `chouette`, choisissez avec `↑` `↓`,
+   validez avec `Entrée` : on passe à la boîte suivante. `G17?` = incertain, `//` = lacune.
+   Le morceau de photo et le glyphe proposé sont affichés côte à côte (« comparer »).
+10. **Grouper** : `Maj`+clic sur plusieurs boîtes (sur tablette : « Sélection multiple »), puis
+    `Q` pour un **carré** ou `K` pour un **cartouche**.
+11. **Statut et note** de chaque signe : certain, probable, incertain, lacune (couleur du cadre :
+    vert, bleu, orange, rouge), plus une note libre.
+12. **Annuler / rétablir** : `Ctrl+Z` / `Ctrl+Maj+Z` (⌘ sur Mac), ou les boutons en haut.
+13. **Sauvegarder** : c'est automatique. Pour garder une copie ou changer d'appareil, utilisez
    « Exporter » : un fichier `.hieroglyph.json` contient le projet **et** la photo.
    « Importer un projet » le recharge.
 
 > ⚠️ Effacer les données du site dans le navigateur supprime les stèles. Exportez régulièrement.
+
+## Le sens de lecture, en bref
+
+Les signes qui ont un « devant » (oiseaux, serpents, personnages, pied, main…) **regardent
+vers le début de la ligne**. La bibliothèque les montre tournés vers la gauche, comme dans
+les grammaires : c'est le sens d'une lecture de gauche à droite. Sur une ligne lue de droite à
+gauche, ils sont dessinés en miroir ; l'application retourne alors les glyphes des étiquettes
+et du mode « comparer » pour qu'ils ressemblent à la photo. Un glyphe qui ne « regarde » pas
+comme la photo signale un sens de ligne à corriger.
 
 ## La bibliothèque de signes
 
@@ -146,7 +167,8 @@ la cohérence de la bibliothèque.
 src/
   types/models.ts        Modèle de données (Projet, Ligne, Boîte, Signe…)
   core/                  Logique pure, testée : perspective, filtres, géométrie, lignes,
-                         codes Gardiner, translittération, recherche
+                         codes Gardiner, translittération, recherche, ordre de lecture,
+                         disposition des carrés, boîtes et groupes
   data/                  Bibliothèque de départ et table Unicode (générées)
   workers/               Calculs d'image en arrière-plan (Web Worker)
   persistence/           IndexedDB, import/export JSON

@@ -143,3 +143,13 @@ body {
     animation: none !important;
   }
 }
+
+/*
+ * Glyphe en miroir. Les polices dessinent les hiéroglyphes tournés vers la
+ * gauche (lecture de gauche à droite). Dans un texte lu de droite à gauche,
+ * les scribes les dessinaient retournés : on fait de même à l'écran.
+ */
+.mirror {
+  display: inline-block;
+  transform: scaleX(-1);
+}

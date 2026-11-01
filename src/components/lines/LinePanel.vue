@@ -6,6 +6,7 @@
 import { computed, nextTick, ref, watch } from 'vue'
 import { useProjectStore } from '../../stores/project'
 import { useUiStore, type Tool } from '../../stores/ui'
+import { reorderLine } from '../../core/items'
 import { directionLabel, moveLine, renumber, renumberByPosition, setLineNumber, sortByNumber } from '../../core/lines'
 import type { Direction, Line, Orientation } from '../../types/models'
 
@@ -37,11 +38,20 @@ function select(l: Line) {
 
 function setDirection(l: Line, d: Direction) {
   if (l.direction === d) return
-  store.mutateLine(l.id, `Sens de la ligne ${l.number}`, (x) => (x.direction = d))
+  if (l.manualOrder && l.items.length)
+    ui.notify(`L'ordre des signes de la ligne ${l.number} a été corrigé à la main : il n'est pas recalculé. (Panneau Signe : « Revenir à l'ordre automatique »)`, 'info', 7000)
+  // Le sens change l'ordre de lecture des signes : on le recalcule (sauf ordre manuel).
+  store.mutateLine(l.id, `Sens de la ligne ${l.number}`, (x, p) => {
+    x.direction = d
+    reorderLine(p, x)
+  })
 }
 function setOrientation(l: Line, o: Orientation) {
   if (l.orientation === o) return
-  store.mutateLine(l.id, `Orientation de la ligne ${l.number}`, (x) => (x.orientation = o))
+  store.mutateLine(l.id, `Orientation de la ligne ${l.number}`, (x, p) => {
+    x.orientation = o
+    reorderLine(p, x)
+  })
 }
 function changeNumber(l: Line, value: string) {
   const n = parseInt(value, 10)
@@ -67,7 +77,10 @@ function renumberAll(byPosition: boolean) {
 }
 function applyDirectionToAll(d: Direction) {
   store.mutate(`Sens ${d === 'rtl' ? 'droite → gauche' : 'gauche → droite'} pour toutes les lignes`, (p) =>
-    p.lines.forEach((l) => (l.direction = d)),
+    p.lines.forEach((l) => {
+      l.direction = d
+      reorderLine(p, l)
+    }),
   )
 }
 
@@ -80,13 +93,16 @@ defineExpose({ remove })
 <template>
   <div class="line-panel">
     <section aria-labelledby="draw-title">
-      <h2 id="draw-title">Tracer une ligne</h2>
+      <h2 id="draw-title">Outils</h2>
       <div class="tools" role="toolbar" aria-label="Outils de tracé">
         <button class="btn" type="button" :aria-pressed="ui.tool === 'line-rect'" title="Rectangle (R)" @click="setTool('line-rect')">
           ▭ Rectangle
         </button>
         <button class="btn" type="button" :aria-pressed="ui.tool === 'line-poly'" title="Polygone (G)" @click="setTool('line-poly')">
           ⬠ Polygone
+        </button>
+        <button class="btn" type="button" :aria-pressed="ui.tool === 'sign-box'" :disabled="!lines.length" title="Boîte autour d'un signe (B)" @click="setTool('sign-box')">
+          ⬚ Boîte de signe
         </button>
         <button class="btn" type="button" :aria-pressed="ui.tool === 'pan'" title="Déplacer / sélectionner (V)" @click="ui.tool = 'pan'">
           ✋ Sélection

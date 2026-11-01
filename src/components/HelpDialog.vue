@@ -27,6 +27,19 @@ onMounted(() => dialog.value?.showModal())
       <li>Ligne sélectionnée : glissez sa pastille <b>✥</b> pour la déplacer, ses carrés jaunes pour la déformer (Tab puis flèches au clavier)</li>
       <li>Les nouvelles lignes reçoivent le sens par défaut choisi dans le panneau ; une forme haute et étroite devient une colonne</li>
     </ul>
+    <h3>Signes</h3>
+    <ul>
+      <li><kbd>B</kbd> outil Boîte : glissez autour d'un signe, <b>dans</b> une ligne. Touchez une boîte pour la sélectionner ; <kbd>Maj</kbd>+clic (ou « Sélection multiple » sur tablette) pour en choisir plusieurs</li>
+      <li>L'ordre de lecture se calcule seul selon le sens de la ligne (carrés de haut en bas). « Plus tôt / Plus tard » le corrige à la main</li>
+      <li><kbd>Q</kbd> grouper en carré · <kbd>K</kbd> cartouche (du premier au dernier signe choisi) · <kbd>Suppr</kbd> supprimer</li>
+      <li>Statut : certain, probable, incertain, lacune (couleur du cadre : vert, bleu, orange, rouge)</li>
+    </ul>
+    <h3>Saisie rapide</h3>
+    <ul>
+      <li><kbd>Entrée</kbd> sur la photo : identifier la boîte sélectionnée. Tapez un code, une valeur ou un mot, <kbd>↑</kbd><kbd>↓</kbd> pour choisir, <kbd>Entrée</kbd> valide et passe à la suivante</li>
+      <li>Suffixe <code>?</code> = incertain (« G17? ») · <code>//</code> = lacune · Entrée sur une saisie vide = boîte suivante · <kbd>Page suiv.</kbd>/<kbd>Page préc.</kbd> naviguer</li>
+      <li>Le glyphe proposé s'affiche à côté du morceau de photo (« comparer »), retourné si la ligne se lit de droite à gauche</li>
+    </ul>
     <h3>Bibliothèque de signes</h3>
     <ul>
       <li><kbd>/</kbd> rechercher : code (<code>G17</code>), valeur (<code>m</code>, <code>nfr</code>, MdC <code>Htp</code> = ḥtp), ou mot (<code>chouette</code>)</li>

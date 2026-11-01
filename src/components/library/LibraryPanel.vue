@@ -147,6 +147,17 @@ defineExpose({ focusSearch })
       <h2>Bibliothèque <span class="count">({{ library.stats.total }} signes, {{ library.stats.verified }} vérifiés)</span></h2>
       <button v-if="!showWarning" class="link-btn" type="button" @click="showWarning = true">⚠ données à vérifier</button>
     </div>
+    <div class="facing">
+      <span id="facing-label">Signes tournés vers :</span>
+      <div class="seg" role="radiogroup" aria-labelledby="facing-label">
+        <button type="button" role="radio" :aria-checked="ui.glyphFacing === 'left'" title="Comme dans les grammaires : lecture de gauche à droite" @click="ui.glyphFacing = 'left'">
+          ← la gauche
+        </button>
+        <button type="button" role="radio" :aria-checked="ui.glyphFacing === 'right'" title="En miroir : lecture de droite à gauche" @click="ui.glyphFacing = 'right'">
+          la droite →
+        </button>
+      </div>
+    </div>
 
     <div v-if="showWarning" class="warning" role="note">
       <p><strong>⚠ À vérifier.</strong> {{ SEED_WARNING }}</p>
@@ -220,7 +231,7 @@ defineExpose({ focusSearch })
           @keydown="onResultKey($event, i)"
           @keydown.enter.prevent="open(r.sign.gardiner)"
         >
-          <span class="g glyph-text" aria-hidden="true">{{ r.sign.unicode || '□' }}</span>
+          <span class="g glyph-text" aria-hidden="true"><span :class="{ mirror: ui.glyphFacing === 'right' }">{{ r.sign.unicode || '□' }}</span></span>
           <span class="main">
             <span class="code">{{ r.sign.gardiner }}</span>
             <span class="tr">{{ r.sign.translit.join(', ') }}</span>
@@ -275,6 +286,35 @@ h2 {
   color: #b8860b;
   cursor: pointer;
   text-decoration: underline;
+}
+.facing {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+.seg {
+  display: inline-flex;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.seg button {
+  font: inherit;
+  border: none;
+  background: var(--surface);
+  color: var(--text);
+  padding: 0.2rem 0.5rem;
+  cursor: pointer;
+}
+.seg button + button {
+  border-left: 1px solid var(--border);
+}
+.seg button[aria-checked='true'] {
+  background: var(--accent);
+  color: var(--accent-text);
 }
 .count {
   color: var(--muted);

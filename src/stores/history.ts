@@ -68,6 +68,11 @@ export const useHistoryStore = defineStore('history', () => {
     return e.label
   }
 
+  /** Retire la dernière entrée (action finalement refusée). */
+  function discardLast() {
+    undoStack.value.pop()
+  }
+
   /** Renvoie le libellé de l'action annulée, ou null. */
   const undo = () => step(undoStack, redoStack)
   const redo = () => step(redoStack, undoStack)
@@ -79,5 +84,5 @@ export const useHistoryStore = defineStore('history', () => {
     redoStack.value = redoStack.value.filter(keep)
   }
 
-  return { canUndo, canRedo, undoLabel, redoLabel, register, record, undo, redo, clear }
+  return { canUndo, canRedo, undoLabel, redoLabel, register, record, discardLast, undo, redo, clear }
 })

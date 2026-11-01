@@ -25,6 +25,16 @@ export interface SearchResult {
   reason: 'code' | 'translit' | 'description' | 'all'
 }
 
+/**
+ * Pour chaque son de l'« alphabet », le signe le plus courant. Quand on tape
+ * « n », N35 (filet d'eau) doit passer avant D35 ou S3, qui valent aussi n.
+ */
+const PREFERRED: Record<string, string> = {
+  ꜣ: 'G1', j: 'M17', y: 'M17A', ꜥ: 'D36', w: 'G43', b: 'D58', p: 'Q3', f: 'I9', m: 'G17', n: 'N35',
+  r: 'D21', h: 'O4', ḥ: 'V28', ḫ: 'Aa1', ẖ: 'F32', z: 'O34', s: 'S29', š: 'N37', q: 'N29', k: 'V31',
+  g: 'W11', t: 'X1', ṯ: 'V13', d: 'D46', ḏ: 'I10',
+}
+
 const SCORE = {
   codeExact: 1000,
   translitExact: 900,
@@ -58,7 +68,7 @@ export function scoreSign(sign: Sign, query: string): SearchResult | null {
   const exact = parseTranslitInput(q)
   const loose = foldTranslit(exact)
   for (const t of sign.translit) {
-    if (t === exact) take(SCORE.translitExact, 'translit')
+    if (t === exact) take(SCORE.translitExact + (PREFERRED[t] === sign.gardiner ? 50 : 0), 'translit')
     const ft = foldTranslit(t)
     if (ft === loose) take(SCORE.translitLoose, 'translit')
     else if (loose.length >= 2 && ft.startsWith(loose)) take(SCORE.translitPrefix, 'translit')

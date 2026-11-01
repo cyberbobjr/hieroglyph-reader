@@ -81,6 +81,12 @@ describe('recherche', () => {
     expect(codes('ꜥnḫ')[0]).toBe('S34') // égyptologique
     expect(codes('Htp')[0]).toBe('R4')
   })
+  it('propose d’abord le signe le plus courant pour chaque son', () => {
+    expect(codes('n')[0]).toBe('N35')
+    expect(codes('w')[0]).toBe('G43')
+    expect(codes('y')[0]).toBe('M17A')
+    expect(codes('t')[0]).toBe('X1')
+  })
   it('distingue h et ḥ en MdC mais propose les deux', () => {
     const r = codes('h', 3)
     expect(r[0]).toBe('O4') // h exact

@@ -5,6 +5,9 @@ import { categoryName, KIND_LABELS } from '../../core/gardiner'
 import { unicodeToMdc } from '../../core/translit'
 import { useLibraryStore, type LibrarySign } from '../../stores/library'
 import { useUiStore } from '../../stores/ui'
+import { useSelection } from '../../composables/useSelection'
+import { useSignActions } from '../../composables/useSignActions'
+import CompareView from '../signs/CompareView.vue'
 
 const props = defineProps<{ sign: LibrarySign }>()
 const emit = defineEmits<{ (e: 'edit'): void; (e: 'close'): void }>()
@@ -12,6 +15,13 @@ const library = useLibraryStore()
 const ui = useUiStore()
 
 const mdc = computed(() => props.sign.translit.map(unicodeToMdc))
+const { single } = useSelection()
+const actions = useSignActions()
+
+function assignToBox() {
+  if (!single.value) return
+  if (actions.assign(single.value.item.id, props.sign.gardiner)) ui.notify(`${props.sign.gardiner} attribué au signe ${single.value.index + 1}.`)
+}
 
 async function copyGlyph() {
   try {
@@ -38,7 +48,7 @@ async function removeOrRevert() {
   <article class="card" :aria-label="`Fiche du signe ${sign.gardiner}`">
     <div class="top">
       <div class="glyph glyph-text" :class="{ missing: !sign.unicode }" aria-hidden="true">
-        {{ sign.unicode || sign.gardiner }}
+        <span :class="{ mirror: ui.glyphFacing === 'right' && sign.unicode }">{{ sign.unicode || sign.gardiner }}</span>
       </div>
       <div class="ident">
         <h3>
@@ -73,6 +83,21 @@ async function removeOrRevert() {
         <dd class="notes">{{ sign.notes }}</dd>
       </template>
     </dl>
+
+    <!-- Mode comparer : la boîte sélectionnée sur la photo, à côté de ce signe -->
+    <div v-if="single" class="compare-box">
+      <p class="compare-title">Comparer avec le signe {{ single.index + 1 }} de la ligne {{ single.line.number }}</p>
+      <CompareView
+        :bbox="single.item.bbox"
+        :glyph="sign.unicode"
+        :code="sign.gardiner"
+        :mirror="single.line.direction === 'rtl'"
+        :size="110"
+      />
+      <button class="btn small primary" type="button" :disabled="single.item.signCode === sign.gardiner" @click="assignToBox">
+        {{ single.item.signCode === sign.gardiner ? 'Déjà attribué' : `Attribuer ${sign.gardiner} à cette boîte` }}
+      </button>
+    </div>
 
     <div class="actions">
       <button
@@ -189,6 +214,19 @@ dd {
   white-space: pre-wrap;
 }
 .muted {
+  color: var(--muted);
+}
+.compare-box {
+  display: grid;
+  gap: 0.35rem;
+  justify-items: start;
+  padding: 0.5rem;
+  border-radius: 8px;
+  background: var(--hover);
+}
+.compare-title {
+  margin: 0;
+  font-size: 0.8rem;
   color: var(--muted);
 }
 .actions {
