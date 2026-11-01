@@ -85,6 +85,8 @@ export interface Sign {
   category: string
   verified: boolean
   notes?: string
+  /** Signe courant, à fiche rédigée à la main : proposé en priorité dans la recherche. */
+  common?: boolean
 }
 
 // ---------------------------------------------------------------------------

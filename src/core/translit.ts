@@ -38,7 +38,7 @@ const UNI_TO_MDC: Record<string, string> = {
 const VARIANTS: [RegExp, string][] = [
   [/[ȜȝꜢ3]/g, 'ꜣ'], // aleph écrit avec un yogh, une majuscule ou « 3 »
   [/[ʿʽꜤ‘ʕ]/g, 'ꜥ'], // ayin écrit avec un esprit, une apostrophe…
-  [/ỉ|i͗/g, 'j'], // yod écrit ỉ
+  [/ỉ|i͗|ꞽ|Ꞽ/g, 'j'], // yod écrit ỉ ou ꞽ (notation Unicode)
   [/ḳ/g, 'q'],
 ]
 
@@ -52,7 +52,7 @@ export function normalizeTranslit(s: string): string {
 
 /** Contient-elle des caractères égyptologiques ? */
 export function hasEgyptologicalChars(s: string): boolean {
-  return /[ꜣꜥḥḫẖšṯḏȜȝʿỉḳ]/.test(s)
+  return /[ꜣꜥḥḫẖšṯḏȜȝʿỉḳꞽ]/.test(s)
 }
 
 /** MdC → égyptologique : « anx » → « ꜥnḫ ». Les caractères déjà égyptologiques sont gardés. */
@@ -74,9 +74,14 @@ export function parseTranslitInput(s: string): string {
   return hasEgyptologicalChars(t) ? normalizeTranslit(t) : mdcToUnicode(t)
 }
 
-/** Forme « tolérante » pour la recherche : MdC en minuscules (« ḥtp » → « htp »). */
+/** Retire les séparateurs grammaticaux : « ꜥw.t » → « ꜥwt », « t-ꜣsr » → « tꜣsr ». */
+export function stripSeparators(s: string): string {
+  return s.replace(/[.\-=\s]/g, '')
+}
+
+/** Forme « tolérante » pour la recherche : MdC en minuscules, sans séparateurs (« ḥtp » → « htp »). */
 export function foldTranslit(s: string): string {
-  return unicodeToMdc(s).toLowerCase()
+  return stripSeparators(unicodeToMdc(s)).toLowerCase()
 }
 
 /** Texte français sans accents ni majuscules : « Chouette » → « chouette », « bâton » → « baton ». */

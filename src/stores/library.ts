@@ -41,6 +41,7 @@ export function sanitizeSign(input: Partial<Sign>): Sign {
     category: categoryOf(code),
     verified: !!input.verified,
     notes: input.notes?.trim() || undefined,
+    ...(input.common ? { common: true } : {}),
   }
 }
 

@@ -7,10 +7,13 @@ Génère les données de signes de Hieroglyph Reader.
    (U+13000–U+1342F). Elle est tirée des NOMS OFFICIELS Unicode
    (« EGYPTIAN HIEROGLYPH G017 » → G17), donc sans risque de faute de frappe.
 
-2. src/data/signs.seed.json : la bibliothèque de départ (~100 signes courants).
-   Les valeurs viennent de la liste ci-dessous : elles sont INDICATIVES et
-   marquées « à vérifier » (verified = false). Contrôlez-les avec la liste de
-   Gardiner (Egyptian Grammar, 3e éd., 1957).
+2. src/data/signs.seed.json : la bibliothèque de départ, avec TOUS les signes :
+   - les signes courants de la liste SIGNS ci-dessous, rédigés à la main ;
+   - tous les autres, complétés automatiquement : valeurs et types tirés des
+     annotations officielles Unicode (scripts/data/unicode-annotations.json),
+     descriptions françaises de scripts/data/descriptions-fr.json.
+   Tout est INDICATIF et marqué « à vérifier » (verified = false). Contrôlez
+   avec la liste de Gardiner (Egyptian Grammar, 3e éd., 1957).
 
 Utilisation : python3 scripts/build-sign-data.py
 """
@@ -183,12 +186,65 @@ def category_of(code: str) -> str:
     return "Aa" if code.startswith("Aa") else code[0]
 
 
+# --- Signes complétés automatiquement --------------------------------------
+# Pour les signes sans fiche rédigée à la main, les valeurs et le type viennent
+# des annotations officielles Unicode (scripts/data/unicode-annotations.json) et
+# la description française de scripts/data/descriptions-fr.json.
+FUNC = re.compile(
+    r"^(logogram/phonemogram|logogram|clas+ifier|phonemogram|phono-repeater)\b\s*(?:\(([^)]*)\))?\s*([^:]*?)\s*(?::\s*(.+))?$"
+)
+
+
+def norm_translit(t: str) -> str:
+    """Notation Unicode → notation de l'application (ꞽ → j, ḳ → q)."""
+    return t.replace("ꞽ", "j").replace("Ꞽ", "j").replace("ḳ", "q").replace("ỉ", "j").strip()
+
+
+def consonants(t: str) -> int:
+    return len(re.sub(r"[.\-=()\s]", "", t))
+
+
+def parse_annotation(comments: list[str]) -> tuple[list[str], list[str]]:
+    """Annotation Unicode → (types, valeurs). Les classificateurs n'ont pas de valeur propre."""
+    kinds: list[str] = []
+    values: list[str] = []
+    for c in comments:
+        m = FUNC.match(c)
+        if not m:
+            continue
+        func, _paren, _rest, val = m.groups()
+        vals = [norm_translit(v) for v in re.split(r"\s*(?:/|,|\bor\b)\s*", val or "") if v.strip()]
+        if func.startswith("clas"):
+            kinds.append("determinative")
+            continue
+        if func.startswith("logogram"):
+            kinds.append("ideogram")
+            values += vals
+        if func in ("phonemogram", "phono-repeater", "logogram/phonemogram"):
+            for v in vals:
+                n = consonants(v)
+                kinds.append("uniliteral" if n == 1 else "biliteral" if n == 2 else "triliteral")
+            if func != "logogram/phonemogram":
+                values += vals
+    dedup = lambda xs: list(dict.fromkeys(xs))
+    return dedup(kinds), dedup(values)
+
+
 def main():
     table = build_unicode_table()
     (DATA / "unicodeGardiner.json").write_text(
         json.dumps(table, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8"
     )
+    by_char = {ch: code for code, ch in table.items()}
+    annotations = json.loads((ROOT / "scripts" / "data" / "unicode-annotations.json").read_text(encoding="utf-8"))["annotations"]
+    desc_path = ROOT / "scripts" / "data" / "descriptions-fr.json"
+    descriptions = json.loads(desc_path.read_text(encoding="utf-8")) if desc_path.exists() else {}
 
+    def note_of(code: str) -> str:
+        ann = annotations.get(code, [])
+        return f"Annotation Unicode : {' ; '.join(ann)}" if ann else ""
+
+    # 1) Fiches rédigées à la main (signes courants)
     seen = set()
     signs = []
     for code, translit, kinds, desc in SIGNS:
@@ -196,28 +252,74 @@ def main():
         seen.add(code)
         assert code in table, f"code absent d'Unicode : {code}"
         assert category_of(code) in CATEGORIES
-        signs.append(
-            {
-                "gardiner": code,
-                "unicode": table[code],
-                "translit": translit,
-                "kind": kinds,
-                "descriptionFr": desc,
-                "category": category_of(code),
-                "verified": False,
-            }
-        )
+        sign = {
+            "gardiner": code,
+            "unicode": table[code],
+            "translit": translit,
+            "kind": kinds,
+            "descriptionFr": desc,
+            "category": category_of(code),
+            "verified": False,
+            "common": True,
+        }
+        if note_of(code):
+            sign["notes"] = note_of(code)
+        signs.append(sign)
 
+    # 2) Tous les autres signes Unicode, complétés automatiquement
+    missing_desc = []
+    for code, ch in table.items():
+        if code in seen:
+            continue
+        kinds, values = parse_annotation(annotations.get(code, []))
+        ann = annotations.get(code, [])
+        if not kinds:
+            # « version miroir de 1305C » : on reprend le type du signe d'origine.
+            ref = next((re.search(r"([0-9A-F]{5})", a) for a in ann if "mirrored" in a or "variant" in a), None)
+            if ref and chr(int(ref.group(1), 16)) in by_char:
+                kinds, values = parse_annotation(annotations.get(by_char[chr(int(ref.group(1), 16))], []))
+        if not kinds:
+            kinds = ["ideogram"]  # type non précisé par Unicode (chiffres, signes de cartouche…)
+        desc = descriptions.get(code, "")
+        if not desc:
+            missing_desc.append(code)
+        sign = {
+            "gardiner": code,
+            "unicode": ch,
+            "translit": values,
+            "kind": kinds,
+            "descriptionFr": desc,
+            "category": category_of(code),
+            "verified": False,
+        }
+        if note_of(code):
+            sign["notes"] = note_of(code)
+        signs.append(sign)
+
+    order = {c: i for i, c in enumerate(CATEGORIES)}
+
+    def sort_key(s):
+        m = re.fullmatch(r"(Aa|[A-Z])(\d+)([A-Z]*)", s["gardiner"])
+        return (order[m.group(1)], int(m.group(2)), m.group(3))
+
+    signs.sort(key=sort_key)
     seed = {
         "avertissement": (
-            "Données de départ INDICATIVES, préparées sans relecture par un spécialiste. "
-            "Toutes les valeurs (translittération, type, description) sont à vérifier "
-            "avec la liste de Gardiner (Egyptian Grammar, 3e éd., 1957)."
+            "Données de départ INDICATIVES. Les signes courants ont une fiche rédigée à la main ; "
+            "les autres sont complétés automatiquement : valeurs et types d'après les annotations "
+            "officielles Unicode, descriptions françaises rédigées sans relecture par un spécialiste "
+            "(« (?) » = apparence incertaine). Tout est à vérifier avec la liste de Gardiner "
+            "(Egyptian Grammar, 3e éd., 1957)."
         ),
         "signs": signs,
     }
-    (DATA / "signs.seed.json").write_text(json.dumps(seed, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
-    print(f"{len(table)} signes Unicode de la liste de Gardiner, {len(signs)} signes dans la bibliothèque de départ")
+    (DATA / "signs.seed.json").write_text(json.dumps(seed, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
+    print(
+        f"{len(table)} signes Unicode de la liste de Gardiner ; bibliothèque : {len(signs)} signes "
+        f"({len(SIGNS)} fiches rédigées, {len(signs) - len(SIGNS)} complétées automatiquement)"
+    )
+    if missing_desc:
+        print(f"⚠ {len(missing_desc)} signes sans description française : {' '.join(missing_desc[:20])}…")
 
 
 if __name__ == "__main__":

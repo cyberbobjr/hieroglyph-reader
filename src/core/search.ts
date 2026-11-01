@@ -10,7 +10,7 @@
  */
 import type { Sign, SignKind } from '../types/models'
 import { compareCodes, normalizeCode } from './gardiner'
-import { foldText, foldTranslit, parseTranslitInput } from './translit'
+import { foldText, foldTranslit, parseTranslitInput, stripSeparators } from './translit'
 
 export interface SearchFilters {
   category?: string
@@ -65,10 +65,10 @@ export function scoreSign(sign: Sign, query: string): SearchResult | null {
   }
 
   // 2. Valeur phonétique (translittération)
-  const exact = parseTranslitInput(q)
+  const exact = stripSeparators(parseTranslitInput(q))
   const loose = foldTranslit(exact)
   for (const t of sign.translit) {
-    if (t === exact) take(SCORE.translitExact + (PREFERRED[t] === sign.gardiner ? 50 : 0), 'translit')
+    if (stripSeparators(t) === exact) take(SCORE.translitExact + (PREFERRED[t] === sign.gardiner ? 50 : 0), 'translit')
     const ft = foldTranslit(t)
     if (ft === loose) take(SCORE.translitLoose, 'translit')
     else if (loose.length >= 2 && ft.startsWith(loose)) take(SCORE.translitPrefix, 'translit')
@@ -84,6 +84,8 @@ export function scoreSign(sign: Sign, query: string): SearchResult | null {
       take(wordStart ? SCORE.descWordStart : SCORE.descSubstring, 'description')
     }
   }
+  // À pertinence égale, les signes courants (fiches rédigées à la main) passent devant.
+  if (best && sign.common) (best as SearchResult).score += 30
   return best
 }
 

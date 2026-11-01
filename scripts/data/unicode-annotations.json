@@ -1,0 +1,3176 @@
+{
+"source": "Unicode 17.0.0 NamesList (paquet npm ucd-full@17.0.0), licence Unicode v3",
+"annotations": {
+"A1": [
+"classifier human being"
+],
+"A2": [
+"classifier eating/drinking/speech/ silence/thoughts/feelings"
+],
+"A3": [
+"classifier sitting : ḥmsꞽ"
+],
+"A4": [
+"classifier supplication/hiding/rejection"
+],
+"A5": [],
+"A5A": [
+"logogram (to hide) : ꞽmn"
+],
+"A6": [
+"logogram (pure, clean) : wꜥb"
+],
+"A6A": [
+"classifier to libate : sṯ"
+],
+"A6B": [],
+"A7": [
+"classifier sitting/weak/faint"
+],
+"A8": [
+"classifier joy/veneration"
+],
+"A9": [
+"classifier to lift, to carry : fꜣꞽ"
+],
+"A10": [
+"classifier sailing/rowing : sḳdꞽ"
+],
+"A11": [
+"phonemogram : ḫnms"
+],
+"A12": [
+"logogram (army) : mšꜥ"
+],
+"A13": [
+"classifier rebel/enemy"
+],
+"A14": [
+"classifier rebel, opponent : rḳ"
+],
+"A14A": [
+"classifier death : mt"
+],
+"A15": [
+"logogram (to fall) : ḫr"
+],
+"A16": [
+"classifier bowing"
+],
+"A17": [
+"classifier youth/child"
+],
+"A17A": [
+"classifier youth/child"
+],
+"A18": [
+"classifier child (royal)"
+],
+"A19": [
+"logogram (old, old age) : ꞽꜣw"
+],
+"A20": [
+"logogram (elder) : smsw"
+],
+"A21": [],
+"A22": [
+"classifier statue"
+],
+"A23": [
+"classifier sovereign : ꞽt.y"
+],
+"A24": [
+"classifier force/effort"
+],
+"A25": [
+"classifier force/effort"
+],
+"A26": [
+"logogram (vocative interjection) : ꞽ"
+],
+"A27": [
+"phonemogram/classifier messenger : ꞽn"
+],
+"A28": [
+"logogram (to be high) : ḳꜣꞽ"
+],
+"A29": [
+"classifier upside down : sḫd"
+],
+"A30": [
+"classifier adoration"
+],
+"A31": [
+"classifier turning away"
+],
+"A32": [
+"classifier dancing : ḫbꞽ"
+],
+"A32A": [],
+"A33": [
+"classifier wandering/displaced : rw"
+],
+"A34": [
+"logogram (to pound, to build) : ḫwsꞽ"
+],
+"A35": [
+"logogram (to build) : ḳd"
+],
+"A36": [
+"logogram (brewer) : ꜥf.ty"
+],
+"A37": [
+"logogram (brewer) : ꜥf.ty"
+],
+"A38": [
+"logogram (Cusae) : ḳꞽs"
+],
+"A39": [
+"logogram (Cusae) : ḳꞽs"
+],
+"A40": [
+"classifier divinity"
+],
+"A40A": [
+"classifier divinity"
+],
+"A41": [
+"logogram (first person singular) : ꞽ"
+],
+"A42": [
+"classifier king : n(y)-sw.t"
+],
+"A42A": [
+"logogram (first person singular) : ꞽ"
+],
+"A43": [
+"classifier king"
+],
+"A43A": [
+"logogram (king of UE) : n.y-sw.t"
+],
+"A44": [
+"classsifier king : n.y-sw.t"
+],
+"A45": [
+"classifier king : bꞽ.ty"
+],
+"A45A": [
+"classifier king : n.y-sw.t"
+],
+"A46": [
+"classifier king : bꞽ.tyw"
+],
+"A47": [
+"logogram (to guard) : sꜣw"
+],
+"A48": [
+"logogram (relating to; belonging to) : ꞽr.y"
+],
+"A49": [
+"classifier foreigner"
+],
+"A50": [
+"logogram (to be noble) : špsꞽ"
+],
+"A51": [
+"logogram (to be noble) : šps"
+],
+"A52": [
+"classifier name (deceased person)"
+],
+"A53": [
+"classifier image/statue/likeness"
+],
+"A54": [
+"classifier body/corpse/death"
+],
+"A55": [
+"logogram (to sleep/to spend the night) : sḏr"
+],
+"A56": [
+"classifier enemy : ḫft.y"
+],
+"A57": [
+"logogram (an offering that the king gives) : ḥtp-dꞽ-n.y-sw.t"
+],
+"A58": [
+"classifier hacking : ḫbs"
+],
+"A59": [
+"classifier driving away : sḥrꞽ"
+],
+"A60": [
+"logogram (to sprinkle, to scatter) : stꞽ"
+],
+"A61": [
+"logogram (to turn back) : ꜥnn"
+],
+"A62": [
+"logogram (great one, chief) : wr"
+],
+"A63": [],
+"A64": [
+"classifier to lift, to carry : fꜣꞽ"
+],
+"A65": [
+"logogram (the one who belongs to the god) : ꞽr.y-nṯr"
+],
+"A66": [
+"logogram (the musician/Ihy) : ꞽḥy"
+],
+"A67": [
+"classifier personal name"
+],
+"A68": [
+"logogram (messenger) : wpw.ty"
+],
+"A69": [
+"classifier occupation/relationship"
+],
+"A70": [
+"logogram (million, many) : ḥḥ"
+],
+"B1": [
+"classifier female"
+],
+"B2": [
+"classifier pregnant : ꞽwr"
+],
+"B3": [
+"classifier birth : msꞽ"
+],
+"B4": [
+"classifier birth : msꞽ"
+],
+"B5": [
+"classifier nursing, rearing : rnn"
+],
+"B5A": [
+"logogram weaver or  nurse : ? | mnḫ.t"
+],
+"B6": [
+"classifier nursing, rearing : rnn"
+],
+"B7": [
+"classifier female royalty"
+],
+"B8": [
+"classifier human being (together with A1) : ḥr.w-nb"
+],
+"B9": [
+"logogram (the musician) : ꞽḥ.yt"
+],
+"C1": [
+"logogram (Re) : rꜥ"
+],
+"C2": [
+"logogram (Re) : rꜥ"
+],
+"C2A": [
+"logogram (Re) : rꜥ"
+],
+"C2B": [
+"mirrored version of 1305C"
+],
+"C2C": [
+"mirrored version of 1305B"
+],
+"C3": [
+"logogram (Thot) : ḏhwty"
+],
+"C4": [
+"classifier Khnum : ẖnm.w"
+],
+"C5": [
+"logogram/phonemogram (who joins with life) : ẖnm.t-ꜥnḫ"
+],
+"C6": [
+"classifier Anubis/Wepwawet (divinity)"
+],
+"C7": [
+"logogram (Seth) : stš/stẖ"
+],
+"C8": [
+"classifier Min : gb.tyw"
+],
+"C9": [
+"logogram (Hathor) : ḥw.t-ḥr"
+],
+"C10": [
+"logogram (Maat) : mꜣꜥ.t"
+],
+"C10A": [
+"logogram (Maat) : mꜣꜥ.t"
+],
+"C11": [
+"logogram (million, many) : ḥḥ"
+],
+"C12": [
+"logogram (Amon) : ꞽmn"
+],
+"C13": [
+"mirrored version of 13069"
+],
+"C14": [
+"logogram (Amon is his strength (sꜣ-rꜥ name Ramses VI)) : ꞽmn-ḥr-ḫpš=f"
+],
+"C15": [
+"mirrored version of 1306B"
+],
+"C16": [
+"logogram (Atum) : ꞽtmw"
+],
+"C17": [
+"classifier Montu (divinity)"
+],
+"C18": [
+"classifier Tatenen : tꜣ-ṯnn"
+],
+"C19": [
+"classifier Ptah : ptḥ"
+],
+"C20": [
+"logogram (Ptah) : ptḥ"
+],
+"C21": [
+"phonemogram : bs"
+],
+"C22": [
+"classifier moon : ꞽꜥḥ"
+],
+"C23": [
+"logogram (Sekhmet) : sḫm.t"
+],
+"C24": [
+"logogram (Neith) : n.t"
+],
+"D1": [
+"logogram (head) : tp"
+],
+"D2": [
+"phonemogram : ḥr"
+],
+"D3": [
+"classifier hair"
+],
+"D4": [
+"phonemogram : ꞽr"
+],
+"D5": [
+"classifier eye related actions : dgꞽ"
+],
+"D6": [
+"classifier eye related actions : dgꞽ"
+],
+"D7": [
+"phonemogram : ꜥntyw"
+],
+"D8": [
+"phonemogram : ꜥn"
+],
+"D8A": [
+"phonemogram : ꜥn"
+],
+"D9": [
+"logogram (to weep) : rmꞽ"
+],
+"D10": [
+"logogram (Udjat eye) : wḏꜣ.t"
+],
+"D11": [
+"logogram 1/2"
+],
+"D12": [
+"not to be confused with 131F3 or 133F8",
+"1/4",
+"classifier pupil : ḏfḏ"
+],
+"D13": [
+"1/8",
+"classifier eyebrow : ꞽnḥ"
+],
+"D14": [
+"logogram 1/16"
+],
+"D15": [
+"logogram 1/32"
+],
+"D16": [
+"logogram 1/64"
+],
+"D17": [
+"logogram (figure, image) : tꞽ.t"
+],
+"D18": [
+"logogram (ear) : msḏr"
+],
+"D19": [
+"classifier nose : šr.t"
+],
+"D20": [
+"classifier nose : fnḏ"
+],
+"D21": [
+"mouth",
+"not to be confused with 133AB",
+"phonemogram : r"
+],
+"D22": [
+"logogram (2/3) : r.wy"
+],
+"D23": [
+"logogram (3/4) : ḫmt-r.w"
+],
+"D24": [
+"classifier lip, border, edge : sp.t"
+],
+"D25": [
+"logogram (lips) : sp.ty"
+],
+"D26": [
+"classifier blood : snf"
+],
+"D27": [
+"classifier breast : mnḏ"
+],
+"D27A": [],
+"D28": [
+"logogram (spirit, essence) : kꜣ"
+],
+"D29": [
+"logogram (spirit, essence) : kꜣ"
+],
+"D30": [
+"classifier Nehebkau : nḥb-kꜣ.w"
+],
+"D31": [
+"logogram (mortuary priest) : ḥm-kꜣ"
+],
+"D31A": [
+"logogram (mortuary priest) : ḥm-kꜣ"
+],
+"D32": [
+"classifier enveloping, embracing, uniting"
+],
+"D33": [
+"phonemogram : ẖn"
+],
+"D34": [
+"logogram (to fight) : ꜥḥꜣ"
+],
+"D34A": [
+"logogram (to fight) : ꜥḥꜣ"
+],
+"D35": [
+"logogram (negative particle) : n"
+],
+"D36": [
+"transliterated as A725",
+"phonemogram : ꜥ"
+],
+"D37": [
+"phonemogram : ḏꞽ > dꞽ"
+],
+"D38": [
+"phonemogram : m"
+],
+"D39": [
+"logogram (to offer, to present) : ḥnk"
+],
+"D40": [
+"classifier force, effort"
+],
+"D41": [
+"classifier arm related movements or actions"
+],
+"D42": [
+"logogram (cubit) : mḥ"
+],
+"D43": [
+"logogram (to protect) : ḫwꞽ"
+],
+"D44": [
+"classifier governing/controlling : ḫrp"
+],
+"D45": [
+"logogram (to make holy) : ḏsr"
+],
+"D46": [
+"phonemogram : d"
+],
+"D46A": [
+"logogram (scent, perfume, dew) : ꞽd.t"
+],
+"D47": [
+"classifier hand : ḏr.t"
+],
+"D48": [
+"logogram (palm) : šsp"
+],
+"D48A": [
+"phono-repeater : ḥnt"
+],
+"D49": [
+"classifier grasping/holding : ꜣmm"
+],
+"D50": [
+"not to be confused with 130B7",
+"10000",
+"logogram (finger) : ḏbꜥ"
+],
+"D50A": [
+"\\20000"
+],
+"D50B": [
+"\\30000"
+],
+"D50C": [
+"\\40000"
+],
+"D50D": [
+"\\50000"
+],
+"D50E": [
+"\\60000"
+],
+"D50F": [
+"\\70000"
+],
+"D50G": [
+"\\80000"
+],
+"D50H": [
+"\\90000"
+],
+"D50I": [
+"\\50000"
+],
+"D51": [
+"not to be confused with 130AD",
+"classifier taking : ṯꜣꞽ"
+],
+"D52": [
+"phonemogram : bꜣḥ"
+],
+"D52A": [
+"phonemogram : sšm"
+],
+"D53": [
+"phonemogram : bꜣḥ"
+],
+"D54": [
+"classifier movement"
+],
+"D54A": [
+"logogram (to come) : ꞽwꞽ"
+],
+"D55": [
+"classifier reverse movement"
+],
+"D56": [
+"classifier leg/foot : rd"
+],
+"D57": [
+"classifier damage, injury : nkn"
+],
+"D58": [
+"phonemogram : b"
+],
+"D59": [
+"phonemogram : ꜥb"
+],
+"D60": [
+"logogram (to be pure, to be clean) : wꜥb"
+],
+"D61": [
+"phono-repeater : sꜣḥ"
+],
+"D62": [
+"phonemogram : sꜣḥ"
+],
+"D63": [
+"phonemogram : sꜣḥ"
+],
+"D64": [
+"logogram (hand) : ḏr.t"
+],
+"D65": [
+"logogram (child, son, lad) : šrꞽ"
+],
+"D66": [
+"classifier to engrave : wdꞽ"
+],
+"D67": [
+"1 heqat measure",
+"not to be confused with 13212"
+],
+"D67A": [
+"2 heqat measures"
+],
+"D67B": [
+"3 heqat measures"
+],
+"D67C": [
+"4 heqat measures"
+],
+"D67D": [
+"5 heqat measures"
+],
+"D67E": [
+"6 heqat measures"
+],
+"D67F": [
+"7 heqat measures"
+],
+"D67G": [
+"8 heqat measures"
+],
+"D67H": [
+"9 heqat measures"
+],
+"E1": [
+"not to be confused with 130FD",
+"logogram (bull) : kꜣ"
+],
+"E2": [
+"classifier rage/aggression : smꜣ"
+],
+"E3": [
+"classifier calf : bḥs"
+],
+"E4": [
+"classifier cow divinity : mḥ.yt"
+],
+"E5": [
+"classifier concern : ꜣms"
+],
+"E6": [
+"logogram (span (of horses)/horse) : ḥtr"
+],
+"E7": [
+"classifier donkey/ass : ꜥꜣ"
+],
+"E8": [
+"logogram (kid) : ꞽb"
+],
+"E8A": [
+"phono-repeater : ꞽb"
+],
+"E9": [
+"phonemogram : ꞽw"
+],
+"E9A": [
+"classifier cow (cow of the sky) : ꞽh.t"
+],
+"E10": [
+"classifier ram : bꜣ"
+],
+"E11": [
+"phonemogram : bꜣ"
+],
+"E12": [
+"classifier pig : ꞽpḥ"
+],
+"E13": [
+"phonemogram : mꞽ"
+],
+"E14": [
+"classifier dog/hound : ṯsm"
+],
+"E15": [
+"logogram (Anubis) : ꞽnp.w"
+],
+"E16": [
+"logogram (privy to the secrets) : ḥr.y-sštꜣ"
+],
+"E16A": [
+"classifier Anubis : ꞽnp.w"
+],
+"E17": [
+"phonemogram : sꜣb"
+],
+"E17A": [
+"phonemogram : sṯꜣ"
+],
+"E18": [
+"logogram (Wepwawet) : wp-wꜣ.wt"
+],
+"E19": [
+"classifier Wepwawet : wp-wꜣ.wt"
+],
+"E20": [
+"logogram (Seth) : stš/stẖ"
+],
+"E20A": [],
+"E21": [
+"logogram (Seth) : stš/stẖ"
+],
+"E22": [
+"classifier (lion) : mꜣꞽ"
+],
+"E23": [
+"phonemogram : rw"
+],
+"E24": [
+"classifier leopard : ꜣby"
+],
+"E25": [
+"classifier hippopotamus : ḫꜣb"
+],
+"E26": [
+"classifier elephant : ꜣbw"
+],
+"E27": [
+"classifier to fortell : sr"
+],
+"E28": [
+"classifier oryx : mꜣ-ḥḏ"
+],
+"E28A": [
+"logogram (Oryx nome, 16th nome of Upper Egypt) : mꜣ-ḥḏ"
+],
+"E29": [
+"classifier gazelle : gḥs"
+],
+"E30": [
+"classifier ibex : n(ꞽ)ꜣw"
+],
+"E31": [
+"logogram (rank, diginity) : sꜥḥ"
+],
+"E32": [
+"classifier rage, fury : ḳnd"
+],
+"E33": [
+"classifier monkey : gf"
+],
+"E34": [
+"phonemogram : wn"
+],
+"E34A": [
+"stylistic variant, use of 130F9 is preferred"
+],
+"E36": [
+"classifier monkey (divinity) : wpt"
+],
+"E37": [
+"logogram (symbol of the cycle of time) : wnšb"
+],
+"E38": [
+"cow",
+"not to be confused with 130D2"
+],
+"F1": [
+"classifier bull, ox, cattle : kꜣ"
+],
+"F1A": [
+"phonemogram : ḫnt"
+],
+"F2": [
+"classifier rage/aggression : ḏnd"
+],
+"F3": [
+"phonemogram : ꜣt"
+],
+"F4": [
+"logogram (beginning, front) : ḥꜣ.t"
+],
+"F5": [
+"phonemogram : šsꜣ"
+],
+"F6": [
+"phonemogram : šsꜣ"
+],
+"F7": [
+"classifier worth, dignity, renown : šfšf.yt"
+],
+"F8": [
+"logogram (worth, dignity, renown) : šf.yt"
+],
+"F9": [
+"logogram (strength) : pḥ.ty"
+],
+"F10": [
+"classifier throat associated action : sꜥm"
+],
+"F11": [
+"classifier throat associated action : ꜥm"
+],
+"F12": [
+"phonemogram : wsr"
+],
+"F13": [
+"phonemogram : wp"
+],
+"F13A": [
+"stylistic variant, use of 1310B is preferred"
+],
+"F14": [
+"logogram (new years day) : wp-rnp.t"
+],
+"F15": [
+"logogram (new years day) : wp-rnp.t"
+],
+"F16": [
+"logogram (horn) : ꜥb"
+],
+"F17": [
+"logogram purification : ꜥb.w"
+],
+"F18": [
+"phonemogram : ḥ"
+],
+"F19": [
+"classifier jaw : ꜥr"
+],
+"F20": [
+"logogram (tongue) : ns"
+],
+"F21": [
+"logogram (ear) : msḏr"
+],
+"F21A": [
+"from hieratic",
+"logogram to hear, to listen"
+],
+"F22": [
+"phonemogram : pḥ"
+],
+"F23": [
+"classifier foreleg/arm : ḫpš"
+],
+"F24": [
+"mirrored version of 13117",
+"classifier foreleg/arm : ḫpš"
+],
+"F25": [
+"phonemogram : wḥm"
+],
+"F26": [
+"phonemogram : ẖn"
+],
+"F27": [
+"classifier animal : ṯsm"
+],
+"F28": [
+"logogram (dappled, many-coloured) : sꜣb"
+],
+"F29": [
+"phonemogram : st"
+],
+"F30": [
+"phonemogram : šd"
+],
+"F31": [
+"phonemogram : ms"
+],
+"F31A": [
+"cursive variant of 1311F",
+"phonemogram : ms"
+],
+"F32": [
+"transliterated as 1E96",
+"logogram (belly, body) : ẖ.t"
+],
+"F33": [
+"phonemogram : sd"
+],
+"F34": [
+"logogram (heart, mind, wish) : ꞽb"
+],
+"F35": [
+"phonemogram : nfr"
+],
+"F36": [
+"phonemogram : smꜣ"
+],
+"F37": [
+"classifier spine, vertebrae : ꞽꜣ.t"
+],
+"F37A": [
+"logogram (to cut) : šꜥd"
+],
+"F38": [
+"classifier back, backbone : psḏ"
+],
+"F38A": [],
+"F39": [
+"phonemogram : ꞽmꜣḫ"
+],
+"F40": [
+"logogram (to be long, to stretch out) : ꜣwꞽ"
+],
+"F41": [
+"classifier slaughter/evil : šꜥ.t"
+],
+"F42": [
+"classifier rib : spr"
+],
+"F43": [
+"classifier ribs (meat of ribs) : spḥ.t"
+],
+"F44": [
+"phono-repeater : ꞽwꜥ"
+],
+"F45": [
+"logogram (uterus, womb) : ꞽd.t"
+],
+"F45A": [
+"phonemogram : m"
+],
+"F46": [
+"logogram (to go round, to turn round) : pẖr"
+],
+"F46A": [
+"rotated version of 13132",
+"logogram (to go round, to turn round) : pẖr"
+],
+"F47": [
+"mirrored version of 13132",
+"classifier winding, intestine : ḳ(ꜣ)b"
+],
+"F47A": [
+"mirrored version of 13133",
+"logogram (to go round, to turn round) : pẖr"
+],
+"F48": [
+"logogram (to go round, to turn round) : pẖr"
+],
+"F49": [
+"mirrored version of 13136",
+"phono-repeater : wḏb"
+],
+"F50": [
+"phonemogram : spẖr"
+],
+"F51": [
+"phonemogram : f"
+],
+"F51A": [
+"classifier part of a body : ḥꜥ.w"
+],
+"F51B": [
+"variant of 1313A",
+"logogram (limbs, body) : ḥꜥ.w"
+],
+"F51C": [
+"rotated version of 13139"
+],
+"F52": [
+"classifier excrement : ḥs"
+],
+"F53": [
+"phonemogram : mdw"
+],
+"G1": [
+"Egyptian vulture, Egyptological alef",
+"not to be confused with 13142",
+"transliterated as A723",
+"phonemogram : ꜣ"
+],
+"G2": [
+"phonemogram : ꜣꜣ"
+],
+"G3": [
+"phonemogram : mꜣ"
+],
+"G4": [
+"not to be confused with 1313F",
+"phonemogram : tyw"
+],
+"G5": [
+"logogram (Horus) : ḥr"
+],
+"G6": [
+"classifier falcon : bꞽk"
+],
+"G6A": [
+"logogram (lord) : nb"
+],
+"G7": [
+"classifier divine beings/divine things"
+],
+"G7A": [
+"logogram (Nemty (divinity)) : nmty"
+],
+"G7B": [
+"logogram nmty (Nemty (divinity))"
+],
+"G8": [
+"logogram (golden Horus) : ḥr-nbw"
+],
+"G9": [
+"logogram (Re-Hor (usually in rꜥ-ḥr-ꜣḫ.ty) : rꜥ-ḥr"
+],
+"G10": [
+"classifier bark of Sokar : ḥnw"
+],
+"G11": [
+"classifier cult image : ꜥẖm"
+],
+"G11A": [],
+"G12": [
+"classifier cult image : ꜥẖm"
+],
+"G13": [
+"classifier falcon divinity : spd(.w)"
+],
+"G14": [
+"logogram (mother) : mw.t"
+],
+"G15": [
+"logogram (mother) : mw.t"
+],
+"G16": [
+"logogram (the two ladies (i.e. Nekhbet and Wadjet) : nb.ty"
+],
+"G17": [
+"phonemogram : m"
+],
+"G18": [
+"phonemogram : mm"
+],
+"G19": [],
+"G20": [
+"phonemogram : m-ꜥ"
+],
+"G20A": [
+"phonemogram : mr (ꞽm.y-r)"
+],
+"G21": [
+"phonemogram : nḥ"
+],
+"G22": [
+"phonemogram : ḏb"
+],
+"G23": [
+"logogram (common folk, subjects, people) : rḫ.yt"
+],
+"G24": [
+"logogram (common folk, subjects, people) : rḫ.yt"
+],
+"G25": [
+"phonemogram : ꜣḫ"
+],
+"G26": [
+"logogram (Thot) : ḏḥwty"
+],
+"G26A": [
+"classifier ibis : hb"
+],
+"G27": [
+"logogram (to be red) : dšr"
+],
+"G28": [
+"phonemogram : gm"
+],
+"G29": [
+"phonemogram : bꜣ"
+],
+"G30": [
+"logogram (souls) : bꜣ.w"
+],
+"G31": [
+"classifier heron : bnw"
+],
+"G32": [
+"logogram (to inundate) : bꜥḥ"
+],
+"G33": [
+"phonemogram : sdꜣ"
+],
+"G34": [
+"classifier ostrich : nꞽw"
+],
+"G35": [
+"phonemogram : ꜥḳ"
+],
+"G36": [
+"phonemogram : wr"
+],
+"G36A": [
+"stylistic variant, use of 13168 is preferred"
+],
+"G37": [
+"classifier negative, bad : ꞽsf.t"
+],
+"G37A": [
+"stylistic variant, use of 1316A is preferred"
+],
+"G38": [
+"goose",
+"phonemogram : gb"
+],
+"G39": [
+"duck",
+"logogram (son) : sꜣ"
+],
+"G40": [
+"phonemogram : pꜣ"
+],
+"G41": [
+"phonemogram : ḫn"
+],
+"G42": [
+"phonemogram : ḏfꜣ"
+],
+"G43": [
+"phonemogram : w"
+],
+"G43A": [
+"phonemogram : tw"
+],
+"G44": [
+"phonemogram : ww"
+],
+"G45": [
+"phonemogram : wꜥ"
+],
+"G45A": [
+"phonemogram : dꞽw"
+],
+"G46": [
+"phonemogram : mꜣw"
+],
+"G47": [
+"phonemogram : ṯꜣ"
+],
+"G48": [
+"classifier nest : šš"
+],
+"G49": [],
+"G50": [
+"phonemogram : rḫ.ty"
+],
+"G51": [
+"classifier catching fish : ḥꜣm"
+],
+"G52": [
+"classifier feeding, eating : snm"
+],
+"G53": [
+"logogram (soul) : bꜣ"
+],
+"G54": [
+"phonemogram : snḏ"
+],
+"H1": [
+"logogram (bird, fowl) : ꜣpd"
+],
+"H2": [
+"phono-repeater : wšm"
+],
+"H3": [
+"phonemogram : pꜣḳ"
+],
+"H4": [
+"classifier people : rmṯ"
+],
+"H5": [
+"classifier wing : ḏnḥ"
+],
+"H6": [
+"phonemogram : šw"
+],
+"H6A": [
+"from hieratic",
+"phonemogram : šw"
+],
+"H7": [
+"classifier claw : ꞽꜣf.t"
+],
+"H8": [
+"logogram (son) : sꜣ"
+],
+"I1": [
+"phonemogram : ꜥšꜣ"
+],
+"I2": [
+"classifier turtle : štw"
+],
+"I3": [
+"classifier aggression : ꜣd"
+],
+"I4": [
+"classifier Sobek : sbk"
+],
+"I5": [
+"logogram (to gather) : sꜣḳ"
+],
+"I5A": [
+"classifier Sobek : sbk"
+],
+"I6": [
+"phonemogram : km"
+],
+"I7": [
+"classifier divinity : ḥḳ.t"
+],
+"I8": [
+"logogram (one hundred thousand) : ḥfn"
+],
+"I9": [
+"phonemogram : f"
+],
+"I9A": [
+"logogram (to go forth) : prꞽ"
+],
+"I10": [
+"transliterated as 1E0F",
+"phonemogram : ḏ"
+],
+"I10A": [
+"phonemogram : ḏfꜣ"
+],
+"I11": [
+"phonemogram : ḏḏ"
+],
+"I11A": [
+"logogram (eternity) : ḏ.t"
+],
+"I12": [
+"classifier female divinity : nbw.t"
+],
+"I13": [
+"classifier female divinity (Wadjet) : wꜣḏ.t"
+],
+"I14": [
+"classifier coiling, winding : ḳꜣb"
+],
+"I15": [
+"classifier snake/uraeus : ꞽꜥr.t"
+],
+"K1": [
+"phonemogram : ꞽn"
+],
+"K2": [
+"phono-repeater : bw"
+],
+"K3": [
+"logogram (fish) : rm"
+],
+"K4": [
+"phonemogram : ẖꜣ"
+],
+"K5": [
+"phono-repeater : bs"
+],
+"K6": [
+"logogram (scale) : nšm.t"
+],
+"K7": [
+"classifier rage, anger : špt"
+],
+"K8": [
+"classifier catfish : nꜥr"
+],
+"L1": [
+"logogram (to become) : ḫpr"
+],
+"L2": [
+"logogram (king of LE) : bꞽ.ty"
+],
+"L2A": [
+"logogram (King of UE and LE) : n(.y)-sw.t-bꞽ.ty"
+],
+"L3": [],
+"L4": [
+"classifier locust : snḥm"
+],
+"L5": [
+"classifier centipede : spꜣ"
+],
+"L6": [
+"phonemogram : ḫꜣ"
+],
+"L6A": [
+"mirrored version of 131A9"
+],
+"L7": [
+"classifier scorpion : srḳ.t"
+],
+"L8": [
+"logogram/phonemogram (type of beetle) : ꜥnḫ"
+],
+"M1": [
+"classifier tree, product of a tree : ꜥš"
+],
+"M1A": [
+"classifier product of a tree : hbny"
+],
+"M1B": [
+"phonemogram : ꞽm=f"
+],
+"M2": [
+"phonemogram : ḥn"
+],
+"M3": [
+"phonemogram : ḫt"
+],
+"M3A": [
+"phonemogram : m-ḫt"
+],
+"M4": [
+"logogram (year) : rnp.t"
+],
+"M5": [
+"logogram (time/season) : tr"
+],
+"M6": [
+"logogram (time/season) : tr"
+],
+"M7": [
+"classifier youth, vigour, fresh : rnp"
+],
+"M8": [
+"phonemogram : šꜣ"
+],
+"M9": [
+"classifier lotus flower : sšn"
+],
+"M10": [
+"classifier lotus bud : nḥb.t"
+],
+"M10A": [
+"classifier offering : wdn"
+],
+"M11": [
+"logogram (to offer) : wdn"
+],
+"M12": [
+"1000",
+"phonemogram : ḫꜣ"
+],
+"M12A": [
+"\\2000"
+],
+"M12B": [
+"\\3000"
+],
+"M12C": [
+"\\4000"
+],
+"M12D": [
+"\\5000"
+],
+"M12E": [
+"\\6000"
+],
+"M12F": [
+"\\7000"
+],
+"M12G": [
+"\\8000"
+],
+"M12H": [
+"\\9000"
+],
+"M13": [
+"phonemogram : wꜣḏ"
+],
+"M14": [
+"phonemogram : wꜣḏ"
+],
+"M15": [
+"logogram (Lower Egypt) : mḥ.w"
+],
+"M15A": [
+"logogram (Lower Egypt) : mḥ.w"
+],
+"M16": [
+"phonemogram : ḥꜣ"
+],
+"M16A": [
+"logogram (Lower Egypt) : mḥ.w"
+],
+"M17": [
+"egyptological yod",
+"transliterated as A7BD",
+"phonemogram : ꞽ"
+],
+"M17A": [
+"phonemogram : y"
+],
+"M18": [
+"phonemogram/logogram (to come) : ꞽy(ꞽ)"
+],
+"M19": [
+"phonemogram : ꜥꜣb"
+],
+"M20": [
+"logogram (marshland, country) : sḫ.t"
+],
+"M21": [
+"logogram (herb, plant) : sm"
+],
+"M22": [
+"classifier 'bud, lotus bud'",
+"phonemogram : nḫb"
+],
+"M22A": [
+"phonemogram : nn"
+],
+"M23": [
+"logogram (King of UE) : n(.y)-sw.t"
+],
+"M24": [
+"phonemogram : rsw/rsy"
+],
+"M24A": [
+"logogram (land) : tꜣ"
+],
+"M25": [
+"logogram (Upper Egypt) : šmꜥ.w"
+],
+"M26": [
+"logogram (Upper Egypt) : šmꜥ.w"
+],
+"M27": [
+"logogram (Upper Egypt) : šmꜥ.w"
+],
+"M28": [
+"logogram (the 10 of UE) : mḏ-šmꜥ.w"
+],
+"M28A": [
+"logogram (Upper Egypt) : šmꜥ.w"
+],
+"M29": [
+"logogram (to be sweet) : nḏm"
+],
+"M30": [
+"logogram (to be sweet) : bnr/bnꞽ"
+],
+"M31": [
+"classifier growing : srd"
+],
+"M31A": [
+"classifier growing : srd"
+],
+"M32": [
+"classifier growing : rd"
+],
+"M33": [
+"logogram (grain, barley, corn) : ꞽt"
+],
+"M33A": [
+"variant of 131E0",
+"classifier grain, barley, corn : ꞽt"
+],
+"M33B": [
+"variant of 131E0",
+"classifier grain, barley, corn : tbtb"
+],
+"M34": [
+"logogram (emmer) : bd.t"
+],
+"M35": [
+"classifier heap, quantity : ꜥḥꜥ"
+],
+"M36": [
+"phonemogram : ḏr"
+],
+"M37": [
+"older variant of 131E5",
+"phonemogram : ḏr"
+],
+"M38": [
+"classifier flax : ḥmꜥ"
+],
+"M39": [
+"classifier granular product : snṯr"
+],
+"M40": [
+"not to be confused with 132A7 or 1342A",
+"phonemogram : ꞽs"
+],
+"M40A": [
+"phonemogram : ꞽs"
+],
+"M41": [
+"classifier wood/timber : ꜥš"
+],
+"M42": [
+"phonemogram : wn"
+],
+"M43": [
+"logogram (wine) : ꞽrp"
+],
+"M44": [
+"thorn",
+"not to be confused with 133DA",
+"phonemogram : spd"
+],
+"N1": [
+"logogram (sky) : p.t"
+],
+"N2": [
+"classifier night : grḥ"
+],
+"N3": [
+"older variant of 131F0",
+"classifier night : grḥ"
+],
+"N4": [
+"classifier storm : sšn"
+],
+"N5": [
+"not to be confused with 13082 or 133F8",
+"logogram (the sun, Re) : rꜥ"
+],
+"N6": [
+"logogram (the sun, Re) : rꜥ"
+],
+"N7": [
+"logogram (course (of the day), daily requirements) : ẖr.t-hrw"
+],
+"N8": [
+"classifier light, shining, rising : psḏ"
+],
+"N9": [
+"variant of 131F8",
+"phonemogram : psḏ"
+],
+"N10": [
+"variant of 131F7",
+"phonemogram : psḏ"
+],
+"N11": [
+"logogram (month) : ꜣbd"
+],
+"N12": [
+"classifier moon : ꞽꜥḥ"
+],
+"N13": [
+"logogram (half-month (festival)) : smd.t"
+],
+"N14": [
+"logogram (star) : sbꜣ"
+],
+"N15": [
+"classifier (netherworld) : dwꜣ.t"
+],
+"N16": [
+"logogram (land) : tꜣ"
+],
+"N17": [
+"variant of 131FE",
+"logogram (land) : tꜣ"
+],
+"N18": [
+"not to be confused with 132F0, 133D4, or 133F3",
+"logogram (island) : ꞽw"
+],
+"N18A": [
+"phonemogram : ꞽmn"
+],
+"N18B": [],
+"N19": [
+"logogram (horizon-dweller) : ꜣḫ.ty"
+],
+"N20": [
+"classifier riverbank : wḏb"
+],
+"N21": [
+"logogram (riverbank) : ꞽdb"
+],
+"N22": [
+"logogram (riverbank) : ꞽdb"
+],
+"N23": [
+"classifier geographical location : dmꞽ"
+],
+"N24": [
+"logogram (nome, district) : spꜣ.t"
+],
+"N25": [
+"classifier foreign land, desert : ḫꜣs.t"
+],
+"N25A": [
+"stylistic variant, use of 13209 is preferred"
+],
+"N26": [
+"phonemogram : ḏw"
+],
+"N27": [
+"logogram (horizon) : ꜣḫ.t"
+],
+"N28": [
+"phonemogram : ḫꜥ"
+],
+"N29": [
+"hill",
+"not to be confused with 133D8",
+"transliterated as q or as 1E33",
+"phonemogram : ḳ"
+],
+"N30": [
+"logogram hill, mound : ꞽꜣ.t"
+],
+"N31": [
+"logogram (road) : wꜣ.t"
+],
+"N32": [
+"classifier clay : sꞽn"
+],
+"N33": [
+"not to be confused with 130C9",
+"classifier medicaments, incense, oil : snṯr"
+],
+"N33A": [
+"not to be confused with 133E7",
+"classifier medicaments, incense, oil : ꜥn.tyw"
+],
+"N34": [
+"classifier metal objects : ꞽḳḥ.w"
+],
+"N34A": [
+"stylistic variant, use of 13214 is preferred",
+"logogram (metal) : bꞽꜣ"
+],
+"N35": [
+"phonemogram : n"
+],
+"N35A": [
+"logogram (water) : mw"
+],
+"N36": [
+"phonemogram : mr"
+],
+"N37": [
+"lake",
+"transliterated as 0161",
+"not to be confused with 1328C",
+"phonemogram : š"
+],
+"N37A": [
+"variant of 13219",
+"phonemogram : š"
+],
+"N38": [
+"variant of 13219",
+"phonemogram : š"
+],
+"N39": [
+"variant of 13219",
+"phonemogram : š"
+],
+"N40": [
+"logogram (to go) : šm"
+],
+"N41": [
+"phonemogram : ḥm"
+],
+"N42": [
+"variant of 1321E",
+"phonemogram : ḥm"
+],
+"O1": [
+"logogram (house, domain) : pr"
+],
+"O1A": [
+"logogram (scriptorum, school (house of life)) : pr-ꜥnḫ"
+],
+"O2": [
+"logogram (treasury) : pr-ḥḏ"
+],
+"O3": [
+"logogram (invocation offering) : pr.t-ḫrw"
+],
+"O4": [
+"phonemogram : h"
+],
+"O5": [
+"phonemogram : nm"
+],
+"O5A": [
+"mirrored version of 13255"
+],
+"O6": [
+"logogram (temple, mansion, estate) : ḥw.t"
+],
+"O6A": [
+"beginning of hwt or serekh enclosure"
+],
+"O6B": [
+"beginning of low hwt enclosure"
+],
+"O6C": [
+"beginning of high hwt enclosure"
+],
+"O6D": [
+"end of high hwt enclosure"
+],
+"O6E": [
+"end of low hwt enclosure"
+],
+"O6F": [
+"end of hwt enclosure"
+],
+"O7": [
+"logogram (temple, mansion, estate) : ḥw.t"
+],
+"O8": [
+"logogram (the great domain, temple) : ḥw.t-ꜥꜣ.t"
+],
+"O9": [
+"logogram (Nephthys (divinity)) : nb.t-ḥw.t"
+],
+"O10": [
+"logogram (Hathor (divinity)) : ḥw.t-ḥr"
+],
+"O10A": [
+"logogram (mansion of life) : ḥw.t-ꜥnḫ"
+],
+"O10B": [],
+"O10C": [],
+"O11": [
+"logogram (palace) : ꜥḥ"
+],
+"O12": [
+"logogram (palace) : ꜥḥ"
+],
+"O13": [
+"classifier enfolding, enclosing, walling in : sbḫ"
+],
+"O14": [
+"classifier gateway : sbḫ.t"
+],
+"O15": [
+"logogram (court) : wsḫ.t"
+],
+"O16": [
+"logogram (portal, portico) : sbḫ.t"
+],
+"O17": [
+"phonemogram : tꜣ"
+],
+"O18": [
+"classifier shrine, chapel : kꜣr"
+],
+"O19": [
+"classifier shrine : pr-wr"
+],
+"O19A": [
+"logogram (shrine, row of shrines) : ꞽtr.t"
+],
+"O20": [
+"classifier sanctuary, shrine : ꞽtr.ty"
+],
+"O20A": [],
+"O21": [
+"logogram (pavilion, hall, booth) : sḥ"
+],
+"O22": [
+"classifier booth : sḥ"
+],
+"O23": [
+"logogram (jubilee, sed-festival) : ḥb-sd"
+],
+"O24": [
+"classifier pyramid, tomb : mr"
+],
+"O24A": [
+"classifier solar temple : sḫ.t-rꜥ"
+],
+"O25": [
+"classifier obelisk : tḫn"
+],
+"O25A": [
+"classifier solar temple : nḫn-rꜥ"
+],
+"O26": [
+"classifier stela : wḏ"
+],
+"O27": [
+"classifier hall, office : ḫꜣ"
+],
+"O28": [
+"phonemogram : ꞽwn"
+],
+"O29": [
+"phonemogram : ꜥꜣ"
+],
+"O29A": [
+"rotated variant of 1327B",
+"phonemogram : ꜥꜣ"
+],
+"O30": [
+"not to be confused with 13361",
+"logogram (pole, support) : sḫn.t"
+],
+"O30A": [],
+"O31": [
+"logogram (gate) : ꜥꜣ"
+],
+"O32": [
+"classifier doorway : sbꜣ"
+],
+"O33": [
+"classifier palace façade : srḫ"
+],
+"O33A": [
+"end of serekh enclosure"
+],
+"O34": [
+"phonemogram : s"
+],
+"O35": [
+"phonemogram : ꞽs"
+],
+"O36": [
+"logogram (wall) : ꞽnb"
+],
+"O36A": [
+"beginning of fortified wall cartouche"
+],
+"O36B": [
+"end of fortified wall cartouche"
+],
+"O36C": [
+"beginning of fortified wall enclosure"
+],
+"O36D": [
+"end of fortified wall enclosure"
+],
+"O37": [
+"classifier overthrow, demolish : whn"
+],
+"O38": [
+"classifier passage : ꜥrr.yt"
+],
+"O39": [
+"not to be confused with 13219",
+"classifier stone, brick, pebble : mꜣṯ"
+],
+"O40": [
+"logogram stairway : rwd"
+],
+"O41": [
+"classifier ascending, being high : ḳꜣ.y"
+],
+"O42": [
+"phonemogram : šsp"
+],
+"O43": [
+"older variant of 1328F",
+"phonemogram : šsp"
+],
+"O44": [
+"logogram (office, rank, function) : ꞽꜣw.t"
+],
+"O45": [
+"logogram (harim, inner chamber) : ꞽp.t"
+],
+"O46": [
+"logogram (harim, inner chamber) : ꞽp.t"
+],
+"O47": [
+"logogram (Hierakonpolis) : nḫn"
+],
+"O48": [
+"logogram (time, occasion) : sp"
+],
+"O49": [
+"logogram (city, village) : nꞽw.t"
+],
+"O50": [
+"classifier treshing floor : sp.t"
+],
+"O50A": [],
+"O50B": [
+"mirrored version of 13298",
+"phono-repeater/classifier (time, occasion) : sp"
+],
+"O51": [
+"logogram (granary) : šnw.t"
+],
+"P1": [
+"classifier movement : ḫnt"
+],
+"P1A": [
+"classifier to upset, to overturn : pnꜥ"
+],
+"P2": [],
+"P3": [
+"classifier bark/boat : (m)skt.t"
+],
+"P3A": [
+"mirrored variant of 1329E"
+],
+"P4": [
+"logogram (to loosen, to explain) : wḥꜥ"
+],
+"P5": [
+"logogram (wind, breath, air) : ṯꜣw"
+],
+"P6": [
+"phonemogram : ꜥḥꜥ"
+],
+"P7": [
+"phonemogram : ꜥḥꜥ"
+],
+"P8": [
+"phonemogram : ḫrw"
+],
+"P9": [
+"phonemogram : ḫrw=f(y)"
+],
+"P10": [
+"logogram (steering oar) : ḥmw"
+],
+"P11": [
+"not to be confused with 131E9 or 1342A",
+"classifier mooring post : mnꞽ.t"
+],
+"Q1": [
+"logogram (seat, throne, place) : s.t"
+],
+"Q2": [
+"phonemogram : ws"
+],
+"Q3": [
+"phonemogram : p"
+],
+"Q4": [
+"classifier headrest : wrs"
+],
+"Q5": [
+"classifier box : hn(w)"
+],
+"Q6": [
+"classifier coffin : ḳrs.w"
+],
+"Q7": [
+"classifier fire, flame, heat : sḏ.t"
+],
+"R1": [
+"classifier altar : ḫꜣ(w).t"
+],
+"R2": [
+"logogram (altar) : ḫꜣw.t"
+],
+"R2A": [
+"logogram (altar) : ḫꜣw.t"
+],
+"R3": [
+"classifier festival : ḥ(ꜣ)b"
+],
+"R3A": [
+"classifier offering table/jar-stand : ḫnt"
+],
+"R3B": [],
+"R4": [
+"logogram (offering) : ḥtp"
+],
+"R5": [
+"classifier fumigation/censing : kꜣp"
+],
+"R6": [
+"logogram (to fumigate, to cense) : kꜣp"
+],
+"R7": [
+"logogram (incense) : snṯr"
+],
+"R8": [
+"logogram (god) : nṯr"
+],
+"R9": [
+"classifier natron : ḥsmn"
+],
+"R10": [
+"logogram (necropolis) : ẖr.t-nṯr"
+],
+"R10A": [
+"logogram (necropolis) : ẖr.t-nṯr"
+],
+"R11": [
+"phonemogram : ḏd"
+],
+"R12": [
+"classifier standard : ꞽꜣ.t"
+],
+"R13": [
+"logogram (west, right side) : ꞽmn.t"
+],
+"R14": [
+"logogram (west) : ꞽmn.t"
+],
+"R15": [
+"phonemogram : ꜣb"
+],
+"R16": [
+"classifier fray, battle : sk.w"
+],
+"R16A": [
+"logogram (Nefertem) : nfr-tm"
+],
+"R17": [
+"logogram (8th nome of Upper Egypt) : tꜣ-wr"
+],
+"R18": [
+"logogram (8th nome of Upper Egypt) : tꜣ-wr"
+],
+"R19": [
+"logogram (Thebes) : wꜣs.t"
+],
+"R20": [
+"logogram (Seshat (divinity)) : sšꜣ.t"
+],
+"R21": [
+"logogram (Seshat (divinity)) : sšꜣ.t"
+],
+"R22": [
+"logogram (Letopolis) : ḫm"
+],
+"R23": [
+"logogram (Min (divinity)) : mnw"
+],
+"R24": [
+"logogram (Neith (divinity)) : n.t"
+],
+"R25": [
+"logogram (Neith (divinity)) : n.t"
+],
+"R26": [
+"phonemogram : smꜣ"
+],
+"R27": [
+"logogram (Neith (divinity)) : n.t"
+],
+"R28": [
+"logogram (Bat (7th nome of Upper Egypt)) : bꜣ.t"
+],
+"R29": [
+"logogram (shrine, row of shrines) : ꞽtr.t"
+],
+"S1": [
+"phonemogram : ḥḏ"
+],
+"S2": [
+"classifier crown : wrr.t"
+],
+"S2A": [
+"logogram (Upper Egypt) : šmꜥ.w"
+],
+"S3": [
+"phonemogram : n"
+],
+"S4": [
+"classifier crown : n.t"
+],
+"S5": [
+"classifier double crown : sḫm.ty"
+],
+"S6": [
+"classifier double crown : sḫm.ty"
+],
+"S6A": [
+"logogram (Lower Egypt) : mḥ.w"
+],
+"S7": [
+"classifier crown : ḫprš"
+],
+"S8": [
+"logogram (Atef-crown) : ꜣtf"
+],
+"S9": [
+"logogram (double plumes/two feather crown) : šw.ty"
+],
+"S10": [
+"logogram (strip of cloth, fillet) : mḏḥ"
+],
+"S11": [
+"logogram (necklace, collar) : wsḫ"
+],
+"S12": [
+"logogram (gold) : nbw"
+],
+"S13": [
+"phonemogram : nb"
+],
+"S14": [
+"logogram (silver) : ḥḏ"
+],
+"S14A": [
+"logogram (white gold, fine gold, electrum) : ḏꜥm"
+],
+"S14B": [],
+"S15": [
+"logogram (faience, glass) : ṯḥn.t"
+],
+"S16": [
+"logogram (faience, glass) : ṯḥn.t"
+],
+"S17": [
+"logogram (faience, glass) : ṯḥn.t"
+],
+"S17A": [
+"phonemogram : šsm"
+],
+"S18": [
+"classifier necklace : mnꞽ.t"
+],
+"S19": [
+"logogram (sealbearer) : ḫtm.w/y"
+],
+"S20": [
+"logogram (seal, lock, sealing) : ḫtm"
+],
+"S21": [
+"logogram (necklace, collar) : wsḫ"
+],
+"S22": [
+"phonemogram : sṯ"
+],
+"S23": [
+"logogram (to unite, to assemble) : dmḏ"
+],
+"S24": [
+"classifier to tie, to bind : ṯs"
+],
+"S25": [
+"classifier garment, mantle, kilt : mꜣs.t"
+],
+"S26": [
+"classifier kilt, royal apron : šnḏ.wt"
+],
+"S26A": [
+"not to be confused with 13200, 133D4, or 133F3",
+"logogram (loincloth, garment) : dꜣꞽ.w"
+],
+"S26B": [],
+"S27": [
+"logogram (clothing) : mnḫ.t"
+],
+"S28": [
+"classifier clothing : ḥbs"
+],
+"S29": [
+"phonemogram : s"
+],
+"S30": [
+"phonemogram : sf"
+],
+"S31": [
+"phonemogram : smꜣ"
+],
+"S32": [
+"phonemogram : sꞽꜣ"
+],
+"S33": [
+"classifier sandal : ṯbw.t"
+],
+"S34": [
+"logogram (life) : ꜥnḫ"
+],
+"S35": [
+"classifier shadow, shade : mnḳb"
+],
+"S35A": [
+"variant of 132FA"
+],
+"S36": [
+"older variant of 132FA",
+"logogram (shadow, shade) : šw.t"
+],
+"S37": [
+"logogram (fan) : ḫw"
+],
+"S38": [
+"phonemogram : ḥḳꜣ"
+],
+"S39": [
+"logogram (shepherd's crook) : ꜥw.t"
+],
+"S40": [
+"phonemogram : wꜣs"
+],
+"S41": [
+"classifier sceptre : ḏꜥm"
+],
+"S42": [
+"phonemogram : sḫm"
+],
+"S43": [
+"phonemogram : md(w)"
+],
+"S44": [
+"classifier staff, sceptre : ꜣsm"
+],
+"S45": [
+"logogram (flagellum) : nḫꜣḫꜣ"
+],
+"S46": [
+"phonemogram : k"
+],
+"T1": [
+"phonemogram : mn"
+],
+"T2": [
+"classifier striking, hitting : sḳr"
+],
+"T3": [
+"phonemogram : ḥḏ"
+],
+"T3A": [
+"phonemogram : ḥḏw"
+],
+"T4": [
+"phonemogram : ḥḏ"
+],
+"T5": [
+"phonemogram : ḥḏ"
+],
+"T6": [
+"phonemogram : ḥḏḏ"
+],
+"T7": [
+"logogram (carpenter, shipwright) : mḏḥ.w"
+],
+"T7A": [
+"classifier axe, battle-axe : ꞽḳḥ.w"
+],
+"T8": [
+"older variant of 13311",
+"phonemogram : tp"
+],
+"T8A": [
+"phonemogram : tp"
+],
+"T9": [
+"classifier bow, weapon : pḏ.t"
+],
+"T9A": [
+"older variant of 13312",
+"phonemogram : pḏ"
+],
+"T10": [
+"logogram (bow) : pḏ.t"
+],
+"T11": [
+"phonemogram : swn"
+],
+"T11A": [],
+"T12": [
+"phonemogram : rwḏ"
+],
+"T13": [
+"phono-repeater : rs"
+],
+"T14": [
+"phono-repeater : ḳmꜣ"
+],
+"T15": [
+"older variant of 13319",
+"phonemogram : ṯḥn"
+],
+"T16": [
+"classifier curved blade, scimitar : ḫpš"
+],
+"T16A": [
+"classifier strong arm, power, strength : ḫpš"
+],
+"T17": [
+"logogram (chariot) : wrr.t"
+],
+"T18": [
+"logogram (follower, retainer) : šms.w"
+],
+"T19": [
+"classifier bone : ꜣbw"
+],
+"T20": [
+"older variant of 1331F",
+"classifier harpoon : ḳs"
+],
+"T21": [
+"logogram (one, sole) : wꜥ"
+],
+"T22": [
+"phonemogram : sn"
+],
+"T23": [
+"more recent variant of 13322",
+"phonemogram : sn"
+],
+"T24": [
+"classifier catching, netting : ꞽ.ꜥḥ"
+],
+"T25": [
+"phonemogram : ḏbꜣ"
+],
+"T26": [
+"classifier catching, netting : ꞽbṯ"
+],
+"T27": [
+"older variant of 13326",
+"classifier weaving, woven material : sḫt"
+],
+"T28": [
+"phonemogram : ẖr"
+],
+"T29": [
+"logogram (place of slaughter)"
+],
+"T30": [
+"classifier cutting, slaughter : ds"
+],
+"T31": [
+"phonemogram : sšm"
+],
+"T32": [
+"phonemogram : sšm"
+],
+"T32A": [
+"phonemogram : sšm"
+],
+"T33": [
+"older variant of 13326",
+"logogram (butcher) : sšm"
+],
+"T33A": [],
+"T34": [
+"classifier knife : nm"
+],
+"T35": [
+"variant of 13330",
+"logogram (knife) : nm"
+],
+"T36": [
+"classifier shield : ꞽkm"
+],
+"U1": [
+"phonemogram : mꜣ"
+],
+"U2": [
+"stylistic variant of 13333",
+"phonemogram : mꜣ"
+],
+"U3": [
+"phonemogram (in mꜣꜣ, to see) : mꜣ"
+],
+"U4": [
+"phonemogram : mꜣꜥ"
+],
+"U5": [
+"stylistic variant of 13336",
+"phonemogram : mꜣꜥ"
+],
+"U6": [
+"phonemogram : mr"
+],
+"U6A": [
+"stylistic variant of 13338"
+],
+"U6B": [
+"mirrored version of 13339"
+],
+"U7": [
+"variant of 13338",
+"phonemogram : mr"
+],
+"U8": [
+"variant of 1333B",
+"phonemogram : ḥn"
+],
+"U9": [
+"classifier grain/barley : sšr"
+],
+"U10": [
+"logogram (harvest, crop) : šm.w"
+],
+"U11": [
+"logogram (bushel (a corn measure, 10 hin)) : ḥḳꜣ.t"
+],
+"U12": [
+"logogram (bushel (a corn measure, 10 hin)) : ḥḳꜣ.t"
+],
+"U13": [
+"classifier plough/plowed material : skꜣ"
+],
+"U14": [
+"phono-repeater : šnꜥ"
+],
+"U15": [
+"phonemogram : tm"
+],
+"U16": [
+"phonemogram : bꞽꜣ"
+],
+"U17": [
+"phonemogram : grg"
+],
+"U18": [
+"variant of 13345",
+"logogram (to found, to establish, to hunt, to lay (a trap)) : grg"
+],
+"U19": [
+"phonemogram : nw"
+],
+"U20": [
+"older variant of 13347",
+"phonemogram : nw"
+],
+"U21": [
+"phonemogram : stp"
+],
+"U22": [
+"phono-repeater : mnḫ"
+],
+"U23": [
+"phonemogram : ꜣb/mr"
+],
+"U23A": [
+"stylistic variant of 1334B",
+"phonemogram : mr"
+],
+"U24": [
+"logogram (craftsman) : ḥmw.w"
+],
+"U25": [
+"older variant of 1334D",
+"logogram (craft) : ḥmw.t"
+],
+"U26": [
+"logogram (to open) : wbꜣ"
+],
+"U27": [
+"older variant of 1334F",
+"classifier to open : wbꜣ"
+],
+"U28": [
+"phonemogram : ḏꜣ"
+],
+"U29": [
+"older variant of 13351",
+"phonemogram : ḏꜣ"
+],
+"U29A": [
+"phonemogram : wḏꜣ"
+],
+"U30": [
+"phonemogram : tꜣ"
+],
+"U31": [
+"classifier to restrain : rtḥ"
+],
+"U32": [
+"logogram (to pound, to crush) : sḥm"
+],
+"U32A": [
+"phono-repeater : smn"
+],
+"U33": [
+"phonemogram : tꞽ"
+],
+"U34": [
+"phonemogram : ḫsf"
+],
+"U35": [
+"phonemogram : ḫsf"
+],
+"U36": [
+"phonemogram : ḥm"
+],
+"U37": [
+"logogram (razor) : mẖꜥḳ.t"
+],
+"U38": [
+"logogram (balance) : mḫꜣ.t"
+],
+"U39": [
+"classifier balance, scale : mḫꜣ.t"
+],
+"U40": [
+"cursive variant of 1335E",
+"phonemogram : rs"
+],
+"U41": [
+"classifier plummet : tḫ"
+],
+"U42": [
+"not to be confused with 1327D",
+"logogram (staff) : ms.t"
+],
+"V1": [
+"classifier 'cord, rope'",
+"not to be confused with 133F2",
+"logogram (100) : šn.t"
+],
+"V1A": [
+"200"
+],
+"V1B": [
+"300"
+],
+"V1C": [
+"400"
+],
+"V1D": [
+"500"
+],
+"V1E": [
+"600"
+],
+"V1F": [
+"700"
+],
+"V1G": [
+"800"
+],
+"V1H": [
+"900"
+],
+"V1I": [
+"500"
+],
+"V2": [
+"logogram (to drag, to pull, to draw) : sṯꜣ"
+],
+"V2A": [
+"phonemogram : stꜣ/sṯꜣ"
+],
+"V3": [
+"phonemogram : sṯꜣ.w"
+],
+"V4": [
+"phonemogram : wꜣ"
+],
+"V5": [
+"logogram (foundation) : snṯ"
+],
+"V6": [
+"phonemogram : šs"
+],
+"V7": [
+"phonemogram : šn"
+],
+"V7A": [
+"classifier cloth : ꞽꜣḳs"
+],
+"V7B": [
+"phonemogram : šn"
+],
+"V8": [
+"phonemogram : šn"
+],
+"V9": [
+"logogram (to surround, to encircle) : šnꞽ"
+],
+"V10": [
+"logogram (name) : rn"
+],
+"V11": [
+"classifier half, part, portion : psš"
+],
+"V11A": [
+"beginning of cartouche"
+],
+"V11B": [
+"end of cartouche"
+],
+"V11C": [
+"end of knotless cartouche"
+],
+"V12": [
+"classifier papyrus/book/document : šꜥ.t"
+],
+"V12A": [
+"phonemogram : dḳr"
+],
+"V12B": [
+"classifier papyrus/book/document : wḏ.w-nṯr.w"
+],
+"V13": [
+"transliterated as 1E6F",
+"phonemogram : ṯ"
+],
+"V14": [
+"variant of 1337F",
+"phonemogram : ṯ"
+],
+"V15": [
+"phonemogram : ꞽṯ(ꞽ)"
+],
+"V16": [
+"phonemogram : sꜣ"
+],
+"V17": [
+"logogram (protection) : sꜣ"
+],
+"V18": [
+"older variant of 13383",
+"logogram (protection) : sꜣ"
+],
+"V19": [
+"logogram (stable) : mḏ.t"
+],
+"V20": [
+"not to be confused with 133AD",
+"logogram (10) : mḏ"
+],
+"V20A": [
+"not to be confused with 133AE",
+"20"
+],
+"V20B": [
+"30"
+],
+"V20C": [
+"40"
+],
+"V20D": [
+"50"
+],
+"V20E": [
+"60"
+],
+"V20F": [
+"70"
+],
+"V20G": [
+"80"
+],
+"V20H": [
+"90"
+],
+"V20I": [
+"variant of 13387",
+"20"
+],
+"V20J": [
+"variant of 13388",
+"30"
+],
+"V20K": [
+"variant of 13389",
+"40"
+],
+"V20L": [
+"variant of 1338A",
+"50"
+],
+"V21": [
+"logogram (stable) : mḏ.t"
+],
+"V22": [
+"phonemogram : mḥ"
+],
+"V23": [
+"older variant of 13394",
+"phonemogram : mḥ"
+],
+"V23A": [
+"phonemogram : mḥ"
+],
+"V24": [
+"phonemogram : wḏ > wd"
+],
+"V25": [
+"more recent variant of 13397",
+"phonemogram : wḏ > wd"
+],
+"V26": [
+"phonemogram : ꜥnḏ"
+],
+"V27": [
+"older variant of 13399",
+"phonemogram : ꜥnḏ"
+],
+"V28": [
+"transliterated as 1E25",
+"phonemogram : ḥ"
+],
+"V28A": [
+"phonemogram : ḥꜥ"
+],
+"V29": [
+"phonemogram : wꜣḥ"
+],
+"V29A": [
+"phonemogram : sk"
+],
+"V30": [
+"phonemogram : nb"
+],
+"V30A": [
+"stylistic variant, use of 1339F is preferred"
+],
+"V31": [
+"phonemogram : k"
+],
+"V31A": [
+"from hieratic",
+"phonemogram : k"
+],
+"V32": [
+"phonemogram : msn"
+],
+"V33": [
+"classifier linen : sšr"
+],
+"V33A": [
+"classifier sack, bundle : ḳꜣr"
+],
+"V34": [
+"more recent variant of 133A4",
+"classifier (perfume) : st"
+],
+"V35": [
+"logogram (linen) : sšr"
+],
+"V36": [
+"phonemogram : ḥn"
+],
+"V37": [
+"phono-repeater : ꞽdr"
+],
+"V37A": [
+"phonemogram : ꞽd"
+],
+"V38": [
+"not to be confused with 1308B",
+"classifier to bandage, to wrap : wt"
+],
+"V39": [
+"logogram (Tit-amulet) : tꞽ.t"
+],
+"V40": [
+"not to be confused with 13386",
+"10"
+],
+"V40A": [
+"not to be confused with 13387",
+"20"
+],
+"W1": [
+"classifier oil, unguent : mrḥ.t"
+],
+"W2": [
+"phonemogram : bꜣs"
+],
+"W3": [
+"logogram (festival) : ḥ(ꜣ)b"
+],
+"W3A": [
+"stylistic variant, use of 133B1 is preferred"
+],
+"W4": [
+"logogram (festival) : h(ꜣ)b"
+],
+"W5": [
+"logogram (lector priest) : ẖr.y-ḥ(ꜣ)b.t"
+],
+"W6": [
+"classifier cauldron : ḥw.t"
+],
+"W7": [
+"classifier granite : mꜣṯ"
+],
+"W8": [
+"phono-repeater : ꜣb"
+],
+"W9": [
+"phonemogram : ẖnm"
+],
+"W9A": [
+"mirrored version of 133B8"
+],
+"W10": [
+"phonemogram : ꜥ"
+],
+"W10A": [
+"phonemogram : bꜣ"
+],
+"W11": [
+"phonemogram : g"
+],
+"W12": [
+"older variant of 133BC",
+"phonemogram : g"
+],
+"W13": [
+"classifier red (earthenware) vessel : dšr.t"
+],
+"W14": [
+"phonemogram : ḥs"
+],
+"W14A": [],
+"W15": [
+"logogram (to be cool, to cool) : ḳbḥ"
+],
+"W16": [
+"classifier libation water : ḳbḥ"
+],
+"W17": [
+"phonemogram : ḫnt"
+],
+"W17A": [
+"cursive variant of 133C3",
+"phonemogram : ḫnt"
+],
+"W18": [
+"older variant of 133C3",
+"phonemogram : ḫnt"
+],
+"W18A": [
+"cursive variant of 133C5"
+],
+"W19": [
+"phonemogram : mꞽ"
+],
+"W20": [
+"classifier milk : ꞽrṯ.t"
+],
+"W21": [
+"classifier wine : ꞽrp"
+],
+"W22": [
+"logogram (beer) : ḥnḳ.t"
+],
+"W23": [
+"logogram (beer) : ḥnḳ.t"
+],
+"W24": [
+"phonemogram : nw"
+],
+"W24A": [
+"monogram 'nw(n)' or 'nww'"
+],
+"W25": [
+"phonemogram : ꞽn(ꞽ)"
+],
+"X1": [
+"phonemogram : t"
+],
+"X2": [
+"logogram (bread) : t"
+],
+"X3": [
+"variant of 133D0",
+"classifier bread/food"
+],
+"X4": [
+"classifier Festival"
+],
+"X4A": [
+"variant of 133D2",
+"phonemogram : t"
+],
+"X4B": [
+"variant of 133D2",
+"not to be confused with 13200, 132F0, or 133F3",
+"classifier bread, Festival; Phonemogram t; Logogram t (bread); Phono-repeater: sn, fḳꜣ : t | sn, fḳꜣ"
+],
+"X5": [
+"hieratic",
+"variant of 133D4",
+"phono-repeater : sn"
+],
+"X6": [
+"classifier offering, cake, loaf : t-ꜣsr"
+],
+"X6A": [],
+"X7": [
+"not to be confused with 1320E",
+"classifier food : gs"
+],
+"X8": [
+"phonemogram : ḏꞽ > dꞽ"
+],
+"X8A": [
+"variant of 133D9",
+"not to be confused with 131EE",
+"classifier bread : t-ḥḏ"
+],
+"Y1": [
+"classifier abstract words : sspd.w"
+],
+"Y1A": [
+"rotated variant of 133DB",
+"logogram (papyrus scroll, book) : mḏꜣ.t"
+],
+"Y2": [
+"older variant of 133DB",
+"classifier writing, things written : mdw"
+],
+"Y3": [
+"logogram (scribe) : sš"
+],
+"Y4": [
+"mirrored version of 133DE",
+"logogram (scribe) : sš"
+],
+"Y5": [
+"phonemogram : mn"
+],
+"Y6": [
+"classifier game, gamepiece : sn.t"
+],
+"Y7": [
+"classifier harp : bn.t"
+],
+"Y8": [
+"classifier sistrum : sḫm"
+],
+"Z1": [
+"not to be confused with 133FA",
+"classifier semogram"
+],
+"Z2": [
+"not to be confused with 133FC",
+"classifier plural"
+],
+"Z2A": [
+"stylistic variant of 133E5"
+],
+"Z2B": [
+"not to be confused with 13213"
+],
+"Z2C": [
+"variant of 133E6",
+"classifier plural"
+],
+"Z2D": [
+"variant of 133E8",
+"classifier plural"
+],
+"Z3": [
+"variant of 133E5",
+"classifier plural"
+],
+"Z3A": [
+"variant of 133EA",
+"classifier plural"
+],
+"Z3B": [
+"variant of 133E7"
+],
+"Z4": [
+"classifier 'dual'",
+"phonemogram : y"
+],
+"Z4A": [
+"variant of 133ED",
+"classifier 'dual'",
+"transliterated as y",
+"not to be confused with 133FB",
+"logogram (2) : sn.w"
+],
+"Z5": [
+"substitute for dangerous signs"
+],
+"Z5A": [
+"variant of 133EF",
+"classifier divinity (replacing G7)"
+],
+"Z6": [
+"classifier death : ḫp.t"
+],
+"Z7": [
+"not to be confused with 13362",
+"phonemogram : w"
+],
+"Z8": [
+"not to be confused with 13200, 132F0, or 133D4",
+"classifier round, oval : šn(.w)"
+],
+"Z9": [
+"classifier divide : psš"
+],
+"Z10": [
+"older variant of 133F4",
+"classifier break : ḥbs"
+],
+"Z11": [
+"phonemogram : ꞽm"
+],
+"Z12": [
+"hieratic",
+"phonemogram : ḥw"
+],
+"Z13": [
+"circle, unmarked round sign",
+"not to be confused with 13082 or 131F3"
+],
+"Z14": [
+"hieratic",
+"classifier semogram"
+],
+"Z15": [
+"not to be confused with 133E4",
+"logogram (one, sole) : wꜥ"
+],
+"Z15A": [
+"not to be confused with 133EE",
+"logogram (two) : sn.w"
+],
+"Z15B": [
+"not to be confused with 133E5",
+"logogram (three) : ḫmt"
+],
+"Z15C": [
+"logogram (four) : fd(.w)"
+],
+"Z15D": [
+"logogram (five) : dꞽw"
+],
+"Z15E": [
+"logogram (six) : sꞽs"
+],
+"Z15F": [
+"logogram (seven) : sfḫ"
+],
+"Z15G": [
+"logogram (eight) : ḫmn"
+],
+"Z15H": [
+"logogram (nine) : psḏ"
+],
+"Z15I": [
+"logogram (five) : dꞽw"
+],
+"Z16": [
+"logogram (one, sole) : wꜥ"
+],
+"Z16A": [
+"logogram (two) : sn.w"
+],
+"Z16B": [
+"logogram (three) : ḫmt"
+],
+"Z16C": [
+"logogram (four) : fd(.w)"
+],
+"Z16D": [
+"logogram (five) : dꞽw"
+],
+"Z16E": [
+"logogram (six) : sꞽs"
+],
+"Z16F": [
+"logogram (seven) : sfḫ"
+],
+"Z16G": [
+"logogram ḫmn (eight)/Logogram ḫmnw (Hermopolis) : ḫmn & ḫmnw"
+],
+"Z16H": [
+"logogram (nine) : psḏ"
+],
+"Aa1": [
+"transliterated as 1E2B",
+"phonemogram : ḫ"
+],
+"Aa2": [
+"classifier bad/evil : nḥꜣ"
+],
+"Aa3": [
+"classifier efflux, smell (i.e., excrement) : ḥs"
+],
+"Aa4": [
+"phonemogram : bꜣ"
+],
+"Aa5": [
+"classifier oar : ḥpt"
+],
+"Aa6": [
+"phono-repeater : ṯmꜣ"
+],
+"Aa7": [
+"classifier to present : sḳ(r)"
+],
+"Aa7A": [
+"mirrored version of 13413",
+"classifier to present : sḳ(r)"
+],
+"Aa7B": [],
+"Aa8": [
+"logogram (nome, district) : spꜣ.t"
+],
+"Aa9": [
+"classifier suffering : wḫd"
+],
+"Aa10": [
+"classifier writing : drf"
+],
+"Aa11": [
+"phonemogram : mꜣꜥ"
+],
+"Aa12": [
+"older variant of 13419",
+"phonemogram : mꜣꜥ"
+],
+"Aa13": [
+"phonemogram : gs"
+],
+"Aa14": [
+"older variant of 1341B",
+"logogram (side, half) : gs"
+],
+"Aa15": [
+"phonemogram : m"
+],
+"Aa16": [
+"variant of 1341D",
+"logogram (side, half) : gs"
+],
+"Aa17": [
+"phonemogram : sꜣ"
+],
+"Aa18": [
+"more recent variant of 1341F",
+"phonemogram : s"
+],
+"Aa19": [
+"classifier shrine, chapel"
+],
+"Aa20": [
+"phonemogram : ꜥpr"
+],
+"Aa21": [
+"logogram (to judge, to separate) : wḏꜥ"
+],
+"Aa22": [
+"logogram (to judge, to separate) : wḏꜥ"
+],
+"Aa23": [
+"logogram (to press, to cling (to)) : mḏd"
+],
+"Aa24": [
+"older variant of 13425",
+"logogram (to press, to cling (to)) : mḏd"
+],
+"Aa25": [
+"phonemogram : smꜣ"
+],
+"Aa26": [
+"phonemogram : sbꞽ"
+],
+"Aa27": [
+"phonemogram : nḏ"
+],
+"Aa28": [
+"not to be confused with 131E9 and 132A7",
+"phonemogram : ḳd"
+],
+"Aa29": [
+"older variant of 1342A",
+"phonemogram : ḳd"
+],
+"Aa30": [
+"logogram (ornament) : ẖkr"
+],
+"Aa31": [
+"older variant of 1342C",
+"logogram (ornament) : ẖkr"
+],
+"Aa32": [
+"logogram (Nubia) : sty"
+],
+"V11D": [
+"knotted beginning of cartouche",
+"not to be confused with 13378"
+]
+}
+}
