@@ -36,7 +36,7 @@ export const useProjectStore = defineStore('project', () => {
     if (!p) return false
     imageBlob.value = (await db.loadImage(id)) ?? null
     project.value = p
-    history.clear()
+    history.clear('project')
     saveState.value = 'saved'
     return true
   }
@@ -45,12 +45,17 @@ export const useProjectStore = defineStore('project', () => {
     await flush()
     project.value = null
     imageBlob.value = null
-    history.clear()
+    history.clear('project')
   }
 
-  function snapshot(): string {
-    return JSON.stringify(project.value)
-  }
+  // La stèle ouverte est un « domaine » de l'historique annuler/rétablir.
+  history.register('project', {
+    snapshot: () => JSON.stringify(project.value),
+    restore: (text) => {
+      project.value = JSON.parse(text)
+      scheduleSave()
+    },
+  })
 
   /**
    * Modifie le projet de façon annulable.
@@ -60,33 +65,20 @@ export const useProjectStore = defineStore('project', () => {
    */
   function mutate(label: string, fn: (p: Project) => void, key?: string) {
     if (!project.value) return
-    history.record(label, snapshot, key)
+    history.record('project', label, key)
     fn(project.value)
     project.value.updatedAt = Date.now()
     scheduleSave()
   }
 
-  function restore(text: string) {
-    project.value = JSON.parse(text)
-    scheduleSave()
-  }
-
   function undo() {
-    if (!project.value) return
-    const r = history.undo(snapshot())
-    if (r) {
-      restore(r.snapshot)
-      useUiStore().notify(`Annulé : ${r.label}`)
-    }
+    const label = history.undo()
+    if (label) useUiStore().notify(`Annulé : ${label}`)
   }
 
   function redo() {
-    if (!project.value) return
-    const r = history.redo(snapshot())
-    if (r) {
-      restore(r.snapshot)
-      useUiStore().notify(`Rétabli : ${r.label}`)
-    }
+    const label = history.redo()
+    if (label) useUiStore().notify(`Rétabli : ${label}`)
   }
 
   function scheduleSave() {

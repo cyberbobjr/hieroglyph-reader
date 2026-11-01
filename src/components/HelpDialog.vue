@@ -27,6 +27,12 @@ onMounted(() => dialog.value?.showModal())
       <li>Ligne sélectionnée : glissez sa pastille <b>✥</b> pour la déplacer, ses carrés jaunes pour la déformer (Tab puis flèches au clavier)</li>
       <li>Les nouvelles lignes reçoivent le sens par défaut choisi dans le panneau ; une forme haute et étroite devient une colonne</li>
     </ul>
+    <h3>Bibliothèque de signes</h3>
+    <ul>
+      <li><kbd>/</kbd> rechercher : code (<code>G17</code>), valeur (<code>m</code>, <code>nfr</code>, MdC <code>Htp</code> = ḥtp), ou mot (<code>chouette</code>)</li>
+      <li><kbd>↓</kbd> depuis la recherche pour parcourir les résultats, <kbd>Entrée</kbd> ouvre la fiche, <kbd>Échap</kbd> revient à la recherche</li>
+      <li>Les valeurs de départ sont <b>à vérifier</b> avec la liste de Gardiner ; marquez « vérifié » ce que vous avez contrôlé</li>
+    </ul>
     <h3>Correction de perspective</h3>
     <p>Placez les 4 poignées sur les coins de la stèle (Tab puis flèches pour les ajuster finement), puis « Appliquer ». L'image est redressée en rectangle. Faites-le <b>avant</b> de tracer les lignes.</p>
     <ul>
@@ -60,7 +66,8 @@ ul {
   display: grid;
   gap: 0.25rem;
 }
-kbd {
+kbd,
+code {
   border: 1px solid var(--border);
   border-bottom-width: 2px;
   border-radius: 4px;

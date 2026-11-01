@@ -102,3 +102,11 @@ export async function saveCustomSign(s: Sign) {
 export async function deleteCustomSign(code: string) {
   await (await getDb()).delete('signs', code)
 }
+/** Remplace toute la bibliothèque personnelle (utilisé par annuler/rétablir). */
+export async function replaceCustomSigns(list: Sign[]) {
+  const db = await getDb()
+  const tx = db.transaction('signs', 'readwrite')
+  await tx.store.clear()
+  for (const s of list) await tx.store.put(JSON.parse(JSON.stringify(s)))
+  await tx.done
+}

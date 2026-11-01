@@ -1,0 +1,1546 @@
+{
+ "avertissement": "Données de départ INDICATIVES, préparées sans relecture par un spécialiste. Toutes les valeurs (translittération, type, description) sont à vérifier avec la liste de Gardiner (Egyptian Grammar, 3e éd., 1957).",
+ "signs": [
+  {
+   "gardiner": "G1",
+   "unicode": "𓄿",
+   "translit": [
+    "ꜣ"
+   ],
+   "kind": [
+    "uniliteral"
+   ],
+   "descriptionFr": "vautour percnoptère",
+   "category": "G",
+   "verified": false
+  },
+  {
+   "gardiner": "M17",
+   "unicode": "𓇋",
+   "translit": [
+    "j"
+   ],
+   "kind": [
+    "uniliteral"
+   ],
+   "descriptionFr": "roseau fleuri (feuille de roseau)",
+   "category": "M",
+   "verified": false
+  },
+  {
+   "gardiner": "M17A",
+   "unicode": "𓇌",
+   "translit": [
+    "y"
+   ],
+   "kind": [
+    "uniliteral"
+   ],
+   "descriptionFr": "deux roseaux fleuris",
+   "category": "M",
+   "verified": false
+  },
+  {
+   "gardiner": "Z4",
+   "unicode": "𓏭",
+   "translit": [
+    "y"
+   ],
+   "kind": [
+    "uniliteral"
+   ],
+   "descriptionFr": "deux traits obliques (forme hiératique du double roseau)",
+   "category": "Z",
+   "verified": false
+  },
+  {
+   "gardiner": "D36",
+   "unicode": "𓂝",
+   "translit": [
+    "ꜥ"
+   ],
+   "kind": [
+    "uniliteral"
+   ],
+   "descriptionFr": "avant-bras, paume vers le haut",
+   "category": "D",
+   "verified": false
+  },
+  {
+   "gardiner": "G43",
+   "unicode": "𓅱",
+   "translit": [
+    "w"
+   ],
+   "kind": [
+    "uniliteral"
+   ],
+   "descriptionFr": "poussin de caille",
+   "category": "G",
+   "verified": false
+  },
+  {
+   "gardiner": "Z7",
+   "unicode": "𓏲",
+   "translit": [
+    "w"
+   ],
+   "kind": [
+    "uniliteral"
+   ],
+   "descriptionFr": "spirale (forme hiératique du poussin de caille)",
+   "category": "Z",
+   "verified": false
+  },
+  {
+   "gardiner": "D58",
+   "unicode": "𓃀",
+   "translit": [
+    "b"
+   ],
+   "kind": [
+    "uniliteral"
+   ],
+   "descriptionFr": "pied (jambe et pied)",
+   "category": "D",
+   "verified": false
+  },
+  {
+   "gardiner": "Q3",
+   "unicode": "𓊪",
+   "translit": [
+    "p"
+   ],
+   "kind": [
+    "uniliteral"
+   ],
+   "descriptionFr": "tabouret ou natte de roseaux",
+   "category": "Q",
+   "verified": false
+  },
+  {
+   "gardiner": "I9",
+   "unicode": "𓆑",
+   "translit": [
+    "f"
+   ],
+   "kind": [
+    "uniliteral"
+   ],
+   "descriptionFr": "vipère à cornes (céraste)",
+   "category": "I",
+   "verified": false
+  },
+  {
+   "gardiner": "G17",
+   "unicode": "𓅓",
+   "translit": [
+    "m"
+   ],
+   "kind": [
+    "uniliteral"
+   ],
+   "descriptionFr": "chouette (hibou)",
+   "category": "G",
+   "verified": false
+  },
+  {
+   "gardiner": "N35",
+   "unicode": "𓈖",
+   "translit": [
+    "n"
+   ],
+   "kind": [
+    "uniliteral"
+   ],
+   "descriptionFr": "filet d'eau (ondulation)",
+   "category": "N",
+   "verified": false
+  },
+  {
+   "gardiner": "S3",
+   "unicode": "𓋔",
+   "translit": [
+    "n"
+   ],
+   "kind": [
+    "uniliteral",
+    "ideogram"
+   ],
+   "descriptionFr": "couronne rouge de Basse-Égypte",
+   "category": "S",
+   "verified": false
+  },
+  {
+   "gardiner": "D21",
+   "unicode": "𓂋",
+   "translit": [
+    "r"
+   ],
+   "kind": [
+    "uniliteral"
+   ],
+   "descriptionFr": "bouche",
+   "category": "D",
+   "verified": false
+  },
+  {
+   "gardiner": "O4",
+   "unicode": "𓉔",
+   "translit": [
+    "h"
+   ],
+   "kind": [
+    "uniliteral"
+   ],
+   "descriptionFr": "abri de roseaux (cour)",
+   "category": "O",
+   "verified": false
+  },
+  {
+   "gardiner": "V28",
+   "unicode": "𓎛",
+   "translit": [
+    "ḥ"
+   ],
+   "kind": [
+    "uniliteral"
+   ],
+   "descriptionFr": "mèche de lin tressée",
+   "category": "V",
+   "verified": false
+  },
+  {
+   "gardiner": "Aa1",
+   "unicode": "𓐍",
+   "translit": [
+    "ḫ"
+   ],
+   "kind": [
+    "uniliteral"
+   ],
+   "descriptionFr": "placenta (ou crible), disque hachuré",
+   "category": "Aa",
+   "verified": false
+  },
+  {
+   "gardiner": "F32",
+   "unicode": "𓄡",
+   "translit": [
+    "ẖ"
+   ],
+   "kind": [
+    "uniliteral"
+   ],
+   "descriptionFr": "ventre et mamelles d'animal, avec la queue",
+   "category": "F",
+   "verified": false
+  },
+  {
+   "gardiner": "O34",
+   "unicode": "𓊃",
+   "translit": [
+    "z"
+   ],
+   "kind": [
+    "uniliteral"
+   ],
+   "descriptionFr": "verrou de porte",
+   "category": "O",
+   "verified": false
+  },
+  {
+   "gardiner": "S29",
+   "unicode": "𓋴",
+   "translit": [
+    "s"
+   ],
+   "kind": [
+    "uniliteral"
+   ],
+   "descriptionFr": "étoffe pliée",
+   "category": "S",
+   "verified": false
+  },
+  {
+   "gardiner": "N37",
+   "unicode": "𓈙",
+   "translit": [
+    "š"
+   ],
+   "kind": [
+    "uniliteral"
+   ],
+   "descriptionFr": "bassin rempli d'eau",
+   "category": "N",
+   "verified": false
+  },
+  {
+   "gardiner": "N29",
+   "unicode": "𓈎",
+   "translit": [
+    "q"
+   ],
+   "kind": [
+    "uniliteral"
+   ],
+   "descriptionFr": "pente de colline sableuse",
+   "category": "N",
+   "verified": false
+  },
+  {
+   "gardiner": "V31",
+   "unicode": "𓎡",
+   "translit": [
+    "k"
+   ],
+   "kind": [
+    "uniliteral"
+   ],
+   "descriptionFr": "corbeille à anse",
+   "category": "V",
+   "verified": false
+  },
+  {
+   "gardiner": "W11",
+   "unicode": "𓎼",
+   "translit": [
+    "g"
+   ],
+   "kind": [
+    "uniliteral"
+   ],
+   "descriptionFr": "support de jarre",
+   "category": "W",
+   "verified": false
+  },
+  {
+   "gardiner": "X1",
+   "unicode": "𓏏",
+   "translit": [
+    "t"
+   ],
+   "kind": [
+    "uniliteral"
+   ],
+   "descriptionFr": "petit pain",
+   "category": "X",
+   "verified": false
+  },
+  {
+   "gardiner": "V13",
+   "unicode": "𓍿",
+   "translit": [
+    "ṯ"
+   ],
+   "kind": [
+    "uniliteral"
+   ],
+   "descriptionFr": "entrave (corde pour attacher le bétail)",
+   "category": "V",
+   "verified": false
+  },
+  {
+   "gardiner": "D46",
+   "unicode": "𓂧",
+   "translit": [
+    "d"
+   ],
+   "kind": [
+    "uniliteral"
+   ],
+   "descriptionFr": "main",
+   "category": "D",
+   "verified": false
+  },
+  {
+   "gardiner": "I10",
+   "unicode": "𓆓",
+   "translit": [
+    "ḏ"
+   ],
+   "kind": [
+    "uniliteral"
+   ],
+   "descriptionFr": "cobra dressé",
+   "category": "I",
+   "verified": false
+  },
+  {
+   "gardiner": "D4",
+   "unicode": "𓁹",
+   "translit": [
+    "jr"
+   ],
+   "kind": [
+    "biliteral",
+    "ideogram"
+   ],
+   "descriptionFr": "œil ; idéogramme « œil », bilitère jr (« faire »)",
+   "category": "D",
+   "verified": false
+  },
+  {
+   "gardiner": "D28",
+   "unicode": "𓂓",
+   "translit": [
+    "kꜣ"
+   ],
+   "kind": [
+    "biliteral",
+    "ideogram"
+   ],
+   "descriptionFr": "deux bras levés : le ka",
+   "category": "D",
+   "verified": false
+  },
+  {
+   "gardiner": "D35",
+   "unicode": "𓂜",
+   "translit": [
+    "n"
+   ],
+   "kind": [
+    "uniliteral"
+   ],
+   "descriptionFr": "deux bras tendus en geste de négation",
+   "category": "D",
+   "verified": false
+  },
+  {
+   "gardiner": "E23",
+   "unicode": "𓃭",
+   "translit": [
+    "rw"
+   ],
+   "kind": [
+    "biliteral"
+   ],
+   "descriptionFr": "lion couché",
+   "category": "E",
+   "verified": false
+  },
+  {
+   "gardiner": "E34",
+   "unicode": "𓃹",
+   "translit": [
+    "wn"
+   ],
+   "kind": [
+    "biliteral"
+   ],
+   "descriptionFr": "lièvre",
+   "category": "E",
+   "verified": false
+  },
+  {
+   "gardiner": "F31",
+   "unicode": "𓄟",
+   "translit": [
+    "ms"
+   ],
+   "kind": [
+    "biliteral"
+   ],
+   "descriptionFr": "trois peaux de renard liées",
+   "category": "F",
+   "verified": false
+  },
+  {
+   "gardiner": "F36",
+   "unicode": "𓄥",
+   "translit": [
+    "smꜣ"
+   ],
+   "kind": [
+    "biliteral"
+   ],
+   "descriptionFr": "poumons et trachée",
+   "category": "F",
+   "verified": false
+  },
+  {
+   "gardiner": "G4",
+   "unicode": "𓅂",
+   "translit": [
+    "tjw"
+   ],
+   "kind": [
+    "biliteral"
+   ],
+   "descriptionFr": "buse",
+   "category": "G",
+   "verified": false
+  },
+  {
+   "gardiner": "G21",
+   "unicode": "𓅘",
+   "translit": [
+    "nḥ"
+   ],
+   "kind": [
+    "biliteral"
+   ],
+   "descriptionFr": "pintade",
+   "category": "G",
+   "verified": false
+  },
+  {
+   "gardiner": "G25",
+   "unicode": "𓅜",
+   "translit": [
+    "ꜣḫ"
+   ],
+   "kind": [
+    "biliteral"
+   ],
+   "descriptionFr": "ibis chevelu",
+   "category": "G",
+   "verified": false
+  },
+  {
+   "gardiner": "G36",
+   "unicode": "𓅨",
+   "translit": [
+    "wr"
+   ],
+   "kind": [
+    "biliteral"
+   ],
+   "descriptionFr": "hirondelle",
+   "category": "G",
+   "verified": false
+  },
+  {
+   "gardiner": "G39",
+   "unicode": "𓅭",
+   "translit": [
+    "zꜣ"
+   ],
+   "kind": [
+    "biliteral"
+   ],
+   "descriptionFr": "canard pilet (« fils »)",
+   "category": "G",
+   "verified": false
+  },
+  {
+   "gardiner": "G40",
+   "unicode": "𓅮",
+   "translit": [
+    "pꜣ"
+   ],
+   "kind": [
+    "biliteral"
+   ],
+   "descriptionFr": "canard pilet en vol",
+   "category": "G",
+   "verified": false
+  },
+  {
+   "gardiner": "G47",
+   "unicode": "𓅷",
+   "translit": [
+    "ṯꜣ"
+   ],
+   "kind": [
+    "biliteral"
+   ],
+   "descriptionFr": "caneton",
+   "category": "G",
+   "verified": false
+  },
+  {
+   "gardiner": "I6",
+   "unicode": "𓆎",
+   "translit": [
+    "km"
+   ],
+   "kind": [
+    "biliteral"
+   ],
+   "descriptionFr": "morceau de peau de crocodile",
+   "category": "I",
+   "verified": false
+  },
+  {
+   "gardiner": "K1",
+   "unicode": "𓆛",
+   "translit": [
+    "jn"
+   ],
+   "kind": [
+    "biliteral"
+   ],
+   "descriptionFr": "poisson bulti (tilapia)",
+   "category": "K",
+   "verified": false
+  },
+  {
+   "gardiner": "M8",
+   "unicode": "𓆷",
+   "translit": [
+    "šꜣ"
+   ],
+   "kind": [
+    "biliteral"
+   ],
+   "descriptionFr": "bassin avec fleurs de lotus",
+   "category": "M",
+   "verified": false
+  },
+  {
+   "gardiner": "M12",
+   "unicode": "𓆼",
+   "translit": [
+    "ḫꜣ"
+   ],
+   "kind": [
+    "biliteral",
+    "ideogram"
+   ],
+   "descriptionFr": "plante de lotus (aussi « mille »)",
+   "category": "M",
+   "verified": false
+  },
+  {
+   "gardiner": "M23",
+   "unicode": "𓇓",
+   "translit": [
+    "sw"
+   ],
+   "kind": [
+    "biliteral"
+   ],
+   "descriptionFr": "plante du Sud (jonc)",
+   "category": "M",
+   "verified": false
+  },
+  {
+   "gardiner": "N14",
+   "unicode": "𓇼",
+   "translit": [
+    "sbꜣ",
+    "dwꜣ"
+   ],
+   "kind": [
+    "biliteral",
+    "ideogram"
+   ],
+   "descriptionFr": "étoile",
+   "category": "N",
+   "verified": false
+  },
+  {
+   "gardiner": "N18",
+   "unicode": "𓈀",
+   "translit": [
+    "jw"
+   ],
+   "kind": [
+    "biliteral",
+    "ideogram"
+   ],
+   "descriptionFr": "île (bande de sable)",
+   "category": "N",
+   "verified": false
+  },
+  {
+   "gardiner": "O1",
+   "unicode": "𓉐",
+   "translit": [
+    "pr"
+   ],
+   "kind": [
+    "biliteral",
+    "ideogram"
+   ],
+   "descriptionFr": "plan de maison",
+   "category": "O",
+   "verified": false
+  },
+  {
+   "gardiner": "O29",
+   "unicode": "𓉻",
+   "translit": [
+    "ꜥꜣ"
+   ],
+   "kind": [
+    "biliteral"
+   ],
+   "descriptionFr": "colonne de bois (« grand »)",
+   "category": "O",
+   "verified": false
+  },
+  {
+   "gardiner": "O50",
+   "unicode": "𓊗",
+   "translit": [
+    "sp"
+   ],
+   "kind": [
+    "biliteral"
+   ],
+   "descriptionFr": "aire de battage",
+   "category": "O",
+   "verified": false
+  },
+  {
+   "gardiner": "Q1",
+   "unicode": "𓊨",
+   "translit": [
+    "st",
+    "ws"
+   ],
+   "kind": [
+    "biliteral",
+    "ideogram"
+   ],
+   "descriptionFr": "siège (trône)",
+   "category": "Q",
+   "verified": false
+  },
+  {
+   "gardiner": "U1",
+   "unicode": "𓌳",
+   "translit": [
+    "mꜣ"
+   ],
+   "kind": [
+    "biliteral"
+   ],
+   "descriptionFr": "faucille",
+   "category": "U",
+   "verified": false
+  },
+  {
+   "gardiner": "U7",
+   "unicode": "𓌻",
+   "translit": [
+    "mr"
+   ],
+   "kind": [
+    "biliteral"
+   ],
+   "descriptionFr": "houe",
+   "category": "U",
+   "verified": false
+  },
+  {
+   "gardiner": "U33",
+   "unicode": "𓍘",
+   "translit": [
+    "tj"
+   ],
+   "kind": [
+    "biliteral"
+   ],
+   "descriptionFr": "pilon",
+   "category": "U",
+   "verified": false
+  },
+  {
+   "gardiner": "U36",
+   "unicode": "𓍛",
+   "translit": [
+    "ḥm"
+   ],
+   "kind": [
+    "biliteral"
+   ],
+   "descriptionFr": "massue de foulon",
+   "category": "U",
+   "verified": false
+  },
+  {
+   "gardiner": "V4",
+   "unicode": "𓍯",
+   "translit": [
+    "wꜣ"
+   ],
+   "kind": [
+    "biliteral"
+   ],
+   "descriptionFr": "lasso",
+   "category": "V",
+   "verified": false
+  },
+  {
+   "gardiner": "V30",
+   "unicode": "𓎟",
+   "translit": [
+    "nb"
+   ],
+   "kind": [
+    "biliteral"
+   ],
+   "descriptionFr": "corbeille (« seigneur », « tout »)",
+   "category": "V",
+   "verified": false
+  },
+  {
+   "gardiner": "W19",
+   "unicode": "𓏇",
+   "translit": [
+    "mj"
+   ],
+   "kind": [
+    "biliteral"
+   ],
+   "descriptionFr": "cruche à lait dans un filet",
+   "category": "W",
+   "verified": false
+  },
+  {
+   "gardiner": "W24",
+   "unicode": "𓏌",
+   "translit": [
+    "nw"
+   ],
+   "kind": [
+    "biliteral"
+   ],
+   "descriptionFr": "pot globulaire",
+   "category": "W",
+   "verified": false
+  },
+  {
+   "gardiner": "W25",
+   "unicode": "𓏎",
+   "translit": [
+    "jn"
+   ],
+   "kind": [
+    "biliteral"
+   ],
+   "descriptionFr": "pot à jambes (« apporter »)",
+   "category": "W",
+   "verified": false
+  },
+  {
+   "gardiner": "X8",
+   "unicode": "𓏙",
+   "translit": [
+    "dj",
+    "rdj"
+   ],
+   "kind": [
+    "biliteral"
+   ],
+   "descriptionFr": "pain conique (« donner »)",
+   "category": "X",
+   "verified": false
+  },
+  {
+   "gardiner": "Y5",
+   "unicode": "𓏠",
+   "translit": [
+    "mn"
+   ],
+   "kind": [
+    "biliteral"
+   ],
+   "descriptionFr": "damier de jeu (senet)",
+   "category": "Y",
+   "verified": false
+  },
+  {
+   "gardiner": "Aa11",
+   "unicode": "𓐙",
+   "translit": [
+    "mꜣꜥ"
+   ],
+   "kind": [
+    "triliteral"
+   ],
+   "descriptionFr": "socle (« juste, vrai »)",
+   "category": "Aa",
+   "verified": false
+  },
+  {
+   "gardiner": "D1",
+   "unicode": "𓁶",
+   "translit": [
+    "tp"
+   ],
+   "kind": [
+    "ideogram",
+    "biliteral"
+   ],
+   "descriptionFr": "tête de profil",
+   "category": "D",
+   "verified": false
+  },
+  {
+   "gardiner": "D2",
+   "unicode": "𓁷",
+   "translit": [
+    "ḥr"
+   ],
+   "kind": [
+    "ideogram",
+    "biliteral"
+   ],
+   "descriptionFr": "visage de face",
+   "category": "D",
+   "verified": false
+  },
+  {
+   "gardiner": "D37",
+   "unicode": "𓂞",
+   "translit": [
+    "dj",
+    "rdj"
+   ],
+   "kind": [
+    "biliteral"
+   ],
+   "descriptionFr": "bras tendant un pain conique (« donner »)",
+   "category": "D",
+   "verified": false
+  },
+  {
+   "gardiner": "F4",
+   "unicode": "𓄂",
+   "translit": [
+    "ḥꜣt"
+   ],
+   "kind": [
+    "ideogram"
+   ],
+   "descriptionFr": "avant-train de lion (« devant, début »)",
+   "category": "F",
+   "verified": false
+  },
+  {
+   "gardiner": "F12",
+   "unicode": "𓄊",
+   "translit": [
+    "wsr"
+   ],
+   "kind": [
+    "triliteral"
+   ],
+   "descriptionFr": "tête et cou de canidé (« puissant »)",
+   "category": "F",
+   "verified": false
+  },
+  {
+   "gardiner": "F13",
+   "unicode": "𓄋",
+   "translit": [
+    "wp"
+   ],
+   "kind": [
+    "biliteral"
+   ],
+   "descriptionFr": "cornes de bovin (« ouvrir »)",
+   "category": "F",
+   "verified": false
+  },
+  {
+   "gardiner": "N1",
+   "unicode": "𓇯",
+   "translit": [
+    "pt"
+   ],
+   "kind": [
+    "ideogram",
+    "determinative"
+   ],
+   "descriptionFr": "ciel ; déterminatif du ciel et de ce qui est en haut",
+   "category": "N",
+   "verified": false
+  },
+  {
+   "gardiner": "N5",
+   "unicode": "𓇳",
+   "translit": [
+    "rꜥ"
+   ],
+   "kind": [
+    "ideogram",
+    "determinative"
+   ],
+   "descriptionFr": "soleil ; déterminatif du temps et de la lumière",
+   "category": "N",
+   "verified": false
+  },
+  {
+   "gardiner": "N16",
+   "unicode": "𓇾",
+   "translit": [
+    "tꜣ"
+   ],
+   "kind": [
+    "ideogram",
+    "biliteral"
+   ],
+   "descriptionFr": "terre plate avec grains de sable",
+   "category": "N",
+   "verified": false
+  },
+  {
+   "gardiner": "N26",
+   "unicode": "𓈋",
+   "translit": [
+    "ḏw"
+   ],
+   "kind": [
+    "ideogram",
+    "biliteral"
+   ],
+   "descriptionFr": "montagne",
+   "category": "N",
+   "verified": false
+  },
+  {
+   "gardiner": "N35A",
+   "unicode": "𓈗",
+   "translit": [
+    "mw"
+   ],
+   "kind": [
+    "ideogram",
+    "biliteral",
+    "determinative"
+   ],
+   "descriptionFr": "trois filets d'eau ; « eau », déterminatif des liquides",
+   "category": "N",
+   "verified": false
+  },
+  {
+   "gardiner": "O28",
+   "unicode": "𓉺",
+   "translit": [
+    "jwn"
+   ],
+   "kind": [
+    "triliteral"
+   ],
+   "descriptionFr": "colonne",
+   "category": "O",
+   "verified": false
+  },
+  {
+   "gardiner": "P8",
+   "unicode": "𓊤",
+   "translit": [
+    "ḫrw"
+   ],
+   "kind": [
+    "determinative",
+    "triliteral"
+   ],
+   "descriptionFr": "rame (« voix », dans mꜣꜥ-ḫrw « juste de voix »)",
+   "category": "P",
+   "verified": false
+  },
+  {
+   "gardiner": "V7",
+   "unicode": "𓍲",
+   "translit": [
+    "šn"
+   ],
+   "kind": [
+    "biliteral"
+   ],
+   "descriptionFr": "corde enroulée",
+   "category": "V",
+   "verified": false
+  },
+  {
+   "gardiner": "H6",
+   "unicode": "𓆄",
+   "translit": [
+    "mꜣꜥt",
+    "šw"
+   ],
+   "kind": [
+    "ideogram",
+    "biliteral"
+   ],
+   "descriptionFr": "plume (Maât)",
+   "category": "H",
+   "verified": false
+  },
+  {
+   "gardiner": "G14",
+   "unicode": "𓅐",
+   "translit": [
+    "mwt",
+    "nr"
+   ],
+   "kind": [
+    "ideogram",
+    "biliteral"
+   ],
+   "descriptionFr": "vautour (« mère »)",
+   "category": "G",
+   "verified": false
+  },
+  {
+   "gardiner": "G5",
+   "unicode": "𓅃",
+   "translit": [
+    "ḥr"
+   ],
+   "kind": [
+    "ideogram"
+   ],
+   "descriptionFr": "faucon : le dieu Horus",
+   "category": "G",
+   "verified": false
+  },
+  {
+   "gardiner": "S34",
+   "unicode": "𓋹",
+   "translit": [
+    "ꜥnḫ"
+   ],
+   "kind": [
+    "triliteral",
+    "ideogram"
+   ],
+   "descriptionFr": "croix ansée : « vie »",
+   "category": "S",
+   "verified": false
+  },
+  {
+   "gardiner": "F35",
+   "unicode": "𓄤",
+   "translit": [
+    "nfr"
+   ],
+   "kind": [
+    "triliteral"
+   ],
+   "descriptionFr": "cœur et trachée (« bon, beau »)",
+   "category": "F",
+   "verified": false
+  },
+  {
+   "gardiner": "R4",
+   "unicode": "𓊵",
+   "translit": [
+    "ḥtp"
+   ],
+   "kind": [
+    "triliteral",
+    "ideogram"
+   ],
+   "descriptionFr": "pain sur une natte d'offrande (« offrande, être satisfait »)",
+   "category": "R",
+   "verified": false
+  },
+  {
+   "gardiner": "R8",
+   "unicode": "𓊹",
+   "translit": [
+    "nṯr"
+   ],
+   "kind": [
+    "triliteral",
+    "ideogram"
+   ],
+   "descriptionFr": "étoffe sur une hampe : « dieu »",
+   "category": "R",
+   "verified": false
+  },
+  {
+   "gardiner": "R11",
+   "unicode": "𓊽",
+   "translit": [
+    "ḏd"
+   ],
+   "kind": [
+    "biliteral",
+    "ideogram"
+   ],
+   "descriptionFr": "pilier djed (« stabilité »)",
+   "category": "R",
+   "verified": false
+  },
+  {
+   "gardiner": "S38",
+   "unicode": "𓋾",
+   "translit": [
+    "ḥqꜣ"
+   ],
+   "kind": [
+    "triliteral",
+    "ideogram"
+   ],
+   "descriptionFr": "sceptre-crosse (« gouverner »)",
+   "category": "S",
+   "verified": false
+  },
+  {
+   "gardiner": "S12",
+   "unicode": "𓋞",
+   "translit": [
+    "nbw"
+   ],
+   "kind": [
+    "triliteral",
+    "ideogram"
+   ],
+   "descriptionFr": "collier : « or »",
+   "category": "S",
+   "verified": false
+  },
+  {
+   "gardiner": "L1",
+   "unicode": "𓆣",
+   "translit": [
+    "ḫpr"
+   ],
+   "kind": [
+    "triliteral"
+   ],
+   "descriptionFr": "scarabée (« devenir, exister »)",
+   "category": "L",
+   "verified": false
+  },
+  {
+   "gardiner": "W9",
+   "unicode": "𓎸",
+   "translit": [
+    "ẖnm"
+   ],
+   "kind": [
+    "triliteral"
+   ],
+   "descriptionFr": "cruche à anse (dieu Khnoum)",
+   "category": "W",
+   "verified": false
+  },
+  {
+   "gardiner": "O42",
+   "unicode": "𓊏",
+   "translit": [
+    "šzp"
+   ],
+   "kind": [
+    "triliteral"
+   ],
+   "descriptionFr": "clôture (« recevoir »)",
+   "category": "O",
+   "verified": false
+  },
+  {
+   "gardiner": "A1",
+   "unicode": "𓀀",
+   "translit": [
+    "j"
+   ],
+   "kind": [
+    "determinative",
+    "uniliteral"
+   ],
+   "descriptionFr": "homme assis ; déterminatif de l'homme ; pronom « je »",
+   "category": "A",
+   "verified": false
+  },
+  {
+   "gardiner": "A2",
+   "unicode": "𓀁",
+   "translit": [],
+   "kind": [
+    "determinative"
+   ],
+   "descriptionFr": "homme portant la main à la bouche : manger, parler, penser",
+   "category": "A",
+   "verified": false
+  },
+  {
+   "gardiner": "A17",
+   "unicode": "𓀔",
+   "translit": [
+    "ẖrd"
+   ],
+   "kind": [
+    "determinative",
+    "ideogram"
+   ],
+   "descriptionFr": "enfant assis, doigt à la bouche : enfance",
+   "category": "A",
+   "verified": false
+  },
+  {
+   "gardiner": "A24",
+   "unicode": "𓀜",
+   "translit": [],
+   "kind": [
+    "determinative"
+   ],
+   "descriptionFr": "homme frappant avec un bâton : force, effort",
+   "category": "A",
+   "verified": false
+  },
+  {
+   "gardiner": "A30",
+   "unicode": "𓀢",
+   "translit": [],
+   "kind": [
+    "determinative"
+   ],
+   "descriptionFr": "homme les bras levés : adoration, prière",
+   "category": "A",
+   "verified": false
+  },
+  {
+   "gardiner": "A40",
+   "unicode": "𓀭",
+   "translit": [],
+   "kind": [
+    "determinative"
+   ],
+   "descriptionFr": "dieu assis : divinités ; pronom « je » d'un dieu",
+   "category": "A",
+   "verified": false
+  },
+  {
+   "gardiner": "B1",
+   "unicode": "𓁐",
+   "translit": [],
+   "kind": [
+    "determinative"
+   ],
+   "descriptionFr": "femme assise : déterminatif de la femme",
+   "category": "B",
+   "verified": false
+  },
+  {
+   "gardiner": "D3",
+   "unicode": "𓁸",
+   "translit": [],
+   "kind": [
+    "determinative"
+   ],
+   "descriptionFr": "mèche de cheveux : chevelure, deuil, manque",
+   "category": "D",
+   "verified": false
+  },
+  {
+   "gardiner": "D40",
+   "unicode": "𓂡",
+   "translit": [],
+   "kind": [
+    "determinative"
+   ],
+   "descriptionFr": "bras tenant un bâton : force, effort",
+   "category": "D",
+   "verified": false
+  },
+  {
+   "gardiner": "D54",
+   "unicode": "𓂻",
+   "translit": [],
+   "kind": [
+    "determinative"
+   ],
+   "descriptionFr": "jambes en marche : mouvement",
+   "category": "D",
+   "verified": false
+  },
+  {
+   "gardiner": "E1",
+   "unicode": "𓃒",
+   "translit": [
+    "kꜣ"
+   ],
+   "kind": [
+    "determinative",
+    "ideogram"
+   ],
+   "descriptionFr": "taureau : bétail",
+   "category": "E",
+   "verified": false
+  },
+  {
+   "gardiner": "F51",
+   "unicode": "𓄹",
+   "translit": [],
+   "kind": [
+    "determinative"
+   ],
+   "descriptionFr": "morceau de chair : parties du corps",
+   "category": "F",
+   "verified": false
+  },
+  {
+   "gardiner": "G7",
+   "unicode": "𓅆",
+   "translit": [],
+   "kind": [
+    "determinative"
+   ],
+   "descriptionFr": "faucon sur un pavois : dieux, roi",
+   "category": "G",
+   "verified": false
+  },
+  {
+   "gardiner": "G37",
+   "unicode": "𓅪",
+   "translit": [],
+   "kind": [
+    "determinative"
+   ],
+   "descriptionFr": "moineau : petit, mauvais, faible",
+   "category": "G",
+   "verified": false
+  },
+  {
+   "gardiner": "M1",
+   "unicode": "𓆭",
+   "translit": [],
+   "kind": [
+    "determinative"
+   ],
+   "descriptionFr": "arbre : arbres, bois",
+   "category": "M",
+   "verified": false
+  },
+  {
+   "gardiner": "M2",
+   "unicode": "𓆰",
+   "translit": [],
+   "kind": [
+    "determinative"
+   ],
+   "descriptionFr": "plante : plantes, fleurs",
+   "category": "M",
+   "verified": false
+  },
+  {
+   "gardiner": "N25",
+   "unicode": "𓈉",
+   "translit": [
+    "ḫꜣst"
+   ],
+   "kind": [
+    "determinative",
+    "ideogram"
+   ],
+   "descriptionFr": "trois collines : désert, pays étranger",
+   "category": "N",
+   "verified": false
+  },
+  {
+   "gardiner": "N33",
+   "unicode": "𓈒",
+   "translit": [],
+   "kind": [
+    "determinative"
+   ],
+   "descriptionFr": "grain de sable : minéraux, médicaments",
+   "category": "N",
+   "verified": false
+  },
+  {
+   "gardiner": "O39",
+   "unicode": "𓊌",
+   "translit": [],
+   "kind": [
+    "determinative"
+   ],
+   "descriptionFr": "bloc de pierre : pierre",
+   "category": "O",
+   "verified": false
+  },
+  {
+   "gardiner": "O49",
+   "unicode": "𓊖",
+   "translit": [
+    "njwt"
+   ],
+   "kind": [
+    "determinative",
+    "ideogram"
+   ],
+   "descriptionFr": "carrefour dans un cercle : ville, localité",
+   "category": "O",
+   "verified": false
+  },
+  {
+   "gardiner": "P1",
+   "unicode": "𓊛",
+   "translit": [],
+   "kind": [
+    "determinative"
+   ],
+   "descriptionFr": "bateau : bateaux, navigation",
+   "category": "P",
+   "verified": false
+  },
+  {
+   "gardiner": "T14",
+   "unicode": "𓌙",
+   "translit": [],
+   "kind": [
+    "determinative"
+   ],
+   "descriptionFr": "bâton de jet : étrangers, peuples ennemis",
+   "category": "T",
+   "verified": false
+  },
+  {
+   "gardiner": "V10",
+   "unicode": "𓍷",
+   "translit": [
+    "šnw"
+   ],
+   "kind": [
+    "determinative"
+   ],
+   "descriptionFr": "cartouche : entoure les noms royaux",
+   "category": "V",
+   "verified": false
+  },
+  {
+   "gardiner": "Y1",
+   "unicode": "𓏛",
+   "translit": [],
+   "kind": [
+    "determinative"
+   ],
+   "descriptionFr": "rouleau de papyrus scellé : idées abstraites, écriture",
+   "category": "Y",
+   "verified": false
+  },
+  {
+   "gardiner": "Z1",
+   "unicode": "𓏤",
+   "translit": [],
+   "kind": [
+    "ideogram"
+   ],
+   "descriptionFr": "trait vertical : marque qu'un signe est employé comme idéogramme ; « un »",
+   "category": "Z",
+   "verified": false
+  },
+  {
+   "gardiner": "Z2",
+   "unicode": "𓏥",
+   "translit": [],
+   "kind": [
+    "determinative"
+   ],
+   "descriptionFr": "trois traits : pluriel",
+   "category": "Z",
+   "verified": false
+  },
+  {
+   "gardiner": "Z3",
+   "unicode": "𓏪",
+   "translit": [],
+   "kind": [
+    "determinative"
+   ],
+   "descriptionFr": "trois traits superposés : pluriel",
+   "category": "Z",
+   "verified": false
+  }
+ ]
+}

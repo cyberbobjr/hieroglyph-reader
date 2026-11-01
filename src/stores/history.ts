@@ -1,15 +1,24 @@
 /**
- * Annuler / rétablir.
+ * Annuler / rétablir, pour toute l'application.
  *
  * Principe : avant chaque modification, on garde une « photo » (instantané)
- * de l'état du projet sous forme de texte JSON. Annuler = revenir à la photo
+ * de l'état concerné, sous forme de texte JSON. Annuler = revenir à la photo
  * précédente. C'est simple et fiable pour TOUTES les actions.
- * Le projet est léger (l'image n'en fait pas partie), donc ça coûte peu.
+ *
+ * Plusieurs « domaines » partagent le même historique : la stèle ouverte
+ * (« project ») et la bibliothèque de signes (« library »). Chaque domaine
+ * explique comment se photographier et comment se restaurer.
  */
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 
+export interface HistoryDomain {
+  snapshot(): string
+  restore(snapshot: string): void
+}
+
 interface Entry {
+  domain: string
   label: string
   snapshot: string
   key?: string
@@ -23,47 +32,52 @@ const COALESCE_MS = 800
 export const useHistoryStore = defineStore('history', () => {
   const undoStack = ref<Entry[]>([])
   const redoStack = ref<Entry[]>([])
+  const domains = new Map<string, HistoryDomain>()
 
   const canUndo = computed(() => undoStack.value.length > 0)
   const canRedo = computed(() => redoStack.value.length > 0)
   const undoLabel = computed(() => undoStack.value.at(-1)?.label ?? '')
   const redoLabel = computed(() => redoStack.value.at(-1)?.label ?? '')
 
-  /**
-   * À appeler AVANT une modification. `snapshot` fournit l'état actuel ; il
-   * n'est calculé que si nécessaire (pas pour un geste déjà enregistré).
-   */
-  function record(label: string, snapshot: () => string, key?: string) {
+  function register(name: string, domain: HistoryDomain) {
+    domains.set(name, domain)
+  }
+
+  /** À appeler AVANT une modification du domaine. */
+  function record(domain: string, label: string, key?: string) {
+    const d = domains.get(domain)
+    if (!d) return
     const last = undoStack.value.at(-1)
     const now = Date.now()
-    if (key && last?.key === key && now - last.at < COALESCE_MS) {
+    if (key && last?.key === key && last.domain === domain && now - last.at < COALESCE_MS) {
       last.at = now
     } else {
-      undoStack.value.push({ label, snapshot: snapshot(), key, at: now })
+      undoStack.value.push({ domain, label, snapshot: d.snapshot(), key, at: now })
       if (undoStack.value.length > MAX_ENTRIES) undoStack.value.shift()
     }
     redoStack.value = []
   }
 
-  /** Renvoie l'état à restaurer, ou null. `current` = état actuel (pour rétablir). */
-  function undo(current: string): { snapshot: string; label: string } | null {
-    const e = undoStack.value.pop()
+  function step(from: typeof undoStack, to: typeof undoStack): string | null {
+    const e = from.value.pop()
     if (!e) return null
-    redoStack.value.push({ label: e.label, snapshot: current, at: Date.now() })
-    return { snapshot: e.snapshot, label: e.label }
+    const d = domains.get(e.domain)
+    if (!d) return null
+    to.value.push({ ...e, snapshot: d.snapshot(), key: undefined, at: 0 })
+    d.restore(e.snapshot)
+    return e.label
   }
 
-  function redo(current: string): { snapshot: string; label: string } | null {
-    const e = redoStack.value.pop()
-    if (!e) return null
-    undoStack.value.push({ label: e.label, snapshot: current, at: 0 })
-    return { snapshot: e.snapshot, label: e.label }
+  /** Renvoie le libellé de l'action annulée, ou null. */
+  const undo = () => step(undoStack, redoStack)
+  const redo = () => step(redoStack, undoStack)
+
+  /** Oublie l'historique d'un domaine (ex. quand on change de stèle). */
+  function clear(domain?: string) {
+    const keep = (e: Entry) => domain !== undefined && e.domain !== domain
+    undoStack.value = undoStack.value.filter(keep)
+    redoStack.value = redoStack.value.filter(keep)
   }
 
-  function clear() {
-    undoStack.value = []
-    redoStack.value = []
-  }
-
-  return { canUndo, canRedo, undoLabel, redoLabel, record, undo, redo, clear }
+  return { canUndo, canRedo, undoLabel, redoLabel, register, record, undo, redo, clear }
 })

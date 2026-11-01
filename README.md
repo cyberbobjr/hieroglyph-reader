@@ -18,7 +18,7 @@ dans une conversation avec une IA pour obtenir la translittération et la traduc
 |---|---|---|
 | 1 | Visionneuse : zoom/déplacement, perspective 4 points, filtres, loupe, plusieurs stèles | ✅ |
 | 2 | Découpage en lignes (rectangle/polygone, sens de lecture, colonnes) | ✅ |
-| 3 | Bibliothèque de signes Gardiner | à venir |
+| 3 | Bibliothèque de signes Gardiner | ✅ |
 | 4 | Placement des signes, carrés, cartouches, statuts, saisie rapide | à venir |
 | 5 | Export MdC / Unicode / « Copier pour Claude » | à venir |
 
@@ -72,25 +72,89 @@ ouvrez sur la tablette l'adresse « Network » affichée.
      déplacer, ses carrés jaunes pour la déformer. Dans le panneau : numéro, sens, type
      (ligne/colonne), ordre, suppression (`Suppr`).
    - « Actions sur toutes les lignes » : renuméroter selon la position, changer le sens de tout.
-7. **Annuler / rétablir** : `Ctrl+Z` / `Ctrl+Maj+Z` (⌘ sur Mac), ou les boutons en haut.
-8. **Sauvegarder** : c'est automatique. Pour garder une copie ou changer d'appareil, utilisez
+7. **Bibliothèque de signes** (panneau de droite, `/` pour rechercher) : tapez un code
+   (`G17`), une valeur phonétique (`m`, `nfr`) ou un mot (`chouette`). Filtres par catégorie,
+   type et vérification. Cliquez un résultat pour voir sa fiche.
+8. **Annuler / rétablir** : `Ctrl+Z` / `Ctrl+Maj+Z` (⌘ sur Mac), ou les boutons en haut.
+9. **Sauvegarder** : c'est automatique. Pour garder une copie ou changer d'appareil, utilisez
    « Exporter » : un fichier `.hieroglyph.json` contient le projet **et** la photo.
    « Importer un projet » le recharge.
 
 > ⚠️ Effacer les données du site dans le navigateur supprime les stèles. Exportez régulièrement.
+
+## La bibliothèque de signes
+
+### Ce qu'elle contient
+
+- **119 signes de départ** : tous les unilitères (« alphabet »), des bilitères et trilitères
+  courants, les déterminatifs fréquents.
+- Pour chacun : glyphe Unicode, code Gardiner, valeurs de translittération, type (idéogramme,
+  unilitère, bilitère, trilitère, déterminatif), courte description en français.
+
+> ⚠️ **Ces valeurs sont indicatives et toutes marquées « à vérifier ».** Elles ont été
+> préparées sans relecture par un spécialiste. Contrôlez-les avec la liste de Gardiner
+> (*Egyptian Grammar*, 3ᵉ éd., 1957) et cliquez « Marquer vérifié » sur chaque fiche contrôlée.
+
+Les **caractères Unicode**, eux, sont fiables : ils sont tirés automatiquement des noms
+officiels Unicode (« EGYPTIAN HIEROGLYPH G017 » → G17), pour les 1 024 signes Gardiner du bloc.
+
+### Écrire la translittération
+
+L'application affiche l'écriture égyptologique (ꜣ ꜥ ḥ ḫ ẖ š ṯ ḏ…) et accepte aussi
+l'écriture **Manuel de Codage**, tapable au clavier :
+
+| MdC | `A` | `a` | `i` | `H` | `x` | `X` | `S` | `T` | `D` |
+|---|---|---|---|---|---|---|---|---|---|
+| Égyptologique | ꜣ | ꜥ | j | ḥ | ḫ | ẖ | š | ṯ | ḏ |
+
+Attention : en MdC, `h` et `H` sont deux sons différents. La recherche propose d'abord la valeur
+exacte, puis les valeurs proches.
+
+## Ajouter des signes à la bibliothèque
+
+**Depuis l'application (recommandé)**
+
+1. Cliquez « + Ajouter un signe » en bas du panneau Bibliothèque.
+   Astuce : tapez d'abord le code dans la recherche (ex. `G18`) ; s'il existe dans Unicode
+   mais pas dans la bibliothèque, un bouton « L'ajouter » pré-remplit le formulaire.
+2. Saisissez le code Gardiner : le glyphe Unicode et la catégorie se remplissent seuls.
+3. Ajoutez les valeurs, séparées par des virgules (MdC accepté : `anx` devient `ꜥnḫ`),
+   cochez le ou les types, écrivez une description en français.
+4. « Enregistrer ». Le signe est gardé dans ce navigateur. Modifier un signe de départ crée
+   votre version ; « Rétablir l'original » l'efface.
+
+Ajouts et modifications s'annulent avec `Ctrl+Z`. **Exporter** télécharge toute la
+bibliothèque en JSON (pour la sauvegarder ou la partager) ; **Importer** la recharge sur un
+autre appareil.
+
+**Dans le code (pour tout le monde)**
+
+La bibliothèque de départ est générée par `scripts/build-sign-data.py`. Ajoutez une ligne à
+la liste `SIGNS` :
+
+```python
+("G18", ["mm"], ["biliteral"], "deux chouettes"),
+```
+
+puis lancez `python3 scripts/build-sign-data.py`. Le script vérifie que le code existe dans
+Unicode, remplit le glyphe et régénère `src/data/signs.seed.json`. `npm test` vérifie ensuite
+la cohérence de la bibliothèque.
 
 ## Organisation du code
 
 ```
 src/
   types/models.ts        Modèle de données (Projet, Ligne, Boîte, Signe…)
-  core/                  Logique pure, testée : perspective, filtres, géométrie, lignes
+  core/                  Logique pure, testée : perspective, filtres, géométrie, lignes,
+                         codes Gardiner, translittération, recherche
+  data/                  Bibliothèque de départ et table Unicode (générées)
   workers/               Calculs d'image en arrière-plan (Web Worker)
   persistence/           IndexedDB, import/export JSON
   stores/                État Pinia : liste des stèles, stèle ouverte, historique, interface
   composables/           Zoom/déplacement, raccourcis clavier
   components/            Interface Vue
 tests/                   Tests unitaires (Vitest)
+scripts/                 Génération des données de signes
 ```
 
 ## Licences

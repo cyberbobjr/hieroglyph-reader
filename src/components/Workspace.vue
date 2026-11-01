@@ -5,7 +5,7 @@
  * Sur un écran étroit (tablette en portrait), les panneaux latéraux
  * deviennent des tiroirs qu'on ouvre avec les boutons de la barre.
  */
-import { computed, ref } from 'vue'
+import { computed, nextTick, ref } from 'vue'
 import { useProjectStore } from '../stores/project'
 import { useHistoryStore } from '../stores/history'
 import { useUiStore } from '../stores/ui'
@@ -14,6 +14,7 @@ import { useShortcuts } from '../composables/useShortcuts'
 import ImageViewer from './viewer/ImageViewer.vue'
 import FilterPanel from './viewer/FilterPanel.vue'
 import LinePanel from './lines/LinePanel.vue'
+import LibraryPanel from './library/LibraryPanel.vue'
 
 const emit = defineEmits<{ (e: 'close'): void }>()
 const store = useProjectStore()
@@ -23,6 +24,7 @@ const projects = useProjectsStore()
 
 const viewer = ref<InstanceType<typeof ImageViewer> | null>(null)
 const linePanel = ref<InstanceType<typeof LinePanel> | null>(null)
+const libraryPanel = ref<InstanceType<typeof LibraryPanel> | null>(null)
 // Sur un écran étroit, les tiroirs sont fermés au départ pour laisser voir la photo.
 const wide = window.matchMedia('(min-width: 1001px)').matches
 const leftOpen = ref(wide)
@@ -52,6 +54,12 @@ function deleteSelectedLine() {
   if (l) linePanel.value?.remove(l)
 }
 
+async function focusLibrarySearch() {
+  rightOpen.value = true
+  await nextTick()
+  libraryPanel.value?.focusSearch()
+}
+
 function focusLine(id: string) {
   viewer.value?.focusLine(id)
 }
@@ -75,6 +83,7 @@ useShortcuts(() => [
   { combo: 'backspace', handler: deleteSelectedLine },
   { combo: 'f', handler: () => (ui.filtersOpen = !ui.filtersOpen) },
   { combo: '?', handler: () => (ui.helpOpen = true) },
+  { combo: '/', handler: () => void focusLibrarySearch() },
   { combo: '0', handler: () => viewer.value?.fit() },
   { combo: '+', handler: () => viewer.value?.zoomAt(1.25) },
   { combo: '=', handler: () => viewer.value?.zoomAt(1.25) },
@@ -139,8 +148,7 @@ useShortcuts(() => [
       </section>
 
       <aside v-if="rightOpen" class="side right panel-flat" aria-label="Bibliothèque de signes">
-        <h2>Bibliothèque</h2>
-        <p class="todo">La bibliothèque de signes arrive à l'étape 3.</p>
+        <LibraryPanel ref="libraryPanel" />
       </aside>
     </div>
   </div>
@@ -229,6 +237,7 @@ useShortcuts(() => [
 }
 .side.right {
   border-left: 1px solid var(--border);
+  width: 340px;
 }
 .side h2 {
   margin: 0 0 0.5rem;
