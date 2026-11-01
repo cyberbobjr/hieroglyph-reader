@@ -13,6 +13,7 @@ import { useProjectsStore } from '../stores/projects'
 import { useShortcuts } from '../composables/useShortcuts'
 import ImageViewer from './viewer/ImageViewer.vue'
 import FilterPanel from './viewer/FilterPanel.vue'
+import LinePanel from './lines/LinePanel.vue'
 
 const emit = defineEmits<{ (e: 'close'): void }>()
 const store = useProjectStore()
@@ -21,6 +22,7 @@ const ui = useUiStore()
 const projects = useProjectsStore()
 
 const viewer = ref<InstanceType<typeof ImageViewer> | null>(null)
+const linePanel = ref<InstanceType<typeof LinePanel> | null>(null)
 // Sur un écran étroit, les tiroirs sont fermés au départ pour laisser voir la photo.
 const wide = window.matchMedia('(min-width: 1001px)').matches
 const leftOpen = ref(wide)
@@ -39,6 +41,21 @@ function togglePerspective() {
   ui.tool = ui.tool === 'perspective' ? 'pan' : 'perspective'
 }
 
+function setTool(t: typeof ui.tool) {
+  ui.tool = ui.tool === t ? 'pan' : t
+  // Sur petit écran, on ouvre le panneau des lignes pour voir le résultat.
+  if (t !== 'pan' && t !== 'perspective' && !leftOpen.value && wide) leftOpen.value = true
+}
+
+function deleteSelectedLine() {
+  const l = store.project?.lines.find((x) => x.id === ui.selectedLineId)
+  if (l) linePanel.value?.remove(l)
+}
+
+function focusLine(id: string) {
+  viewer.value?.focusLine(id)
+}
+
 async function exportProject() {
   await store.flush()
   await projects.exportToFile(store.project!.id)
@@ -51,6 +68,11 @@ useShortcuts(() => [
   { combo: 'mod+s', handler: () => void store.flush().then(() => ui.notify('Enregistré.')), inInputs: true },
   { combo: 'l', handler: () => (ui.magnifier = !ui.magnifier) },
   { combo: 'p', handler: togglePerspective },
+  { combo: 'v', handler: () => (ui.tool = 'pan') },
+  { combo: 'r', handler: () => setTool('line-rect') },
+  { combo: 'g', handler: () => setTool('line-poly') },
+  { combo: 'delete', handler: deleteSelectedLine },
+  { combo: 'backspace', handler: deleteSelectedLine },
   { combo: 'f', handler: () => (ui.filtersOpen = !ui.filtersOpen) },
   { combo: '?', handler: () => (ui.helpOpen = true) },
   { combo: '0', handler: () => viewer.value?.fit() },
@@ -63,6 +85,7 @@ useShortcuts(() => [
       if (ui.helpOpen) ui.helpOpen = false
       else if (ui.filtersOpen) ui.filtersOpen = false
       else if (ui.tool !== 'pan') ui.tool = 'pan'
+      else ui.selectedLineId = null
     },
     inInputs: true,
   },
@@ -105,8 +128,7 @@ useShortcuts(() => [
 
     <div class="body">
       <aside v-if="leftOpen" class="side left panel-flat" aria-label="Lignes et signes">
-        <h2>Lignes</h2>
-        <p class="todo">Le découpage en lignes arrive à l'étape 2.</p>
+        <LinePanel ref="linePanel" @focus-line="focusLine" />
       </aside>
 
       <section class="center" aria-label="Visionneuse">
@@ -197,7 +219,8 @@ useShortcuts(() => [
 .side {
   width: 300px;
   flex: 0 0 auto;
-  overflow: auto;
+  overflow-x: clip;
+  overflow-y: auto;
   padding: 0.8rem;
   background: var(--surface);
 }

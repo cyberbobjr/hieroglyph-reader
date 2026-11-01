@@ -60,7 +60,7 @@ export const useProjectStore = defineStore('project', () => {
    */
   function mutate(label: string, fn: (p: Project) => void, key?: string) {
     if (!project.value) return
-    history.record(label, snapshot(), key)
+    history.record(label, snapshot, key)
     fn(project.value)
     project.value.updatedAt = Date.now()
     scheduleSave()
@@ -109,5 +109,12 @@ export const useProjectStore = defineStore('project', () => {
     }
   }
 
-  return { project, imageBlob, saveState, isOpen, workingSize, open, close, mutate, undo, redo, flush }
+  /** Raccourci : modifier une ligne précise de façon annulable. */
+  function mutateLine(id: string, label: string, fn: (line: Project['lines'][number], p: Project) => void, key?: string) {
+    const line = project.value?.lines.find((l) => l.id === id)
+    if (!line) return
+    mutate(label, (p) => fn(p.lines.find((l) => l.id === id)!, p), key)
+  }
+
+  return { project, imageBlob, saveState, isOpen, workingSize, open, close, mutate, mutateLine, undo, redo, flush }
 })

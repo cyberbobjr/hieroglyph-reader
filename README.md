@@ -17,7 +17,7 @@ dans une conversation avec une IA pour obtenir la translittération et la traduc
 | Étape | Contenu | État |
 |---|---|---|
 | 1 | Visionneuse : zoom/déplacement, perspective 4 points, filtres, loupe, plusieurs stèles | ✅ |
-| 2 | Découpage en lignes (rectangle/polygone, sens de lecture, colonnes) | à venir |
+| 2 | Découpage en lignes (rectangle/polygone, sens de lecture, colonnes) | ✅ |
 | 3 | Bibliothèque de signes Gardiner | à venir |
 | 4 | Placement des signes, carrés, cartouches, statuts, saisie rapide | à venir |
 | 5 | Export MdC / Unicode / « Copier pour Claude » | à venir |
@@ -46,7 +46,7 @@ Autres commandes :
 Pour utiliser l'application sur une tablette du même réseau Wi-Fi : `npm run dev -- --host`, puis
 ouvrez sur la tablette l'adresse « Network » affichée.
 
-## Prise en main (étape 1)
+## Prise en main
 
 1. **Nouvelle stèle** : sur l'écran d'accueil, cliquez « Nouvelle stèle depuis une photo » (ou
    déposez la photo sur la page).
@@ -61,8 +61,19 @@ ouvrez sur la tablette l'adresse « Network » affichée.
 4. **Filtres** (`F`) : niveaux de gris, contraste automatique, inversion, luminosité, contraste,
    accentuation du relief (« netteté » ou « lumière rasante »). L'original n'est jamais modifié.
 5. **Loupe** (`L`) : une fenêtre agrandie suit le curseur (sur tablette : sous le doigt).
-6. **Annuler / rétablir** : `Ctrl+Z` / `Ctrl+Maj+Z` (⌘ sur Mac), ou les boutons en haut.
-7. **Sauvegarder** : c'est automatique. Pour garder une copie ou changer d'appareil, utilisez
+6. **Découper en lignes** (panneau « Lignes » à gauche) :
+   - `R` **Rectangle** : glissez autour d'une ligne de texte. `G` **Polygone** : un clic par
+     sommet, puis Entrée, double-clic ou clic sur le premier point pour fermer (utile pour une
+     ligne courbe ou penchée). Sur tablette : un doigt trace, deux doigts déplacent/zooment.
+   - Choisissez d'abord le **sens des nouvelles lignes**. Repère : les signes *regardent vers le
+     début de la ligne*.
+   - Une forme haute et étroite devient automatiquement une **colonne** (lue de haut en bas).
+   - `V` **Sélection** : touchez une ligne pour la sélectionner. Glissez sa pastille ✥ pour la
+     déplacer, ses carrés jaunes pour la déformer. Dans le panneau : numéro, sens, type
+     (ligne/colonne), ordre, suppression (`Suppr`).
+   - « Actions sur toutes les lignes » : renuméroter selon la position, changer le sens de tout.
+7. **Annuler / rétablir** : `Ctrl+Z` / `Ctrl+Maj+Z` (⌘ sur Mac), ou les boutons en haut.
+8. **Sauvegarder** : c'est automatique. Pour garder une copie ou changer d'appareil, utilisez
    « Exporter » : un fichier `.hieroglyph.json` contient le projet **et** la photo.
    « Importer un projet » le recharge.
 
@@ -73,7 +84,7 @@ ouvrez sur la tablette l'adresse « Network » affichée.
 ```
 src/
   types/models.ts        Modèle de données (Projet, Ligne, Boîte, Signe…)
-  core/                  Logique pure, testée : perspective, filtres, identifiants
+  core/                  Logique pure, testée : perspective, filtres, géométrie, lignes
   workers/               Calculs d'image en arrière-plan (Web Worker)
   persistence/           IndexedDB, import/export JSON
   stores/                État Pinia : liste des stèles, stèle ouverte, historique, interface

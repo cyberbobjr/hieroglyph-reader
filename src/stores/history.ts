@@ -29,14 +29,17 @@ export const useHistoryStore = defineStore('history', () => {
   const undoLabel = computed(() => undoStack.value.at(-1)?.label ?? '')
   const redoLabel = computed(() => redoStack.value.at(-1)?.label ?? '')
 
-  /** À appeler AVANT une modification, avec l'état actuel. */
-  function record(label: string, snapshot: string, key?: string) {
+  /**
+   * À appeler AVANT une modification. `snapshot` fournit l'état actuel ; il
+   * n'est calculé que si nécessaire (pas pour un geste déjà enregistré).
+   */
+  function record(label: string, snapshot: () => string, key?: string) {
     const last = undoStack.value.at(-1)
     const now = Date.now()
     if (key && last?.key === key && now - last.at < COALESCE_MS) {
       last.at = now
     } else {
-      undoStack.value.push({ label, snapshot, key, at: now })
+      undoStack.value.push({ label, snapshot: snapshot(), key, at: now })
       if (undoStack.value.length > MAX_ENTRIES) undoStack.value.shift()
     }
     redoStack.value = []

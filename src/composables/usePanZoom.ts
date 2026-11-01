@@ -97,6 +97,16 @@ export function usePanZoom(
     view.y = box.height / 2 - p.y * view.scale
   }
 
+  /** Cadre une zone de l'image (ex. une ligne) avec une marge, sans trop zoomer. */
+  function fitRect(r: { x: number; y: number; w: number; h: number }, maxScale = 3) {
+    const box = el.value?.getBoundingClientRect()
+    if (!box || r.w <= 0 || r.h <= 0) return
+    const s = clampScale(Math.min(maxScale, Math.min(box.width / r.w, box.height / r.h) * 0.85))
+    view.scale = s
+    view.x = box.width / 2 - (r.x + r.w / 2) * s
+    view.y = box.height / 2 - (r.y + r.h / 2) * s
+  }
+
   const screenToImage = (p: Point): Point => ({ x: (p.x - view.x) / view.scale, y: (p.y - view.y) / view.scale })
   const imageToScreen = (p: Point): Point => ({ x: p.x * view.scale + view.x, y: p.y * view.scale + view.y })
 
@@ -210,5 +220,5 @@ export function usePanZoom(
   }
   onBeforeUnmount(() => el.value && detach(el.value))
 
-  return { view, fit, zoomAt, actualSize, panBy, centerOn, screenToImage, imageToScreen, isGesturing }
+  return { view, fit, fitRect, zoomAt, actualSize, panBy, centerOn, screenToImage, imageToScreen, isGesturing }
 }

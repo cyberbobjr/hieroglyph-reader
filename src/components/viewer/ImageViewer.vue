@@ -7,6 +7,7 @@
  *   1. un <canvas> qui contient l'image, déplacé/agrandi par une
  *      transformation CSS (très fluide, calculée par la carte graphique) ;
  *   2. un calque SVG par-dessus, pour les poignées, lignes et boîtes ;
+ *      (les tracés de lignes sont gérés ici : voir « Tracé des lignes ») ;
  *   3. la loupe et les boutons flottants.
  */
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, shallowRef, watch } from 'vue'
@@ -18,9 +19,12 @@ import { decodeImage } from '../../core/imageLoading'
 import { cssFilterString } from '../../core/imageOps'
 import { estimateAspectRatio, isConvexQuad, rectifiedSize } from '../../core/homography'
 import { clone } from '../../core/ids'
-import type { Point, Quad } from '../../types/models'
+import { rectFromPoints, geometryBounds } from '../../core/geometry'
+import { createLine, lineAtPoint } from '../../core/lines'
+import type { LineGeometry, Point, Quad } from '../../types/models'
 import Magnifier from './Magnifier.vue'
 import PerspectiveEditor from './PerspectiveEditor.vue'
+import LineLayer, { type LineDraft } from '../lines/LineLayer.vue'
 
 const store = useProjectStore()
 const ui = useUiStore()
@@ -34,8 +38,13 @@ const ready = ref(false)
 const renderVersion = ref(0)
 const pipeline = shallowRef<ImagePipeline | null>(null)
 
-const { view, fit, zoomAt, actualSize, panBy } = usePanZoom(stage, content, {
-  singlePointerPans: () => true,
+const { view, fit, fitRect, zoomAt, actualSize, panBy, screenToImage } = usePanZoom(stage, content, {
+  // Avec un outil de tracé, un doigt dessine ; deux doigts déplacent/zooment toujours.
+  singlePointerPans: () => ui.tool === 'pan' || ui.tool === 'perspective',
+  onMultiTouchStart: () => {
+    gestureDuringPress = true
+    if (lineDraft.value?.type === 'rect') lineDraft.value = null
+  },
 })
 
 const filters = computed(() => store.project!.filters)
@@ -244,6 +253,157 @@ function removePerspective() {
   ui.tool = 'pan'
 }
 
+// --- Tracé des lignes ----------------------------------------------------------
+const lineDraft = ref<LineDraft | null>(null)
+const drawingTool = computed(() => ui.tool === 'line-rect' || ui.tool === 'line-poly')
+/** Distance (en pixels écran) sous laquelle un geste compte comme un simple « toucher ». */
+const TAP_TOLERANCE = 6
+/** Distance sous laquelle toucher le 1er point referme le polygone. */
+const CLOSE_TOLERANCE = 14
+let press: { id: number; at: Point } | null = null
+let gestureDuringPress = false
+
+const lines = computed(() => store.project?.lines ?? [])
+
+watch(
+  () => ui.tool,
+  () => {
+    lineDraft.value = null
+  },
+)
+
+function addLine(geometry: LineGeometry) {
+  const p = store.project!
+  const line = createLine(p.lines, geometry, { direction: ui.defaultDirection })
+  store.mutate(`Tracer la ligne ${line.number}`, (proj) => {
+    proj.lines.push(line)
+  })
+  ui.selectedLineId = line.id
+}
+
+function finishPolygon() {
+  const d = lineDraft.value
+  if (d?.type !== 'polygon') return
+  if (d.points.length < 3) {
+    ui.notify('Il faut au moins 3 points pour un polygone.')
+    return
+  }
+  lineDraft.value = null
+  addLine({ type: 'polygon', points: d.points })
+}
+
+function onStageDown(e: PointerEvent) {
+  if (e.button !== 0) return
+  // Un 2e doigt pendant un appui : c'est un geste de zoom, pas un nouveau tracé.
+  if (press && !e.isPrimary) return
+  gestureDuringPress = false
+  press = { id: e.pointerId, at: localPoint(e) }
+  if (ui.tool === 'line-rect') {
+    const p = screenToImage(localPoint(e))
+    lineDraft.value = { type: 'rect', a: p, b: p }
+    try {
+      stage.value?.setPointerCapture(e.pointerId)
+    } catch {
+      // sans conséquence
+    }
+  }
+}
+
+function onStageDrawMove(e: PointerEvent) {
+  const d = lineDraft.value
+  if (!d) return
+  const p = screenToImage(localPoint(e))
+  if (d.type === 'rect' && press?.id === e.pointerId) d.b = p
+  else if (d.type === 'polygon') d.hover = p
+}
+
+function onStageDrawUp(e: PointerEvent) {
+  if (!press || press.id !== e.pointerId) return
+  const at = localPoint(e)
+  const moved = Math.hypot(at.x - press.at.x, at.y - press.at.y)
+  const isTap = moved < TAP_TOLERANCE && !gestureDuringPress
+  press = null
+  const p = screenToImage(at)
+
+  if (ui.tool === 'line-rect') {
+    const d = lineDraft.value
+    lineDraft.value = null
+    if (d?.type !== 'rect') return
+    const r = rectFromPoints(d.a, p)
+    // Trop petit à l'écran : c'était sans doute un toucher involontaire.
+    if (r.w * view.scale < 8 || r.h * view.scale < 8) return
+    addLine({ type: 'rect', rect: r })
+  } else if (ui.tool === 'line-poly') {
+    if (!isTap) return
+    const d = lineDraft.value?.type === 'polygon' ? lineDraft.value : null
+    if (!d) {
+      lineDraft.value = { type: 'polygon', points: [p], hover: p }
+      return
+    }
+    const toScreen = (q: Point) => ({ x: q.x * view.scale + view.x, y: q.y * view.scale + view.y })
+    const first = toScreen(d.points[0])
+    const last = toScreen(d.points[d.points.length - 1])
+    if (d.points.length >= 3 && Math.hypot(at.x - first.x, at.y - first.y) < CLOSE_TOLERANCE) {
+      finishPolygon()
+    } else if (Math.hypot(at.x - last.x, at.y - last.y) > 4) {
+      // (on ignore le 2e clic d'un double-clic, au même endroit)
+      d.points.push(p)
+    }
+  } else if (ui.tool === 'pan' && isTap) {
+    // Toucher une ligne la sélectionne ; toucher ailleurs désélectionne.
+    ui.selectedLineId = lineAtPoint(lines.value, p)?.id ?? null
+  }
+}
+
+function onStageDblClick(e: MouseEvent) {
+  if (ui.tool === 'line-poly') {
+    finishPolygon()
+    return
+  }
+  if (ui.tool === 'pan') zoomAt(2, localPoint(e).x, localPoint(e).y)
+}
+
+function commitGeometry(id: string, geometry: LineGeometry, label: string) {
+  store.mutateLine(id, label, (l) => {
+    l.geometry = geometry
+  })
+}
+
+/** Touches propres au tracé en cours : prioritaires sur les raccourcis globaux. */
+function onDrawingKeys(e: KeyboardEvent) {
+  const d = lineDraft.value
+  if (!d || d.type !== 'polygon') return
+  const t = e.target as HTMLElement | null
+  if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT')) return
+  if (e.key === 'Escape') lineDraft.value = null
+  else if (e.key === 'Enter') finishPolygon()
+  else if (e.key === 'Backspace' || e.key === 'Delete') {
+    d.points.pop()
+    if (!d.points.length) lineDraft.value = null
+  } else return
+  e.preventDefault()
+  e.stopPropagation()
+}
+onMounted(() => window.addEventListener('keydown', onDrawingKeys, { capture: true }))
+onBeforeUnmount(() => window.removeEventListener('keydown', onDrawingKeys, { capture: true }))
+
+/** Cadre une ligne à l'écran. */
+function focusLine(id: string) {
+  const l = lines.value.find((x) => x.id === id)
+  if (l) fitRect(geometryBounds(l.geometry))
+}
+
+const drawHint = computed(() => {
+  if (ui.tool === 'line-rect') return 'Glissez pour tracer un rectangle autour de la ligne. Deux doigts : déplacer/zoomer.'
+  if (ui.tool === 'line-poly') {
+    const n = lineDraft.value?.type === 'polygon' ? lineDraft.value.points.length : 0
+    if (n === 0) return 'Touchez/cliquez pour poser le premier point du contour.'
+    if (n < 3) return `Point ${n} posé. Continuez (au moins 3 points). Retour arrière : retirer le dernier.`
+    return 'Touchez le premier point, double-cliquez ou appuyez sur Entrée pour fermer. Échap : abandonner.'
+  }
+  return ''
+})
+
 // --- Loupe ------------------------------------------------------------------
 const pointer = ref<{ at: Point; touch: boolean; down: boolean } | null>(null)
 const handleDrag = ref<{ at: Point; touch: boolean } | null>(null)
@@ -254,12 +414,14 @@ function localPoint(e: MouseEvent): Point {
 }
 function onStageMove(e: PointerEvent) {
   pointer.value = { at: localPoint(e), touch: e.pointerType === 'touch', down: e.buttons > 0 }
+  onStageDrawMove(e)
 }
 function onStageLeave(e: PointerEvent) {
   if (e.pointerType !== 'touch') pointer.value = null
 }
 function onStageUp(e: PointerEvent) {
   if (e.pointerType === 'touch') pointer.value = null
+  onStageDrawUp(e)
 }
 function onHandleDrag(active: boolean, at?: Point, pointerType?: string) {
   handleDrag.value = active && at ? { at, touch: pointerType === 'touch' } : null
@@ -299,7 +461,7 @@ const worldStyle = computed(() => ({
 }))
 const zoomPercent = computed(() => Math.round(view.scale * 100))
 
-defineExpose({ fit, zoomAt })
+defineExpose({ fit, zoomAt, focusLine, finishPolygon })
 </script>
 
 <template>
@@ -364,10 +526,13 @@ defineExpose({ fit, zoomAt })
         aria-roledescription="visionneuse d'image"
         aria-label="Photo de la stèle. Flèches pour déplacer, + et − pour zoomer, 0 pour ajuster."
         @keydown="onKeydown"
+        :class="{ drawing: drawingTool }"
+        @pointerdown="onStageDown"
         @pointermove="onStageMove"
         @pointerleave="onStageLeave"
         @pointerup="onStageUp"
-        @dblclick="zoomAt(2, localPoint($event).x, localPoint($event).y)"
+        @pointercancel="onStageUp"
+        @dblclick="onStageDblClick"
       >
         <div class="world" :style="worldStyle">
           <canvas
@@ -378,6 +543,16 @@ defineExpose({ fit, zoomAt })
         </div>
 
         <svg class="overlay" :width="stageSize.width" :height="stageSize.height">
+          <LineLayer
+            v-if="!editingPerspective"
+            :lines="lines"
+            :view="view"
+            :selected-id="ui.selectedLineId"
+            :draft="lineDraft"
+            :drawing="drawingTool"
+            @commit="commitGeometry"
+            @drag="onHandleDrag"
+          />
           <PerspectiveEditor
             v-if="editingPerspective && draft && store.project?.image"
             :corners="draft"
@@ -404,6 +579,17 @@ defineExpose({ fit, zoomAt })
 
         <p v-if="!store.imageBlob" class="empty">Cette stèle n'a pas d'image.</p>
         <div v-if="busy" class="busy" role="status">Calcul de l'image…</div>
+        <div v-if="drawHint" class="draw-hint" role="status">
+          {{ drawHint }}
+          <button
+            v-if="ui.tool === 'line-poly' && lineDraft?.type === 'polygon' && lineDraft.points.length >= 3"
+            class="btn small primary"
+            type="button"
+            @click="finishPolygon"
+          >
+            Fermer le polygone
+          </button>
+        </div>
       </div>
 
       <div class="zoom-controls" role="group" aria-label="Zoom">
@@ -444,6 +630,25 @@ defineExpose({ fit, zoomAt })
 }
 .stage:active {
   cursor: grabbing;
+}
+.stage.drawing,
+.stage.drawing:active {
+  cursor: crosshair;
+}
+.draw-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 64px;
+  transform: translateX(-50%);
+  max-width: calc(100% - 24px);
+  background: rgb(0 0 0 / 0.75);
+  color: #fff;
+  padding: 0.4rem 0.8rem;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
 }
 .stage:focus-visible {
   outline: 3px solid var(--accent);

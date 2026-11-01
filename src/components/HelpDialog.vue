@@ -20,6 +20,13 @@ onMounted(() => dialog.value?.showModal())
       <li><kbd>Ctrl</kbd>+<kbd>Z</kbd> annuler · <kbd>Ctrl</kbd>+<kbd>Maj</kbd>+<kbd>Z</kbd> ou <kbd>Ctrl</kbd>+<kbd>Y</kbd> rétablir (⌘ sur Mac)</li>
       <li><kbd>Échap</kbd> fermer / quitter l'outil · <kbd>?</kbd> cette aide</li>
     </ul>
+    <h3>Lignes de texte</h3>
+    <ul>
+      <li><kbd>R</kbd> tracer un rectangle (glisser) · <kbd>G</kbd> tracer un polygone (un clic par sommet ; Entrée, double-clic ou clic sur le 1er point pour fermer ; Retour arrière retire le dernier point)</li>
+      <li><kbd>V</kbd> outil Sélection : touchez une ligne pour la sélectionner · <kbd>Suppr</kbd> supprimer la ligne sélectionnée</li>
+      <li>Ligne sélectionnée : glissez sa pastille <b>✥</b> pour la déplacer, ses carrés jaunes pour la déformer (Tab puis flèches au clavier)</li>
+      <li>Les nouvelles lignes reçoivent le sens par défaut choisi dans le panneau ; une forme haute et étroite devient une colonne</li>
+    </ul>
     <h3>Correction de perspective</h3>
     <p>Placez les 4 poignées sur les coins de la stèle (Tab puis flèches pour les ajuster finement), puis « Appliquer ». L'image est redressée en rectangle. Faites-le <b>avant</b> de tracer les lignes.</p>
     <ul>
