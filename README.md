@@ -22,7 +22,23 @@ dans une conversation avec une IA pour obtenir la translittération et la traduc
 | 4 | Placement des signes, carrés, cartouches, statuts, saisie rapide, comparer | ✅ |
 | 5 | Export MdC / Unicode / « Copier pour Claude » | ✅ |
 
-## Installation
+## Utiliser l'application en ligne
+
+**<https://cyberbobjr.github.io/hieroglyph-reader/>**
+
+Rien à installer : ouvrez l'adresse sur votre ordinateur ou votre tablette. L'application reste
+**100 % locale** : la page est seulement téléchargée depuis GitHub, puis tout se passe dans votre
+navigateur. Vos photos et vos stèles ne sont jamais envoyées nulle part.
+
+> Les stèles sont enregistrées **dans le navigateur de chaque appareil**. Pour passer de
+> l'ordinateur à la tablette, utilisez « Exporter » puis « Importer un projet ».
+
+La publication est automatique : à chaque mise à jour de la branche `main`, GitHub lance les
+tests, construit l'application et la met en ligne (`.github/workflows/deploy.yml`). Réglage à
+faire **une seule fois** dans le dépôt : *Settings → Pages → Build and deployment → Source :
+« GitHub Actions »*.
+
+## Installation (pour modifier le code)
 
 Il faut [Node.js](https://nodejs.org/) version 20 ou plus récente.
 
