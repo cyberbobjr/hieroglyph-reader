@@ -20,7 +20,7 @@ dans une conversation avec une IA pour obtenir la translittération et la traduc
 | 2 | Découpage en lignes (rectangle/polygone, sens de lecture, colonnes) | ✅ |
 | 3 | Bibliothèque de signes Gardiner | ✅ |
 | 4 | Placement des signes, carrés, cartouches, statuts, saisie rapide, comparer | ✅ |
-| 5 | Export MdC / Unicode / « Copier pour Claude » | à venir |
+| 5 | Export MdC / Unicode / « Copier pour Claude » | ✅ |
 
 ## Installation
 
@@ -46,7 +46,23 @@ Autres commandes :
 Pour utiliser l'application sur une tablette du même réseau Wi-Fi : `npm run dev -- --host`, puis
 ouvrez sur la tablette l'adresse « Network » affichée.
 
-## Prise en main
+## Prise en main en 5 minutes
+
+1. **Une photo** : « + Nouvelle stèle depuis une photo ».
+2. **Redresser** (si la photo est de biais) : `P`, placez les 4 coins, « Appliquer ».
+3. **Une ligne** : choisissez le sens dans le panneau de gauche (les signes *regardent vers le
+   début* de la ligne), puis `R` et glissez autour de la première ligne de texte.
+4. **Les signes** : `B`, puis glissez autour d'un signe. Le curseur passe dans la saisie rapide :
+   tapez `m` (ou `G17`, ou `chouette`), `Entrée`. Recommencez pour chaque signe, dans n'importe
+   quel ordre : l'ordre de lecture se calcule tout seul.
+5. **Un carré** (signes empilés) : `Maj`+clic sur ses signes, puis `Q`. **Un cartouche** : `K`.
+   **Un doute** : tapez `G17?` (incertain) ou `//` (lacune).
+6. **Le résultat** : bouton « Transcription » (ou `E`), puis **« Copier pour Claude »**, et
+   collez le texte dans votre conversation.
+
+`?` affiche à tout moment l'aide et les raccourcis.
+
+## Guide détaillé
 
 1. **Nouvelle stèle** : sur l'écran d'accueil, cliquez « Nouvelle stèle depuis une photo » (ou
    déposez la photo sur la page).
@@ -88,11 +104,56 @@ ouvrez sur la tablette l'adresse « Network » affichée.
 11. **Statut et note** de chaque signe : certain, probable, incertain, lacune (couleur du cadre :
     vert, bleu, orange, rouge), plus une note libre.
 12. **Annuler / rétablir** : `Ctrl+Z` / `Ctrl+Maj+Z` (⌘ sur Mac), ou les boutons en haut.
-13. **Sauvegarder** : c'est automatique. Pour garder une copie ou changer d'appareil, utilisez
-   « Exporter » : un fichier `.hieroglyph.json` contient le projet **et** la photo.
-   « Importer un projet » le recharge.
+13. **Transcription** (`E`) : voir l'export ci-dessous.
+14. **Sauvegarder** : c'est automatique. Pour garder une copie ou changer d'appareil, utilisez
+    « JSON » (en haut) ou « Exporter » sur l'écran d'accueil : un fichier `.hieroglyph.json`
+    contient le projet **et** la photo. « Importer un projet » le recharge.
 
 > ⚠️ Effacer les données du site dans le navigateur supprime les stèles. Exportez régulièrement.
+
+## L'export (bouton « Transcription »)
+
+La fenêtre Transcription rassemble tout ce qui sort de l'application :
+
+- **Copier pour Claude** : un bloc prêt à coller dans une conversation, avec le contexte (nom,
+  informations sur la stèle que vous pouvez saisir, nombre de lignes, sens de lecture, nombre de
+  lacunes et de signes douteux, explication de la notation), la transcription ligne par ligne
+  (MdC, Unicode, liste des signes avec leurs statuts), les points d'attention, et la consigne :
+  *« Donne la translittération, la traduction en français et signale les points incertains, en
+  distinguant ce qui vient de ma transcription de ce qui est supposé. »*
+- **Le MdC de toute la stèle**, à copier ou télécharger.
+- **Pour chaque ligne** : le MdC, la chaîne Unicode (avec un aperçu orienté comme sur la stèle) et
+  le tableau des signes (code, valeur, statut, carré/cartouche, note).
+- **L'export JSON complet** du projet.
+
+### La notation Manuel de Codage produite
+
+| Écriture | Signification | Exemple |
+|---|---|---|
+| `-` | sépare deux cadrats | `G17-D21` |
+| `:` | superpose (haut puis bas) | `X1:N35` |
+| `*` | juxtapose, dans le sens de lecture | `D21*Z1` |
+| `( )` | regroupe : `*` étant prioritaire sur `:`, un empilement à côté d'un signe s'écrit entre parenthèses | `M17*(X1:N35)` |
+| `<-` … `->` | cartouche | `<-N5-Y5-L1->` |
+| `//` | lacune (signe détruit) | `G17-//-D21` |
+| `#b` … `#e` | signe restitué dans une lacune (zone hachurée) | `#b-D21-#e` |
+| `!` | fin de ligne | `G17-D21-!` |
+| `?` | signe tracé mais pas encore identifié — **propre à cette application** | `G17-?` |
+
+- La disposition des carrés est **déduite de la position des boîtes** ; elle s'affiche dans le
+  panneau Signe.
+- Les statuts « probable » et « incertain » **ne figurent pas dans le MdC**, pour qu'il reste
+  lisible par tous les outils : ils sont donnés dans la liste des signes et dans les « points
+  d'attention ».
+- La **chaîne Unicode est linéaire** (un signe après l'autre) : la police Noto n'affiche pas
+  correctement les caractères Unicode d'empilement. Le cartouche y est représenté par 𓍹 … 𓍺
+  (V11A, V11B) et une lacune par 𓑃 (U+13443, « signe perdu »).
+
+> ℹ️ **Syntaxe à confirmer avec JSesh.** Les sites de documentation (page MdC de S. Rosmorduc,
+> Wikipédia) n'étaient pas accessibles depuis l'environnement de développement. Les opérateurs de
+> base (`-` `:` `*` `( )` `<-…->` `//` `!`) sont les conventions MdC classiques ; `#b…#e` est à
+> vérifier dans votre version de JSesh. Si vous constatez un écart, il se corrige dans
+> `src/core/mdc.ts`, et `tests/mdc.spec.ts` décrit tous les cas attendus.
 
 ## Le sens de lecture, en bref
 
@@ -168,7 +229,7 @@ src/
   types/models.ts        Modèle de données (Projet, Ligne, Boîte, Signe…)
   core/                  Logique pure, testée : perspective, filtres, géométrie, lignes,
                          codes Gardiner, translittération, recherche, ordre de lecture,
-                         disposition des carrés, boîtes et groupes
+                         disposition des carrés, boîtes et groupes, MdC, bloc « pour Claude »
   data/                  Bibliothèque de départ et table Unicode (générées)
   workers/               Calculs d'image en arrière-plan (Web Worker)
   persistence/           IndexedDB, import/export JSON
@@ -178,6 +239,15 @@ src/
 tests/                   Tests unitaires (Vitest)
 scripts/                 Génération des données de signes
 ```
+
+## Limites connues
+
+- Pas de reconnaissance automatique ni de traduction : c'est voulu.
+- Sur tablette en portrait, les panneaux latéraux sont des tiroirs (boutons « Lignes » et
+  « Signes ») ; en paysage, tout est visible.
+- Changer la perspective après avoir tracé des lignes les décale (un avertissement le rappelle).
+- Une ligne dont l'ordre a été corrigé à la main n'est plus réordonnée automatiquement
+  (« Revenir à l'ordre automatique » dans le panneau Signe).
 
 ## Licences
 

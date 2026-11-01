@@ -153,3 +153,11 @@ body {
   display: inline-block;
   transform: scaleX(-1);
 }
+
+/* Les codes (MdC…) doivent s'afficher tels quels : pas de ligature « -> » → « → ». */
+code,
+pre,
+kbd,
+textarea {
+  font-variant-ligatures: none;
+}

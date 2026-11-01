@@ -17,6 +17,7 @@ import LinePanel from './lines/LinePanel.vue'
 import LibraryPanel from './library/LibraryPanel.vue'
 import SignInspector from './signs/SignInspector.vue'
 import QuickEntry from './signs/QuickEntry.vue'
+import ExportPanel from './export/ExportPanel.vue'
 import { useSignActions } from '../composables/useSignActions'
 import { useSelection } from '../composables/useSelection'
 
@@ -136,6 +137,7 @@ useShortcuts(() => [
   { combo: 'pageup', handler: () => actions.go(-1) },
   { combo: 'f', handler: () => (ui.filtersOpen = !ui.filtersOpen) },
   { combo: '?', handler: () => (ui.helpOpen = true) },
+  { combo: 'e', handler: () => (ui.exportOpen = true) },
   { combo: '/', handler: () => void focusLibrarySearch() },
   { combo: '0', handler: () => viewer.value?.fit() },
   { combo: '+', handler: () => viewer.value?.zoomAt(1.25) },
@@ -144,7 +146,8 @@ useShortcuts(() => [
   {
     combo: 'escape',
     handler: () => {
-      if (ui.helpOpen) ui.helpOpen = false
+      if (ui.exportOpen) ui.exportOpen = false
+      else if (ui.helpOpen) ui.helpOpen = false
       else if (ui.filtersOpen) ui.filtersOpen = false
       else if (ui.tool !== 'pan') ui.tool = 'pan'
       else if (ui.selectedItemIds.length) ui.selectedItemIds = []
@@ -184,7 +187,8 @@ useShortcuts(() => [
       <div class="group">
         <button class="btn" type="button" :aria-pressed="leftOpen" @click="leftOpen = !leftOpen">Lignes</button>
         <button class="btn" type="button" :aria-pressed="rightOpen" @click="rightOpen = !rightOpen">Signes</button>
-        <button class="btn" type="button" title="Exporter le projet complet (JSON)" @click="exportProject">Exporter</button>
+        <button class="btn" type="button" title="Sauvegarde complète du projet, photo comprise (JSON)" @click="exportProject">JSON</button>
+        <button class="btn primary" type="button" title="Transcription : MdC, Unicode, « Copier pour Claude » (E)" @click="ui.exportOpen = true">Transcription</button>
         <button class="btn icon" type="button" aria-label="Aide et raccourcis" title="Aide (?)" @click="ui.helpOpen = true">?</button>
       </div>
     </header>
@@ -209,6 +213,7 @@ useShortcuts(() => [
         <LibraryPanel ref="libraryPanel" />
       </aside>
     </div>
+    <ExportPanel v-if="ui.exportOpen && store.project" @close="ui.exportOpen = false" />
   </div>
 </template>
 

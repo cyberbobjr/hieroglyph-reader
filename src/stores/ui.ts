@@ -48,6 +48,8 @@ export const useUiStore = defineStore('ui', () => {
   const magnifierZoom = ref(prefs.magnifierZoom)
   const filtersOpen = ref(false)
   const helpOpen = ref(false)
+  /** Fenêtre « Transcription » (export) ouverte. */
+  const exportOpen = ref(false)
   const toasts = ref<Toast[]>([])
   /** Ligne sélectionnée (peut désigner une ligne supprimée entre-temps : toujours vérifier). */
   const selectedLineId = ref<string | null>(null)
@@ -89,6 +91,7 @@ export const useUiStore = defineStore('ui', () => {
     magnifierZoom,
     filtersOpen,
     helpOpen,
+    exportOpen,
     toasts,
     selectedLineId,
     defaultDirection,

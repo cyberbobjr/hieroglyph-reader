@@ -40,6 +40,12 @@ onMounted(() => dialog.value?.showModal())
       <li>Suffixe <code>?</code> = incertain (« G17? ») · <code>//</code> = lacune · Entrée sur une saisie vide = boîte suivante · <kbd>Page suiv.</kbd>/<kbd>Page préc.</kbd> naviguer</li>
       <li>Le glyphe proposé s'affiche à côté du morceau de photo (« comparer »), retourné si la ligne se lit de droite à gauche</li>
     </ul>
+    <h3>Transcription et export</h3>
+    <ul>
+      <li><kbd>E</kbd> ouvre la fenêtre Transcription : MdC de toute la stèle, et pour chaque ligne le MdC, l'Unicode et la liste des signes avec leurs statuts</li>
+      <li><b>Copier pour Claude</b> : un bloc complet (contexte, transcription, points incertains, consigne) à coller dans une conversation</li>
+      <li><b>JSON</b> (barre du haut) : sauvegarde complète du projet, photo comprise</li>
+    </ul>
     <h3>Bibliothèque de signes</h3>
     <ul>
       <li><kbd>/</kbd> rechercher : code (<code>G17</code>), valeur (<code>m</code>, <code>nfr</code>, MdC <code>Htp</code> = ḥtp), ou mot (<code>chouette</code>)</li>
