@@ -22,6 +22,11 @@ onMounted(() => dialog.value?.showModal())
     </ul>
     <h3>Correction de perspective</h3>
     <p>Placez les 4 poignées sur les coins de la stèle (Tab puis flèches pour les ajuster finement), puis « Appliquer ». L'image est redressée en rectangle. Faites-le <b>avant</b> de tracer les lignes.</p>
+    <ul>
+      <li>Les poignées peuvent <b>sortir de la photo</b> (coin hors cadre, perspective très forte) : dézoomez pour avoir de la place. Le contour pointillé blanc montre le bord de la photo.</li>
+      <li><b>Proportions</b> : « Automatiques » les calcule d'après la forme des 4 coins (en supposant une photo non recadrée). Si vous connaissez les dimensions de la stèle, choisissez « Dimensions réelles » : c'est le plus fiable. Sinon, « Réglage manuel » permet d'élargir ou d'affiner jusqu'à ce que les signes paraissent naturels.</li>
+      <li>Rien n'est définitif : appliquez, regardez, revenez ajuster (ou Ctrl+Z).</li>
+    </ul>
     <form method="dialog"><button class="btn primary" type="submit" autofocus>Fermer</button></form>
   </dialog>
 </template>

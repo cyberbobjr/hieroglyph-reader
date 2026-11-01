@@ -67,13 +67,89 @@ export function applyHomography(H: Matrix3, p: Point): Point {
 const dist = (a: Point, b: Point) => Math.hypot(a.x - b.x, a.y - b.y)
 
 /**
- * Taille « naturelle » du rectangle redressé : on prend le plus long des
- * deux côtés opposés, puis on réduit si l'image dépasse maxPixels
- * (les tablettes limitent la taille des images en mémoire).
+ * Estime les VRAIES proportions (largeur ÷ hauteur) de la stèle à partir de
+ * sa forme sur la photo.
+ *
+ * Pourquoi c'est nécessaire : avec une perspective prononcée, le côté le plus
+ * éloigné de l'appareil paraît bien plus court qu'il ne l'est. Se fier à la
+ * longueur des côtés donnerait une stèle redressée écrasée.
+ *
+ * Méthode (Zhang & He, 2006, « Whiteboard scanning ») : on suppose que le
+ * centre optique est au centre de la photo, on retrouve la distance focale
+ * de l'appareil à partir des 4 coins, puis on en déduit le rapport réel.
+ * Quand la focale n'est pas mesurable (par ex. la stèle n'est inclinée que
+ * sur un seul axe), on utilise la focale typique d'un appareil photo.
+ *
+ * @param q   coins HG, HD, BD, BG dans la photo
+ * @param imageWidth, imageHeight  taille de la photo (pour trouver son centre)
  */
-export function rectifiedSize(q: Quad, maxPixels = 12_000_000): { width: number; height: number } {
-  let width = Math.max(dist(q[0], q[1]), dist(q[3], q[2]))
-  let height = Math.max(dist(q[0], q[3]), dist(q[1], q[2]))
+export function estimateAspectRatio(q: Quad, imageWidth: number, imageHeight: number): number {
+  const u0 = imageWidth / 2
+  const v0 = imageHeight / 2
+  // Notation de l'article : m1 = HG, m2 = HD, m3 = BG, m4 = BD (coordonnées homogènes).
+  const m1 = [q[0].x, q[0].y, 1]
+  const m2 = [q[1].x, q[1].y, 1]
+  const m3 = [q[3].x, q[3].y, 1]
+  const m4 = [q[2].x, q[2].y, 1]
+  const cross = (a: number[], b: number[]) => [
+    a[1] * b[2] - a[2] * b[1],
+    a[2] * b[0] - a[0] * b[2],
+    a[0] * b[1] - a[1] * b[0],
+  ]
+  const dot = (a: number[], b: number[]) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2]
+  const k2 = dot(cross(m1, m4), m3) / dot(cross(m2, m4), m3)
+  const k3 = dot(cross(m1, m4), m2) / dot(cross(m3, m4), m2)
+  const n2 = [k2 * m2[0] - m1[0], k2 * m2[1] - m1[1], k2 * m2[2] - m1[2]]
+  const n3 = [k3 * m3[0] - m1[0], k3 * m3[1] - m1[1], k3 * m3[2] - m1[2]]
+
+  // Repli : estimation « à plat », correcte quand la perspective est faible.
+  const flat = Math.hypot(n2[0], n2[1]) / Math.hypot(n3[0], n3[1])
+
+  const scaleRef = Math.max(imageWidth, imageHeight)
+  // Focale « typique » : un objectif standard de téléphone (≈ 26 mm équivalent)
+  // correspond à environ 0,6 × la diagonale de la photo en pixels.
+  const typicalF2 = (0.6 * Math.hypot(imageWidth, imageHeight)) ** 2
+  let f2 = typicalF2
+  // Si les DEUX paires de côtés convergent, on peut mesurer la focale réelle.
+  if (Math.abs(n2[2] * n3[2]) > 1e-12) {
+    const measured =
+      -((n2[0] - n2[2] * u0) * (n3[0] - n3[2] * u0) + (n2[1] - n2[2] * v0) * (n3[1] - n3[2] * v0)) /
+      (n2[2] * n3[2])
+    // On ne garde la mesure que si elle est vraisemblable (sinon calcul instable).
+    if (measured > 0 && Math.sqrt(measured) > scaleRef * 0.2 && Math.sqrt(measured) < scaleRef * 20) {
+      f2 = measured
+    }
+  }
+  const norm = (n: number[]) => ((n[0] - n[2] * u0) ** 2 + (n[1] - n[2] * v0) ** 2) / f2 + n[2] ** 2
+  return finiteOr(Math.sqrt(norm(n2) / norm(n3)), finiteOr(flat, 1))
+}
+
+function finiteOr(v: number, fallback: number): number {
+  return Number.isFinite(v) && v > 0 ? v : fallback
+}
+
+/**
+ * Taille en pixels du rectangle redressé.
+ * On respecte les proportions demandées (aspect = largeur ÷ hauteur) tout en
+ * gardant au moins la résolution du plus grand côté visible sur la photo,
+ * puis on réduit si l'image dépasse maxPixels (limite mémoire des tablettes).
+ */
+export function rectifiedSize(
+  q: Quad,
+  aspect?: number,
+  maxPixels = 12_000_000,
+): { width: number; height: number } {
+  const sideW = Math.max(dist(q[0], q[1]), dist(q[3], q[2]))
+  const sideH = Math.max(dist(q[0], q[3]), dist(q[1], q[2]))
+  let width: number
+  let height: number
+  if (aspect && aspect > 0) {
+    width = Math.max(sideW, sideH * aspect)
+    height = width / aspect
+  } else {
+    width = sideW
+    height = sideH
+  }
   const scale = Math.min(1, Math.sqrt(maxPixels / Math.max(1, width * height)))
   width = Math.max(1, Math.round(width * scale))
   height = Math.max(1, Math.round(height * scale))

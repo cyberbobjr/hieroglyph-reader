@@ -23,9 +23,15 @@ export type Quad = [Point, Point, Point, Point]
 
 /** Correction de perspective : 4 coins dans l'image d'origine + taille de sortie. */
 export interface Perspective {
+  /** Peuvent sortir de la photo si un coin de la stèle est hors cadre. */
   corners: Quad
   width: number
   height: number
+  /**
+   * Proportions choisies à la main (largeur ÷ hauteur).
+   * Absent = proportions calculées automatiquement.
+   */
+  aspect?: number
 }
 
 export type ReliefMode = 'unsharp' | 'emboss'

@@ -35,10 +35,16 @@ const guides = computed(() => {
   return out
 })
 
+/**
+ * Les coins peuvent sortir de la photo (jusqu'à une fois sa taille de chaque
+ * côté) : utile si un coin de la stèle est hors cadre ou pour les
+ * perspectives très prononcées. Les zones hors photo seront transparentes.
+ */
 function clamp(p: Point): Point {
+  const m = Math.max(props.imageWidth, props.imageHeight)
   return {
-    x: Math.min(props.imageWidth, Math.max(0, p.x)),
-    y: Math.min(props.imageHeight, Math.max(0, p.y)),
+    x: Math.min(props.imageWidth + m, Math.max(-m, p.x)),
+    y: Math.min(props.imageHeight + m, Math.max(-m, p.y)),
   }
 }
 
@@ -86,6 +92,13 @@ function onKey(i: number, e: KeyboardEvent) {
 
 <template>
   <g class="perspective">
+    <rect
+      :x="props.view.x"
+      :y="props.view.y"
+      :width="props.imageWidth * props.view.scale"
+      :height="props.imageHeight * props.view.scale"
+      class="photo-edge"
+    />
     <polygon :points="polygon" class="quad" />
     <line v-for="(g, k) in guides" :key="k" :x1="g[0].x" :y1="g[0].y" :x2="g[1].x" :y2="g[1].y" class="guide" />
     <g
@@ -114,6 +127,12 @@ function onKey(i: number, e: KeyboardEvent) {
   fill: rgb(255 200 60 / 0.08);
   stroke: #ffc83c;
   stroke-width: 2;
+}
+.photo-edge {
+  fill: none;
+  stroke: rgb(255 255 255 / 0.5);
+  stroke-dasharray: 4 4;
+  stroke-width: 1;
 }
 .guide {
   stroke: rgb(255 200 60 / 0.55);

@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import {
   applyHomography,
   computeHomography,
+  estimateAspectRatio,
   isConvexQuad,
   rectCorners,
   rectifiedSize,
@@ -59,7 +60,7 @@ describe('rectifiedSize', () => {
     expect(rectifiedSize(rectCorners(200, 100))).toEqual({ width: 200, height: 100 })
   })
   it('réduit les très grandes images en gardant les proportions', () => {
-    const s = rectifiedSize(rectCorners(8000, 4000), 1_000_000)
+    const s = rectifiedSize(rectCorners(8000, 4000), undefined, 1_000_000)
     expect(s.width * s.height).toBeLessThanOrEqual(1_000_000 + 8000)
     expect(s.width / s.height).toBeCloseTo(2, 2)
   })
@@ -90,5 +91,72 @@ describe('warpPerspective', () => {
     // Pixel (0,0) de la sortie = pixel (2,3) de la source.
     expect(out.data[0]).toBe(40)
     expect(out.data[1]).toBe(60)
+  })
+})
+
+/**
+ * Simule un vrai appareil photo : on « photographie » un rectangle de
+ * proportions connues, très incliné, puis on vérifie qu'on retrouve ces
+ * proportions à partir des 4 coins seulement.
+ */
+function photograph(rw: number, rh: number, yawDeg: number, pitchDeg: number, f: number, W: number, H: number): Quad {
+  const yaw = (yawDeg * Math.PI) / 180
+  const pitch = (pitchDeg * Math.PI) / 180
+  const pts = [
+    [-rw / 2, -rh / 2],
+    [rw / 2, -rh / 2],
+    [rw / 2, rh / 2],
+    [-rw / 2, rh / 2],
+  ]
+  return pts.map(([x, y]) => {
+    // rotation autour de l'axe vertical puis horizontal, puis recul de la caméra
+    let X = x * Math.cos(yaw)
+    let Z = x * Math.sin(yaw)
+    let Y = y * Math.cos(pitch) - Z * Math.sin(pitch)
+    Z = y * Math.sin(pitch) + Z * Math.cos(pitch)
+    Z += 3
+    return { x: W / 2 + (f * X) / Z, y: H / 2 + (f * Y) / Z }
+  }) as Quad
+}
+
+describe('estimateAspectRatio', () => {
+  const W = 4000
+  const H = 3000
+  it('retrouve les proportions avec une perspective prononcée (55°)', () => {
+    const q = photograph(1.5, 1, 55, 0, 3000, W, H) // focale typique ≈ 0,6 × 5000
+    expect(estimateAspectRatio(q, W, H)).toBeCloseTo(1.5, 2)
+    // la méthode simple se tromperait nettement :
+    const naive = rectifiedSize(q)
+    expect(Math.abs(naive.width / naive.height - 1.5)).toBeGreaterThan(0.3)
+  })
+  it('retrouve les proportions avec une inclinaison combinée', () => {
+    const q = photograph(0.6, 1, 35, 40, 2500, W, H)
+    expect(estimateAspectRatio(q, W, H)).toBeCloseTo(0.6, 2)
+  })
+  it('se replie proprement sans perspective', () => {
+    expect(estimateAspectRatio(rectCorners(300, 200), W, H)).toBeCloseTo(1.5, 6)
+  })
+})
+
+describe('rectifiedSize avec proportions', () => {
+  it('respecte le rapport demandé', () => {
+    const s = rectifiedSize(rectCorners(400, 400), 2)
+    expect(s.width / s.height).toBeCloseTo(2, 2)
+    expect(s.width).toBeGreaterThanOrEqual(400)
+  })
+})
+
+describe('estimateAspectRatio — robustesse', () => {
+  it('reste meilleure que la méthode simple si la focale réelle diffère de la focale typique', () => {
+    // Photo au téléobjectif (focale double), inclinaison sur un seul axe :
+    // cas difficile, d'où le réglage manuel des proportions dans l'interface.
+    const q = photograph(1.5, 1, 50, 0, 6000, 4000, 3000)
+    const r = estimateAspectRatio(q, 4000, 3000)
+    const naive = rectifiedSize(q)
+    expect(Math.abs(r - 1.5)).toBeLessThan(Math.abs(naive.width / naive.height - 1.5))
+  })
+  it('stèle verticale (plus haute que large) inclinée vers l’arrière', () => {
+    const q = photograph(0.5, 1, 0, 50, 3000, 4000, 3000)
+    expect(estimateAspectRatio(q, 4000, 3000)).toBeCloseTo(0.5, 2)
   })
 })

@@ -54,6 +54,10 @@ ouvrez sur la tablette l'adresse « Network » affichée.
    zoomer à un endroit. Touches `+`, `−`, `0` (ajuster), `1` (taille réelle).
 3. **Redresser la photo** (`P`) : placez les 4 poignées sur les coins de la stèle, puis
    « Appliquer ». Une loupe aide à viser. Faites-le **avant** de tracer les lignes.
+   - Les poignées peuvent sortir de la photo (coin hors cadre, perspective très prononcée).
+   - **Proportions** du résultat : *automatiques* (calculées d'après la forme des coins, en
+     supposant que la photo n'a pas été recadrée), *dimensions réelles* (si vous connaissez la
+     largeur et la hauteur de la stèle : le plus fiable) ou *réglage manuel*.
 4. **Filtres** (`F`) : niveaux de gris, contraste automatique, inversion, luminosité, contraste,
    accentuation du relief (« netteté » ou « lumière rasante »). L'original n'est jamais modifié.
 5. **Loupe** (`L`) : une fenêtre agrandie suit le curseur (sur tablette : sous le doigt).

@@ -16,7 +16,7 @@ import { usePanZoom } from '../../composables/usePanZoom'
 import { ImagePipeline } from '../../core/imagePipeline'
 import { decodeImage } from '../../core/imageLoading'
 import { cssFilterString } from '../../core/imageOps'
-import { isConvexQuad, rectifiedSize } from '../../core/homography'
+import { estimateAspectRatio, isConvexQuad, rectifiedSize } from '../../core/homography'
 import { clone } from '../../core/ids'
 import type { Point, Quad } from '../../types/models'
 import Magnifier from './Magnifier.vue'
@@ -92,9 +92,11 @@ async function render(refit = false) {
     bitmap.close()
     content.value = { width: canvas.value.width, height: canvas.value.height }
     renderVersion.value++
-    if (refit || sizeChanged) {
+    if (refit || sizeChanged || perspectiveFitPending) {
       await nextTick()
       fit()
+      if (perspectiveFitPending) zoomAt(PERSPECTIVE_ZOOM_OUT)
+      perspectiveFitPending = false
     }
   } catch (e) {
     ui.notify(`Erreur de traitement : ${(e as Error).message}`, 'error', 6000)
@@ -129,6 +131,53 @@ onBeforeUnmount(() => {
 
 // --- Correction de perspective --------------------------------------------
 const draft = ref<Quad | null>(null)
+/** En mode perspective, on recule un peu pour pouvoir placer des coins hors de la photo. */
+const PERSPECTIVE_ZOOM_OUT = 0.7
+let perspectiveFitPending = false
+
+/**
+ * Proportions du résultat (largeur ÷ hauteur) :
+ *  - auto : calculées à partir de la forme des 4 coins ;
+ *  - dims : déduites des dimensions réelles de la stèle, si on les connaît ;
+ *  - manual : réglées au curseur, en regardant le résultat.
+ */
+type AspectMode = 'auto' | 'dims' | 'manual'
+const aspectMode = ref<AspectMode>('auto')
+const manualAspect = ref(1)
+const realWidth = ref<number | null>(null)
+const realHeight = ref<number | null>(null)
+
+const autoAspect = computed(() =>
+  draft.value && isConvexQuad(draft.value)
+    ? estimateAspectRatio(draft.value, content.value.width, content.value.height)
+    : 1,
+)
+const effectiveAspect = computed(() => {
+  if (aspectMode.value === 'manual') return manualAspect.value
+  if (aspectMode.value === 'dims' && realWidth.value && realHeight.value) return realWidth.value / realHeight.value
+  return autoAspect.value
+})
+const outputSize = computed(() =>
+  draft.value && draftValid.value ? rectifiedSize(draft.value, effectiveAspect.value) : null,
+)
+/** Curseur sur une échelle logarithmique : autant de course pour ×2 que pour ÷2. */
+const aspectSlider = computed({
+  get: () => Math.log(manualAspect.value),
+  set: (v: number) => (manualAspect.value = Math.exp(v)),
+})
+const fmtRatio = (r: number) => r.toLocaleString('fr-FR', { maximumFractionDigits: 2, minimumFractionDigits: 2 })
+/** Petit rectangle d'aperçu des proportions finales. */
+const previewBox = computed(() => {
+  const r = effectiveAspect.value
+  const max = 32
+  return r >= 1 ? { width: max, height: max / r } : { width: max * r, height: max }
+})
+
+function setAspectMode(m: AspectMode) {
+  // En passant en manuel, on part de la valeur actuelle pour ne pas « sauter ».
+  if (m === 'manual' && aspectMode.value !== 'manual') manualAspect.value = effectiveAspect.value
+  aspectMode.value = m
+}
 
 function defaultQuad(): Quad {
   const w = store.project!.image!.width
@@ -147,6 +196,17 @@ watch(
   editingPerspective,
   (on) => {
     draft.value = on ? clone(store.project!.perspective?.corners ?? defaultQuad()) : null
+    if (!on) return
+    const saved = store.project!.perspective?.aspect
+    aspectMode.value = saved ? 'manual' : 'auto'
+    if (saved) manualAspect.value = saved
+    // Si l'image affichée change (on repasse à l'original), le recul se fera après le calcul.
+    if (store.project!.perspective) perspectiveFitPending = true
+    else
+      void nextTick(() => {
+        fit()
+        zoomAt(PERSPECTIVE_ZOOM_OUT)
+      })
   },
   { immediate: true },
 )
@@ -164,9 +224,12 @@ function applyPerspective() {
     'Des lignes ont déjà été tracées sur l’image redressée actuelle. Modifier la perspective va les décaler. Continuer ?',
   )) return
   const corners = clone(draft.value)
-  const size = rectifiedSize(corners)
+  const aspect = effectiveAspect.value
+  const size = rectifiedSize(corners, aspect)
   store.mutate('Correction de perspective', (proj) => {
     proj.perspective = { corners, ...size }
+    // On mémorise un choix manuel ; en automatique, il sera recalculé.
+    if (aspectMode.value !== 'auto') proj.perspective.aspect = aspect
   })
   ui.tool = 'pan'
   ui.notify('Perspective corrigée.')
@@ -241,78 +304,115 @@ defineExpose({ fit, zoomAt })
 
 <template>
   <div class="viewer">
-    <div
-      ref="stage"
-      class="stage"
-      tabindex="0"
-      role="application"
-      aria-roledescription="visionneuse d'image"
-      aria-label="Photo de la stèle. Flèches pour déplacer, + et − pour zoomer, 0 pour ajuster."
-      @keydown="onKeydown"
-      @pointermove="onStageMove"
-      @pointerleave="onStageLeave"
-      @pointerup="onStageUp"
-      @dblclick="zoomAt(2, localPoint($event).x, localPoint($event).y)"
-    >
-      <div class="world" :style="worldStyle">
-        <canvas
-          ref="canvas"
-          :class="{ pixelated: view.scale > 3 }"
-          :style="{ filter: cssFilter }"
-        />
+    <div v-if="editingPerspective" class="perspective-bar" role="region" aria-label="Correction de perspective">
+      <div class="pb-row">
+        <p class="pb-help">
+          Placez les 4 poignées sur les <strong>coins de la stèle</strong>&nbsp;<span class="muted">— elles peuvent sortir de la photo ; dézoomez pour avoir de la place.</span>
+        </p>
+        <div class="pb-actions">
+          <button class="btn primary" type="button" :disabled="!draftValid" @click="applyPerspective">Appliquer</button>
+          <button class="btn" type="button" @click="draft = defaultQuad()">Réinitialiser</button>
+          <button v-if="store.project?.perspective" class="btn danger" type="button" @click="removePerspective">
+            Supprimer la correction
+          </button>
+          <button class="btn" type="button" @click="ui.tool = 'pan'">Annuler</button>
+        </div>
       </div>
-
-      <svg class="overlay" :width="stageSize.width" :height="stageSize.height">
-        <PerspectiveEditor
-          v-if="editingPerspective && draft && store.project?.image"
-          :corners="draft"
-          :view="view"
-          :image-width="content.width"
-          :image-height="content.height"
-          @update="updateCorner"
-          @drag="onHandleDrag"
-        />
-      </svg>
-
-      <Magnifier
-        v-if="loupe"
-        :source="canvas"
-        :at="loupe.at"
-        :touch="loupe.touch"
-        :view="view"
-        :zoom="ui.magnifierZoom"
-        :filter="cssFilter"
-        :stage-width="stageSize.width"
-        :stage-height="stageSize.height"
-        :version="renderVersion"
-      />
-
-      <p v-if="!store.imageBlob" class="empty">Cette stèle n'a pas d'image.</p>
-      <div v-if="busy" class="busy" role="status">Calcul de l'image…</div>
-    </div>
-
-    <div v-if="editingPerspective" class="perspective-bar panel" role="region" aria-label="Correction de perspective">
-      <p>
-        Faites glisser les 4 poignées sur les <strong>coins de la stèle</strong>.
-        <span class="muted">Une loupe apparaît pendant le déplacement.</span>
-      </p>
       <p v-if="!draftValid" class="warn">Les 4 coins doivent former un quadrilatère sans croisement.</p>
-      <div class="row">
-        <button class="btn primary" type="button" :disabled="!draftValid" @click="applyPerspective">Appliquer</button>
-        <button class="btn" type="button" @click="draft = defaultQuad()">Réinitialiser les coins</button>
-        <button v-if="store.project?.perspective" class="btn danger" type="button" @click="removePerspective">
-          Supprimer la correction
-        </button>
-        <button class="btn" type="button" @click="ui.tool = 'pan'">Annuler</button>
+      <div v-else class="pb-row aspect" role="group" aria-labelledby="aspect-label">
+        <span id="aspect-label" class="pb-label">Proportions</span>
+        <label class="sr-only" for="aspect-mode">Mode de calcul des proportions</label>
+        <select id="aspect-mode" :value="aspectMode" @change="setAspectMode(($event.target as HTMLSelectElement).value as AspectMode)">
+          <option value="auto">Automatiques ({{ fmtRatio(autoAspect) }})</option>
+          <option value="dims">Dimensions réelles connues</option>
+          <option value="manual">Réglage manuel</option>
+        </select>
+        <template v-if="aspectMode === 'dims'">
+          <label>Largeur <input v-model.number="realWidth" type="number" min="0" step="any" inputmode="decimal" /></label>
+          <span aria-hidden="true">×</span>
+          <label>Hauteur <input v-model.number="realHeight" type="number" min="0" step="any" inputmode="decimal" /></label>
+          <span class="muted">(toute unité)</span>
+        </template>
+        <span v-if="aspectMode === 'manual'" class="manual">
+          <span class="muted" aria-hidden="true">plus haute</span>
+          <input
+            v-model.number="aspectSlider"
+            type="range"
+            :min="Math.log(0.2)"
+            :max="Math.log(5)"
+            step="0.005"
+            aria-label="Proportions largeur sur hauteur"
+            :aria-valuetext="fmtRatio(manualAspect)"
+          />
+          <span class="muted" aria-hidden="true">plus large</span>
+        </span>
+        <span class="aspect-preview" aria-hidden="true">
+          <span class="box" :style="{ width: previewBox.width + 'px', height: previewBox.height + 'px' }" />
+        </span>
+        <span class="muted small" aria-live="polite">
+          largeur ÷ hauteur = <strong>{{ fmtRatio(effectiveAspect) }}</strong>
+          <template v-if="outputSize"> · {{ outputSize.width }} × {{ outputSize.height }} px</template>
+        </span>
       </div>
     </div>
+    <div class="stage-wrap">
+      <div
+        ref="stage"
+        class="stage"
+        tabindex="0"
+        role="application"
+        aria-roledescription="visionneuse d'image"
+        aria-label="Photo de la stèle. Flèches pour déplacer, + et − pour zoomer, 0 pour ajuster."
+        @keydown="onKeydown"
+        @pointermove="onStageMove"
+        @pointerleave="onStageLeave"
+        @pointerup="onStageUp"
+        @dblclick="zoomAt(2, localPoint($event).x, localPoint($event).y)"
+      >
+        <div class="world" :style="worldStyle">
+          <canvas
+            ref="canvas"
+            :class="{ pixelated: view.scale > 3 }"
+            :style="{ filter: cssFilter }"
+          />
+        </div>
 
-    <div class="zoom-controls" role="group" aria-label="Zoom">
-      <button class="btn icon" type="button" aria-label="Dézoomer" title="Dézoomer (−)" @click="zoomAt(0.8)">−</button>
-      <output class="pct" aria-live="polite">{{ zoomPercent }} %</output>
-      <button class="btn icon" type="button" aria-label="Zoomer" title="Zoomer (+)" @click="zoomAt(1.25)">+</button>
-      <button class="btn" type="button" title="Ajuster à la fenêtre (0)" @click="fit()">Ajuster</button>
-      <button class="btn" type="button" title="Taille réelle (1)" @click="actualSize()">1:1</button>
+        <svg class="overlay" :width="stageSize.width" :height="stageSize.height">
+          <PerspectiveEditor
+            v-if="editingPerspective && draft && store.project?.image"
+            :corners="draft"
+            :view="view"
+            :image-width="content.width"
+            :image-height="content.height"
+            @update="updateCorner"
+            @drag="onHandleDrag"
+          />
+        </svg>
+
+        <Magnifier
+          v-if="loupe"
+          :source="canvas"
+          :at="loupe.at"
+          :touch="loupe.touch"
+          :view="view"
+          :zoom="ui.magnifierZoom"
+          :filter="cssFilter"
+          :stage-width="stageSize.width"
+          :stage-height="stageSize.height"
+          :version="renderVersion"
+        />
+
+        <p v-if="!store.imageBlob" class="empty">Cette stèle n'a pas d'image.</p>
+        <div v-if="busy" class="busy" role="status">Calcul de l'image…</div>
+      </div>
+
+      <div class="zoom-controls" role="group" aria-label="Zoom">
+        <button class="btn icon" type="button" aria-label="Dézoomer" title="Dézoomer (−)" @click="zoomAt(0.8)">−</button>
+        <output class="pct" aria-live="polite">{{ zoomPercent }} %</output>
+        <button class="btn icon" type="button" aria-label="Zoomer" title="Zoomer (+)" @click="zoomAt(1.25)">+</button>
+        <button class="btn" type="button" title="Ajuster à la fenêtre (0)" @click="fit()">Ajuster</button>
+        <button class="btn" type="button" title="Taille réelle (1)" @click="actualSize()">1:1</button>
+      </div>
     </div>
   </div>
 </template>
@@ -324,6 +424,14 @@ defineExpose({ fit, zoomAt })
   height: 100%;
   overflow: hidden;
   background: var(--viewer-bg);
+  display: flex;
+  flex-direction: column;
+}
+/* La photo occupe tout l'espace restant sous le bandeau de perspective. */
+.stage-wrap {
+  position: relative;
+  flex: 1;
+  min-height: 0;
 }
 .stage {
   position: absolute;
@@ -379,18 +487,69 @@ canvas.pixelated {
   font-size: 0.85rem;
 }
 .perspective-bar {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  right: 12px;
-  margin: 0 auto;
-  max-width: 640px;
+  flex: 0 0 auto;
   display: grid;
-  gap: 0.5rem;
-  z-index: 10;
+  gap: 0.35rem;
+  padding: 0.45rem 0.7rem;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  font-size: 0.88rem;
+  user-select: none;
+  -webkit-user-select: none;
 }
 .perspective-bar p {
   margin: 0;
+}
+.pb-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.6rem;
+}
+.pb-help {
+  flex: 1 1 260px;
+}
+.pb-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+.pb-label {
+  font-weight: 600;
+}
+.aspect select,
+.aspect input[type='number'] {
+  font: inherit;
+  padding: 0.25rem 0.35rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text);
+}
+.aspect input[type='number'] {
+  width: 5.5em;
+}
+.manual {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.manual input {
+  width: min(220px, 40vw);
+}
+.aspect-preview {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+}
+.aspect-preview .box {
+  display: block;
+  border: 2px solid var(--accent);
+  background: rgb(255 200 60 / 0.15);
+}
+.small {
+  font-size: 0.8rem;
 }
 .muted {
   color: var(--muted);
