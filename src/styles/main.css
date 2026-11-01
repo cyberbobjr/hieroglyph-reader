@@ -1,0 +1,145 @@
+/* Thème : tons papyrus en clair, pierre sombre en mode sombre. */
+:root {
+  --font-ui: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-glyph: 'Noto Sans Egyptian Hieroglyphs', serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+
+  --bg: #f6f1e7;
+  --surface: #fffdf8;
+  --text: #2a2218;
+  --muted: #6e6253;
+  --border: #ddd2bf;
+  --hover: #f0e7d6;
+  --accent: #9a5b14;
+  --accent-text: #fff;
+  --danger: #b3261e;
+  --viewer-bg: #2b2925;
+  --shadow: 0 2px 10px rgb(60 40 10 / 0.12);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1c1a17;
+    --surface: #262320;
+    --text: #efe7da;
+    --muted: #b0a493;
+    --border: #3f3a33;
+    --hover: #322e29;
+    --accent: #e3a457;
+    --accent-text: #1c1a17;
+    --danger: #ff6b5e;
+    --viewer-bg: #121110;
+    --shadow: 0 2px 12px rgb(0 0 0 / 0.5);
+    color-scheme: dark;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: var(--font-ui);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.45;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Focus clavier toujours visible. */
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.btn {
+  font: inherit;
+  font-size: 0.9rem;
+  padding: 0.4rem 0.75rem;
+  min-height: 36px; /* cible tactile confortable */
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.btn:hover:not(:disabled) {
+  background: var(--hover);
+}
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.btn[aria-pressed='true'] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-text);
+}
+.btn.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-text);
+}
+.btn.primary:hover:not(:disabled) {
+  filter: brightness(1.08);
+  background: var(--accent);
+}
+.btn.danger {
+  color: var(--danger);
+}
+.btn.small {
+  font-size: 0.8rem;
+  padding: 0.2rem 0.55rem;
+  min-height: 30px;
+}
+.btn.big {
+  font-size: 1rem;
+  padding: 0.7rem 1.1rem;
+}
+.btn.icon {
+  min-width: 36px;
+  padding: 0.4rem;
+}
+
+.panel {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.9rem;
+  box-shadow: var(--shadow);
+}
+
+.glyph-text {
+  font-family: var(--font-glyph);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

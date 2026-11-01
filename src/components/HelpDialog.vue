@@ -1,0 +1,63 @@
+<script setup lang="ts">
+import { onMounted, ref } from 'vue'
+const emit = defineEmits<{ (e: 'close'): void }>()
+const dialog = ref<HTMLDialogElement | null>(null)
+onMounted(() => dialog.value?.showModal())
+</script>
+
+<template>
+  <dialog ref="dialog" class="help panel" aria-labelledby="help-title" @close="emit('close')" @cancel="emit('close')">
+    <h2 id="help-title">Aide et raccourcis</h2>
+    <h3>Se déplacer dans la photo</h3>
+    <ul>
+      <li><b>Glisser</b> (souris ou un doigt) : déplacer · <b>molette</b> ou <b>pincer à deux doigts</b> : zoomer</li>
+      <li><b>Double-clic</b> : zoomer ici · clic molette glissé : déplacer avec n'importe quel outil</li>
+      <li>Visionneuse sélectionnée (Tab) : <kbd>←</kbd><kbd>↑</kbd><kbd>→</kbd><kbd>↓</kbd> déplacer (Maj = plus vite), <kbd>+</kbd>/<kbd>−</kbd> zoomer, <kbd>0</kbd> ajuster, <kbd>1</kbd> taille réelle</li>
+    </ul>
+    <h3>Outils</h3>
+    <ul>
+      <li><kbd>P</kbd> correction de perspective · <kbd>F</kbd> filtres · <kbd>L</kbd> loupe</li>
+      <li><kbd>Ctrl</kbd>+<kbd>Z</kbd> annuler · <kbd>Ctrl</kbd>+<kbd>Maj</kbd>+<kbd>Z</kbd> ou <kbd>Ctrl</kbd>+<kbd>Y</kbd> rétablir (⌘ sur Mac)</li>
+      <li><kbd>Échap</kbd> fermer / quitter l'outil · <kbd>?</kbd> cette aide</li>
+    </ul>
+    <h3>Correction de perspective</h3>
+    <p>Placez les 4 poignées sur les coins de la stèle (Tab puis flèches pour les ajuster finement), puis « Appliquer ». L'image est redressée en rectangle. Faites-le <b>avant</b> de tracer les lignes.</p>
+    <form method="dialog"><button class="btn primary" type="submit" autofocus>Fermer</button></form>
+  </dialog>
+</template>
+
+<style scoped>
+.help {
+  max-width: 640px;
+  width: calc(100vw - 32px);
+  color: var(--text);
+}
+.help::backdrop {
+  background: rgb(0 0 0 / 0.5);
+}
+h2 {
+  margin-top: 0;
+}
+h3 {
+  font-size: 1rem;
+  margin: 1rem 0 0.3rem;
+}
+ul {
+  padding-left: 1.2rem;
+  margin: 0;
+  display: grid;
+  gap: 0.25rem;
+}
+kbd {
+  border: 1px solid var(--border);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  padding: 0 0.3em;
+  font-size: 0.85em;
+  background: var(--bg);
+}
+form {
+  margin-top: 1rem;
+  text-align: right;
+}
+</style>

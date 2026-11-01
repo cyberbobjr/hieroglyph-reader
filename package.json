@@ -1,0 +1,30 @@
+{
+  "name": "hieroglyph-reader",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Atelier local de transcription de stèles en hiéroglyphes égyptiens (classification de Gardiner, export MdC).",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "vue-tsc --noEmit"
+  },
+  "dependencies": {
+    "@fontsource/noto-sans-egyptian-hieroglyphs": "^5.3.0",
+    "idb": "^8.0.4",
+    "pinia": "^4.1.0",
+    "vue": "^3.5.44"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "@vitejs/plugin-vue": "^6.0.10",
+    "@vue/tsconfig": "^0.9.1",
+    "typescript": "^6.0.3",
+    "vite": "^8.3.5",
+    "vitest": "^5.0.5",
+    "vue-tsc": "^3.3.14"
+  }
+}
