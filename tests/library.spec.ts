@@ -47,7 +47,7 @@ describe('translittération', () => {
 })
 
 describe('bibliothèque de départ', () => {
-  it('contient environ 100 signes, tous « à vérifier »', () => {
+  it('contient au moins 100 signes, tous « à vérifier »', () => {
     expect(signs.length).toBeGreaterThanOrEqual(100)
     expect(signs.every((s) => !s.verified)).toBe(true)
   })
@@ -117,5 +117,34 @@ describe('sanitizeSign (ajout manuel)', async () => {
   it('refuse un code invalide ou sans type', () => {
     expect(() => sanitizeSign({ gardiner: 'xx', kind: ['ideogram'] })).toThrow()
     expect(() => sanitizeSign({ gardiner: 'G18', kind: [] })).toThrow()
+  })
+})
+
+describe('bibliothèque complète (tous les signes Unicode de Gardiner)', () => {
+  it('contient les 1024 signes, dont les fiches rédigées marquées « courantes »', () => {
+    expect(signs.length).toBe(1024)
+    expect(signs.filter((s) => s.common).length).toBeGreaterThanOrEqual(100)
+    expect(signs.every((s) => s.descriptionFr.length > 0)).toBe(true)
+  })
+  it('reprend les valeurs officielles Unicode pour les signes complétés', () => {
+    const get = (c: string) => signs.find((s) => s.gardiner === c)!
+    expect(get('E17').translit).toContain('sꜣb')
+    expect(get('E20').kind).toContain('ideogram')
+    expect(get('E14').kind).toEqual(['determinative'])
+    expect(get('S39').translit).toContain('ꜥw.t') // yod Unicode « ꞽ » converti, point conservé
+    expect(get('E14').notes).toMatch(/Annotation Unicode/)
+  })
+  it('trouve les signes par leur description', () => {
+    expect(codes('chien')[0]).toBe('E14')
+    expect(codes('chacal', 10)).toContain('E17')
+    expect(codes('seth', 5)).toContain('E20')
+    expect(codes('crosse', 5)).toEqual(expect.arrayContaining(['S38', 'S39']))
+    expect(codes('cercle', 3)).toContain('N5')
+  })
+  it('ignore les points grammaticaux : « awt » trouve ꜥw.t', () => {
+    expect(codes('awt')[0]).toBe('S39')
+  })
+  it('ne confond pas un début de mot avec un milieu de mot pour une recherche courte', () => {
+    expect(codes('rond', 20)).not.toContain('G36') // hirondelle
   })
 })

@@ -81,7 +81,11 @@ export function scoreSign(sign: Sign, query: string): SearchResult | null {
     const idx = desc.indexOf(fq)
     if (idx >= 0) {
       const wordStart = idx === 0 || /[^a-z0-9]/.test(desc[idx - 1])
-      take(wordStart ? SCORE.descWordStart : SCORE.descSubstring, 'description')
+      // Début de mot : toujours. Milieu de mot : seulement pour une recherche longue
+      // (sinon « rond » trouverait « hirondelle »).
+      const anyStart = wordStart ? idx : desc.search(new RegExp(`(^|[^a-z0-9])${fq.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`))
+      if (anyStart >= 0) take(SCORE.descWordStart, 'description')
+      else if (fq.length >= 5) take(SCORE.descSubstring, 'description')
     }
   }
   // À pertinence égale, les signes courants (fiches rédigées à la main) passent devant.
@@ -89,7 +93,7 @@ export function scoreSign(sign: Sign, query: string): SearchResult | null {
   return best
 }
 
-export function searchSigns(signs: Sign[], query: string, filters: SearchFilters = {}, limit = 200): SearchResult[] {
+export function searchSigns(signs: Sign[], query: string, filters: SearchFilters = {}, limit = Infinity): SearchResult[] {
   const out: SearchResult[] = []
   for (const s of signs) {
     if (filters.category && s.category !== filters.category) continue

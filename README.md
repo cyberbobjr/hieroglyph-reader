@@ -168,17 +168,27 @@ comme la photo signale un sens de ligne à corriger.
 
 ### Ce qu'elle contient
 
-- **119 signes de départ** : tous les unilitères (« alphabet »), des bilitères et trilitères
-  courants, les déterminatifs fréquents.
-- Pour chacun : glyphe Unicode, code Gardiner, valeurs de translittération, type (idéogramme,
-  unilitère, bilitère, trilitère, déterminatif), courte description en français.
+**Les 1 024 signes de la liste de Gardiner présents dans Unicode**, en deux niveaux :
 
-> ⚠️ **Ces valeurs sont indicatives et toutes marquées « à vérifier ».** Elles ont été
-> préparées sans relecture par un spécialiste. Contrôlez-les avec la liste de Gardiner
+- **119 fiches rédigées à la main** pour les signes courants : tous les unilitères
+  (« alphabet »), des bilitères et trilitères fréquents, les déterminatifs usuels. Elles sont
+  proposées en priorité dans la recherche.
+- **905 fiches complétées automatiquement** pour tous les autres signes (E14 le chien,
+  E17 le chacal, E20 l'animal séthien…) :
+  - **valeurs et types** tirés des **annotations officielles Unicode** (liste des noms Unicode 17 :
+    « logogram », « classifier » = déterminatif, « phonemogram ») — l'annotation d'origine est
+    recopiée dans les notes de chaque fiche ;
+  - **description française** rédigée pour l'application (ce que le signe représente, et son
+    usage) ; « (?) » signale une apparence incertaine (environ un quart des descriptions, surtout
+    des variantes rares et la série Aa).
+
+> ⚠️ **Tout reste indicatif et marqué « à vérifier ».** Contrôlez avec la liste de Gardiner
 > (*Egyptian Grammar*, 3ᵉ éd., 1957) et cliquez « Marquer vérifié » sur chaque fiche contrôlée.
+> Pour reconnaître un signe, le mode « comparer » (photo à côté du glyphe) reste le meilleur juge.
 
-Les **caractères Unicode**, eux, sont fiables : ils sont tirés automatiquement des noms
-officiels Unicode (« EGYPTIAN HIEROGLYPH G017 » → G17), pour les 1 024 signes Gardiner du bloc.
+Les **caractères Unicode** sont fiables : ils sont tirés automatiquement des noms
+officiels Unicode (« EGYPTIAN HIEROGLYPH G017 » → G17). Les 48 enseignes de nomes (séries NL et
+NU), qui ne font pas partie de la liste de Gardiner, sont laissées de côté.
 
 ### Écrire la translittération
 
@@ -211,16 +221,26 @@ autre appareil.
 
 **Dans le code (pour tout le monde)**
 
-La bibliothèque de départ est générée par `scripts/build-sign-data.py`. Ajoutez une ligne à
-la liste `SIGNS` :
+La bibliothèque est générée par `scripts/build-sign-data.py` à partir de trois sources :
+
+| Fichier | Contenu |
+|---|---|
+| liste `SIGNS` dans le script | fiches rédigées à la main (prioritaires) |
+| `scripts/data/unicode-annotations.json` | annotations officielles Unicode (valeurs, types) |
+| `scripts/data/descriptions-fr.json` | descriptions françaises des autres signes |
+
+Pour rédiger ou corriger la fiche d'un signe courant, ajoutez une ligne à `SIGNS` :
 
 ```python
 ("G18", ["mm"], ["biliteral"], "deux chouettes"),
 ```
 
-puis lancez `python3 scripts/build-sign-data.py`. Le script vérifie que le code existe dans
-Unicode, remplit le glyphe et régénère `src/data/signs.seed.json`. `npm test` vérifie ensuite
-la cohérence de la bibliothèque.
+Pour corriger seulement une description, modifiez `scripts/data/descriptions-fr.json`. Lancez
+ensuite `python3 scripts/build-sign-data.py`, qui vérifie les codes et régénère
+`src/data/signs.seed.json`, puis `npm test`.
+
+Les annotations Unicode se régénèrent avec `scripts/extract-unicode-annotations.py` (voir
+l'en-tête du script).
 
 ## Organisation du code
 
@@ -253,3 +273,5 @@ scripts/                 Génération des données de signes
 
 - Police **Noto Sans Egyptian Hieroglyphs** : SIL Open Font License 1.1, incluse dans
   l'application (voir `licenses/OFL-Noto-Sans-Egyptian-Hieroglyphs.txt`).
+- Annotations des signes : **Unicode® Character Database**, © Unicode, Inc., licence Unicode v3
+  (<https://www.unicode.org/license.txt>).
